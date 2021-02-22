@@ -7,10 +7,10 @@ class BannerComponent extends React.Component  {
   constructor(props) {
     super(props);
     this.state = {
-      backgroundUrl: "https://www2.jdrf.org/jdrf-framework/dist/walk/images/greeting-page-cover/default.compressed.jpg",
-      eventTitle: "JDRF One Walk, Los Angeles 2020",
-      eventDate: "November 1, 2020",
-      eventLocation: "Los Angeles, CA"
+      backgroundUrl: props.backgroundUrl,
+      eventTitle: props.eventTitle,
+      eventDate: props.eventDate,
+      eventLocation: props.eventLocation
     }
   }
 

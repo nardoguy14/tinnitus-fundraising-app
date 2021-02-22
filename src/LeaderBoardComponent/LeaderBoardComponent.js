@@ -7,40 +7,8 @@ class LeaderBoardComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            people: [
-                {
-                    fullName: "Nardo A",
-                    amount: 3000,
-                    imageUrl: 'https://www2.jdrf.org/images/friendraiser_uploads/8151.1893058374.customnull'
-                },
-                {
-                    fullName: "Nardo B",
-                    amount: 5000,
-                    imageUrl: 'https://www2.jdrf.org/images/friendraiser_uploads/8151.1893058374.customnull'
-                },
-                {
-                    fullName: "Nardo C",
-                    amount: 10000,
-                    imageUrl: 'https://www2.jdrf.org/images/friendraiser_uploads/8151.1893058374.customnull'
-                },
-            ],
-            filteredPeople: [
-                {
-                    fullName: "Nardo A",
-                    amount: 3000,
-                    imageUrl: 'https://www2.jdrf.org/images/friendraiser_uploads/8151.1893058374.customnull'
-                },
-                {
-                    fullName: "Nardo B",
-                    amount: 5000,
-                    imageUrl: 'https://www2.jdrf.org/images/friendraiser_uploads/8151.1893058374.customnull'
-                },
-                {
-                    fullName: "Nardo C",
-                    amount: 10000,
-                    imageUrl: 'https://www2.jdrf.org/images/friendraiser_uploads/8151.1893058374.customnull'
-                },
-            ]
+            people: props.people,
+            filteredPeople: props.filteredPeople
         }
     }
 

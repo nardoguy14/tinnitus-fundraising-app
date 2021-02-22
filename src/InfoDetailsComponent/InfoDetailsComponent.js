@@ -7,13 +7,13 @@ class InfoDetailsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: "November 1, 2020",
-      startTime: "6 AM PST",
-      site: "https://jdrfonewalk.virtualeventsite.com/southernca",
-      contactPerson: "Sue Pietrzak",
-      contactEmail: "abc@me.com",
-      contactPhone: "(760) 791-3504",
-      teamName: "Southern California Chapter"
+      startDate: props.startDate,
+      startTime: props.startTime,
+      site: props.site,
+      contactPerson: props.contactPerson,
+      contactEmail: props.contactEmail,
+      contactPhone: props.contactPhone,
+      teamName: props.teamName
     }
   }
 

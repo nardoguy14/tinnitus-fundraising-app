@@ -8,7 +8,7 @@ class AmountRaisedComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      amountRaised: "$485,169",
+      amountRaised: props.amountRaised,
     }
   }
 

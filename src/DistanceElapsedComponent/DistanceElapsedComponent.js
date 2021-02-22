@@ -7,9 +7,8 @@ class DistanceElapsedComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            description: "In support of the 1.6 million Americans living with T1D, our miles will be counted towards " +
-                         "a collective goal of walking 1.6 million miles.",
-            totalDistance: "2,739.05 mi"
+            description: props.description,
+            totalDistance: props.totalDistance
         }
     }
 
