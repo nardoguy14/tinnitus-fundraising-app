@@ -138,7 +138,6 @@ class EventComponent extends React.Component {
             contactPerson: "Sue Pietrzak",
             contactEmail: "abc@me.com",
             contactPhone: "(760) 791-3504",
-            teamName: "Southern California Chapter",
             description: "In support of the 1.6 million Americans living with T1D, our miles will be counted towards a collective goal of walking 1.6 million miles.",
             totalDistance: "2,739.05 mi",
             people: [
@@ -167,11 +166,18 @@ class EventComponent extends React.Component {
                     }
                 }),
                 startDate: fundraiser.date_start,
-                startTime: fundraiser.date_start
+                startTime: fundraiser.date_start,
+                people: fundraiser.people.map(person => {
+                    return {
+                        fullName: person.user.first_name + ' ' + person.user.last_name,
+                        amount: person.amount,
+                        imageUrl: 'https://www2.jdrf.org/images/friendraiser_uploads/8151.1893058374.customnull'
+                    }
+                })
 
             })
         })
-        axios.get("http://localhost:8000/donations/fundraiser/1")
+        axios.get("http://localhost:8000/donations/fundraiser/5")
         .then(res => {
             const donations = res.data;
             console.log(donations)
@@ -189,20 +195,17 @@ class EventComponent extends React.Component {
         // contactPerson
         // contactEmail
         // contactPhone
-        // teamName
         // totalDistance
-        // people
     }
 
     render(){
-
         let {
             backgroundUrl, eventTitle, eventDate, eventLocation, amountRaised, details,
-            startDate, startTime, site, contactPerson, contactEmail, contactPhone, teamName,
+            startDate, startTime, contactPerson, contactEmail, contactPhone,
             description, totalDistance, people
         } = this.state
-        alert(eventTitle)
-      return (
+
+        return (
           <div style={{padding: "40px"}}>
               <BannerComponent
                   backgroundUrl={backgroundUrl}
@@ -219,11 +222,9 @@ class EventComponent extends React.Component {
                       <InfoDetailsComponent
                           startDate={startDate}
                           startTime={startTime}
-                          site={site}
                           contactPerson={contactPerson}
                           contactEmail={contactEmail}
                           contactPhone={contactPhone}
-                          teamName={teamName}
                       />
                   </div>
               </div>
@@ -239,7 +240,7 @@ class EventComponent extends React.Component {
               </div>s
 
           </div>
-      );
+        );
     }
 }
 

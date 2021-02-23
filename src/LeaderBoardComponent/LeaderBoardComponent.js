@@ -22,6 +22,7 @@ class LeaderBoardComponent extends React.Component {
     }
 
     filterLeaderBoard(e) {
+        console.log(this.state.people)
         let filtered = this.state.people.filter(person => {
             return person.fullName.includes(e.target.value)
         })
