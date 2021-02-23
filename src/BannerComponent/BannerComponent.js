@@ -14,6 +14,22 @@ class BannerComponent extends React.Component  {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+        prevProps.backgroundUrl !== this.props.backgroundUrl ||
+        prevProps.eventTitle !== this.props.eventTitle ||
+        prevProps.eventDate !== this.props.eventDate ||
+        prevProps.eventLocation !== this.props.eventLocation
+    ) {
+      this.setState({
+        backgroundUrl: this.props.backgroundUrl,
+        eventTitle: this.props.eventTitle,
+        eventDate: this.props.eventDate,
+        eventLocation: this.props.eventLocation
+      })
+    }
+  }
+
   render() {
     let {backgroundUrl, eventTitle, eventDate, eventLocation} = this.state
     return (

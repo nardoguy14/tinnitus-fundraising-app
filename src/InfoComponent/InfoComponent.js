@@ -14,6 +14,12 @@ class InfoComponent extends React.Component {
     };
   }
 
+    componentDidUpdate(prevProps) {
+        if (JSON.stringify(prevProps.info) !== JSON.stringify(this.props.info)) {
+            this.setState({info: this.props.info})
+        }
+    }
+
   render() {
     let {info} = this.state
 

@@ -12,6 +12,19 @@ class DistanceElapsedComponent extends React.Component {
         }
     }
 
+
+    componentDidUpdate(prevProps) {
+        if (
+            prevProps.description !== this.props.description ||
+            prevProps.totalDistance !== this.props.totalDistance
+        ) {
+            this.setState({
+                description: this.props.description,
+                totalDistance: this.props.totalDistance
+            })
+        }
+    }
+
     render() {
         let {totalDistance, description} = this.state
         return (

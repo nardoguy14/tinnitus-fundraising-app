@@ -12,6 +12,15 @@ class LeaderBoardComponent extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (JSON.stringify(prevProps.people) !== JSON.stringify(this.props.people)) {
+            this.setState({
+                people: this.props.people,
+                filteredPeople: this.props.filteredPeople
+            })
+        }
+    }
+
     filterLeaderBoard(e) {
         let filtered = this.state.people.filter(person => {
             return person.fullName.includes(e.target.value)

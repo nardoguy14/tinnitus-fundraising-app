@@ -17,6 +17,28 @@ class InfoDetailsComponent extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+        prevProps.startDate !== this.props.startDate ||
+        prevProps.startTime !== this.props.startTime ||
+        prevProps.site !== this.props.site ||
+        prevProps.contactPerson !== this.props.contactPerson ||
+        prevProps.contactEmail !== this.props.contactEmail ||
+        prevProps.contactPhone !== this.props.contactPhone ||
+        prevProps.teamName !== this.props.teamName
+    ) {
+      alert("nope")
+      this.setState({
+        startDate: this.props.startDate,
+        startTime: this.props.startTime,
+        site: this.props.site,
+        contactPerson: this.props.contactPerson,
+        contactEmail: this.props.contactEmail,
+        contactPhone: this.props.contactPhone,
+        teamName: this.props.teamName})
+    }
+  }
+
   render() {
     let {startDate, startTime, site, contactPerson, contactEmail, contactPhone, teamName} = this.state
     return (

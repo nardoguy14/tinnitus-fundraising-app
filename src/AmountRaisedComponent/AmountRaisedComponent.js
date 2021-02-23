@@ -12,6 +12,14 @@ class AmountRaisedComponent extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+        prevProps.amountRaised !== this.props.amountRaised
+    ) {
+      this.setState({amountRaised: this.props.amountRaised})
+    }
+  }
+
   render() {
     let {amountRaised} = this.state
     return (
