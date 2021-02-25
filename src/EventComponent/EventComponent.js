@@ -173,7 +173,10 @@ class EventComponent extends React.Component {
                         amount: person.amount,
                         imageUrl: 'https://www2.jdrf.org/images/friendraiser_uploads/8151.1893058374.customnull'
                     }
-                })
+                }),
+                contactPerson: fundraiser.contact.name,
+                contactEmail: fundraiser.contact.email,
+                contactPhone: fundraiser.contact.phone_number
 
             })
         })
@@ -190,12 +193,20 @@ class EventComponent extends React.Component {
                 amountRaised: "$" + sum
             })
         })
+        axios.get("http://localhost:8000/activities?fundraiser_id=1")
+            .then(res => {
+                const activities = res.data;
+                console.log(activities)
+
+                var sum = 0
+                activities.forEach(activity =>{
+                    sum += activity.distance
+                })
+                this.setState({
+                    totalDistance: sum + " mi"
+                })
+            })
         // backgroundUrl
-        // site
-        // contactPerson
-        // contactEmail
-        // contactPhone
-        // totalDistance
     }
 
     render(){
