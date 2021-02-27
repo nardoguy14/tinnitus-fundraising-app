@@ -3,10 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import EventComponent from './EventComponent/EventComponent';
 import reportWebVitals from './reportWebVitals';
+import ProfileComponent from "./ProfileComponent/ProfileComponent";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <EventComponent />
+      <Router>
+          <Switch>
+              <Route path="/profile">
+                  <ProfileComponent />
+              </Route>
+              <Route path="/event">
+                  <EventComponent />
+              </Route>
+          </Switch>
+      </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

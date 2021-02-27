@@ -9,6 +9,7 @@ import InfoDetailsComponent from "../InfoDetailsComponent/InfoDetailsComponent";
 import DistanceElapsedComponent from "../DistanceElapsedComponent/DistanceElapsedComponent";
 import LeaderBoardComponent from "../LeaderBoardComponent/LeaderBoardComponent";
 import axios from 'axios';
+import ProfileBannerComponent from "../ProfileBannerComponent/ProfileBannerComponent";
 
 class EventComponent extends React.Component {
 
