@@ -10,19 +10,21 @@ class ProfileAboutComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: props.name,
             infoHTML: props.infoHTML
         }
     }
 
     componentDidUpdate(prevProps) {
         console.log(prevProps)
-        if (prevProps.infoHTML !== this.props.infoHTML) {
+        if (prevProps.name !== this.props.name ||
+            prevProps.infoHTML !== this.props.infoHTML) {
             this.setState({infoHTML: this.props.infoHTML})
         }
     }
 
     render(){
-        let {infoHTML} = this.state
+        let {infoHTML, name} = this.state
         return (
             <div>
                 <div className="jdrf-p2p-personal__story">
@@ -36,15 +38,17 @@ class ProfileAboutComponent extends React.Component {
                         </div>
                     </div>
                 </div>
+
                 <div className="jdrf-p2p-personal__secondary-cta hidden-spirit-xs hidden-spirit-sm">
                     <div className="jdrf-p2p-personal__cta-col ng-scope">
                         <a className="spirit-button" href="Donation2?df_id=20794&amp;FR_ID=8115&amp;PROXY_TYPE=20&amp;PROXY_ID=1441477"> Donate
                             <span className="ng-scope">&nbsp;to&nbsp;
-                                <span className="ng-binding">Kevin</span>
+                                <span className="ng-binding">{name}</span>
                                       </span>
                         </a>
                     </div>
                 </div>
+
             </div>
         );
     }
