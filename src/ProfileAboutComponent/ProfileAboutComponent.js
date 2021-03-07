@@ -19,7 +19,7 @@ class ProfileAboutComponent extends React.Component {
         console.log(prevProps)
         if (prevProps.name !== this.props.name ||
             prevProps.infoHTML !== this.props.infoHTML) {
-            this.setState({infoHTML: this.props.infoHTML})
+            this.setState({infoHTML: this.props.infoHTML, name: this.props.name})
         }
     }
 
@@ -33,8 +33,9 @@ class ProfileAboutComponent extends React.Component {
                             <h2 className="spirit-h3">Welcome to My Personal Page for B4 Bombers </h2>
                         </div>
                         <div className="jdrf-p2p-personal__video"></div>
-                        <div className="jdrf-p2p-personal__story-content">
-                            {infoHTML}
+                        <div
+                            dangerouslySetInnerHTML={{__html: infoHTML}}
+                            className="jdrf-p2p-personal__story-content">
                         </div>
                     </div>
                 </div>
