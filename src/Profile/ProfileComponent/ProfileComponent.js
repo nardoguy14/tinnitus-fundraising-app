@@ -9,12 +9,16 @@ import ProfileDonorComponent from "../ProfileDonorComponent/ProfileDonorComponen
 import ProfileProgressComponent from "../ProfileProgressComponent/ProfileProgressComponent";
 import ProfileDetailsComponent from "../ProfileDetailsComponent/ProfileDetailsComponent";
 import ProfileShareAndDonateComponent from "../ProfileShareAndDonateComponent/ProfileShareAndDonateComponent";
+import {withRouter} from "react-router";
 
 class ProfileComponent extends React.Component {
 
     constructor(props) {
         super(props);
+        const urlParams = new URLSearchParams(window.location.search)
+        const username = urlParams.get("username")
         this.state = {
+            username: username,
             fullName: "",
             bannerPhoto: "https://www2.jdrf.org/images/friendraiser_uploads/7791.254222820.customnull",
             profilePhoto: "https://www2.jdrf.org/images/friendraiser_uploads/8115.1182060652.customnull",
@@ -30,9 +34,9 @@ class ProfileComponent extends React.Component {
     }
 
     componentDidMount() {
+        let {username} = this.state
 
-
-        axios.get(`http://localhost:8000/users?first_name=nardo3`)
+        axios.get(`http://localhost:8000/users?username=`+username)
             .then(res => {
                 const user = res.data[0];
                 this.setState({
@@ -144,4 +148,4 @@ class ProfileComponent extends React.Component {
     }
 }
 
-export default ProfileComponent;
+export default ProfileComponent = withRouter(ProfileComponent);

@@ -9,13 +9,16 @@ import InfoDetailsComponent from "../InfoDetailsComponent/InfoDetailsComponent";
 import DistanceElapsedComponent from "../DistanceElapsedComponent/DistanceElapsedComponent";
 import LeaderBoardComponent from "../LeaderBoardComponent/LeaderBoardComponent";
 import axios from 'axios';
-import ProfileBannerComponent from "../ProfileBannerComponent/ProfileBannerComponent";
+import {withRouter} from "react-router";
 
 class EventComponent extends React.Component {
 
     constructor(props) {
         super(props);
+        const urlParams = new URLSearchParams(window.location.search)
+        const eventId = urlParams.get("id")
         this.state = {
+            eventId: eventId,
             backgroundUrl: "https://www2.jdrf.org/jdrf-framework/dist/walk/images/greeting-page-cover/default.compressed.jpg",
             eventTitle: "JDRF One Walk, Los Angeles 2020",
             eventDate: "November 1, 2020",
@@ -152,62 +155,66 @@ class EventComponent extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:8000/fundraisers?id=5`)
-        .then(res => {
-            const fundraiser = res.data[0];
-            console.log(fundraiser)
-            this.setState({
-                eventTitle: fundraiser.name + '\n' +fundraiser['description'],
-                eventDate: fundraiser['date_start'] + "-" + fundraiser['date_end'],
-                eventLocation: fundraiser.address + ' ' + fundraiser.city + + ' ' + fundraiser.state + ' ' + fundraiser.zip,
-                details: fundraiser.details.map(detail => {
-                    return {
-                        tabTitle: detail.title,
-                        content: detail.detail
-                    }
-                }),
-                startDate: fundraiser.date_start,
-                startTime: fundraiser.date_start,
-                people: fundraiser.people.map(person => {
-                    return {
-                        fullName: person.user.first_name + ' ' + person.user.last_name,
-                        amount: person.amount,
-                        imageUrl: 'https://www2.jdrf.org/images/friendraiser_uploads/8151.1893058374.customnull'
-                    }
-                }),
-                contactPerson: fundraiser.contact.name,
-                contactEmail: fundraiser.contact.email,
-                contactPhone: fundraiser.contact.phone_number
+        let {eventId} = this.state
+        if(eventId !== null){
+            axios.get(`http://localhost:8000/fundraisers?id=`+ eventId)
+                .then(res => {
+                    const fundraiser = res.data[0];
+                    console.log(fundraiser)
+                    this.setState({
+                        eventTitle: fundraiser.name + '\n' +fundraiser['description'],
+                        eventDate: fundraiser['date_start'] + "-" + fundraiser['date_end'],
+                        eventLocation: fundraiser.address + ' ' + fundraiser.city + + ' ' + fundraiser.state + ' ' + fundraiser.zip,
+                        details: fundraiser.details.map(detail => {
+                            return {
+                                tabTitle: detail.title,
+                                content: detail.detail
+                            }
+                        }),
+                        startDate: fundraiser.date_start,
+                        startTime: fundraiser.date_start,
+                        people: fundraiser.people.map(person => {
+                            return {
+                                username: person.user.username,
+                                fullName: person.user.first_name + ' ' + person.user.last_name,
+                                amount: person.amount,
+                                imageUrl: 'https://www2.jdrf.org/images/friendraiser_uploads/8151.1893058374.customnull'
+                            }
+                        }),
+                        contactPerson: fundraiser.contact.name,
+                        contactEmail: fundraiser.contact.email,
+                        contactPhone: fundraiser.contact.phone_number
 
-            })
-        })
-        axios.get("http://localhost:8000/donations/fundraiser/5")
-        .then(res => {
-            const donations = res.data;
-            console.log(donations)
-
-            var sum = 0
-            donations.forEach(donation =>{
-                sum += donation.amount
-            })
-            this.setState({
-                amountRaised: "$" + sum
-            })
-        })
-        axios.get("http://localhost:8000/activities?fundraiser_id=1")
-            .then(res => {
-                const activities = res.data;
-                console.log(activities)
-
-                var sum = 0
-                activities.forEach(activity =>{
-                    sum += activity.distance
+                    })
                 })
-                this.setState({
-                    totalDistance: sum + " mi"
+            axios.get("http://localhost:8000/donations/fundraiser/" + eventId)
+                .then(res => {
+                    const donations = res.data;
+                    console.log(donations)
+
+                    var sum = 0
+                    donations.forEach(donation =>{
+                        sum += donation.amount
+                    })
+                    this.setState({
+                        amountRaised: "$" + sum
+                    })
                 })
-            })
-        // backgroundUrl
+            axios.get("http://localhost:8000/activities?fundraiser_id="+eventId)
+                .then(res => {
+                    const activities = res.data;
+                    console.log(activities)
+
+                    var sum = 0
+                    activities.forEach(activity =>{
+                        sum += activity.distance
+                    })
+                    this.setState({
+                        totalDistance: sum + " mi"
+                    })
+                })
+            // backgroundUrl
+        }
     }
 
     render(){
@@ -256,4 +263,4 @@ class EventComponent extends React.Component {
     }
 }
 
-export default EventComponent;
+export default EventComponent = withRouter(EventComponent);

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import EventComponent from './EventComponent/EventComponent';
+import EventComponent from './Event/EventComponent/EventComponent';
 import reportWebVitals from './reportWebVitals';
-import ProfileComponent from "./ProfileComponent/ProfileComponent";
+import ProfileComponent from "./Profile/ProfileComponent/ProfileComponent";
 import {
     BrowserRouter as Router,
     Switch,

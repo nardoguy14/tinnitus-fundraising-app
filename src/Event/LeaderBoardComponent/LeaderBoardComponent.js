@@ -51,7 +51,7 @@ class LeaderBoardComponent extends React.Component {
                     <div className="spirit-list-item__title">
                         <div className="jdrf-p2p-leaderboard__item-text-row">
                         <span className="jdrf-p2p-leaderboard__item-text-label">
-                          <a className="spirit-list-item__link-title" href="TR?fr_id=8151&amp;pg=personal&amp;px=10525730">
+                          <a className="spirit-list-item__link-title" href={"profile?username=" + person.username}>
                               <span className="ng-binding">
                                   {person.fullName}
                               </span>
