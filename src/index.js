@@ -4,22 +4,32 @@ import './index.css';
 import EventComponent from './Event/EventComponent/EventComponent';
 import reportWebVitals from './reportWebVitals';
 import ProfileComponent from "./Profile/ProfileComponent/ProfileComponent";
+import SearchComponent from "./SearchComponent/SearchComponent";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link
 } from "react-router-dom";
+import RegistrationComponent from "./Registration/RegistrationComponent/SearchComponent";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 ReactDOM.render(
   <React.StrictMode>
       <Router>
           <Switch>
+              <Route path="/register">
+                  <RegistrationComponent />
+              </Route>
               <Route path="/profile">
                   <ProfileComponent />
               </Route>
               <Route path="/event">
                   <EventComponent />
+              </Route>
+              <Route path="/search">
+                  <SearchComponent />
               </Route>
           </Switch>
       </Router>

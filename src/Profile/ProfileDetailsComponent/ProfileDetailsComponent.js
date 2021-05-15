@@ -29,6 +29,21 @@ class ProfileDetailsComponent extends React.Component {
 
     render(){
         let {eventName, eventUrl} = this.state
+        console.log("eventurl")
+        console.log(eventUrl)
+
+        var eventSection = null
+        if(typeof eventUrl !== 'undefined' && eventUrl !== ""){
+            eventSection = (
+                <div className="spirit-list-item__links-contain">
+                <a className="spirit-list-item__link" href={eventUrl}>
+                    View Event Page
+                </a>
+                </div>
+            )
+        }
+        else
+            eventSection = null
         return (
             <div className="jdrf-p2p-page-details">
                 <div className="spirit-list">
@@ -42,11 +57,7 @@ class ProfileDetailsComponent extends React.Component {
                             <div className="spirit-list-item__title">
                                 {eventName}
                             </div>
-                            <div className="spirit-list-item__links-contain">
-                                <a className="spirit-list-item__link" href={eventUrl}>
-                                    View Event Page
-                                </a>
-                            </div>
+                            {eventSection}
                         </div>
                     </div>
                 </div>

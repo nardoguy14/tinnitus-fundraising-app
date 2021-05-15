@@ -10,6 +10,8 @@ import DistanceElapsedComponent from "../DistanceElapsedComponent/DistanceElapse
 import LeaderBoardComponent from "../LeaderBoardComponent/LeaderBoardComponent";
 import axios from 'axios';
 import {withRouter} from "react-router";
+import moment from 'moment';
+
 
 class EventComponent extends React.Component {
 
@@ -161,6 +163,9 @@ class EventComponent extends React.Component {
                 .then(res => {
                     const fundraiser = res.data[0];
                     console.log(fundraiser)
+                    let startDate = moment(Date.parse(fundraiser.date_start)).format('dddd MMMM Do YYYY')
+                    let startTime = moment(Date.parse(fundraiser.date_start)).format("h:mm:ss a")
+
                     this.setState({
                         eventTitle: fundraiser.name + '\n' +fundraiser['description'],
                         eventDate: fundraiser['date_start'] + "-" + fundraiser['date_end'],
@@ -171,8 +176,8 @@ class EventComponent extends React.Component {
                                 content: detail.detail
                             }
                         }),
-                        startDate: fundraiser.date_start,
-                        startTime: fundraiser.date_start,
+                        startDate: startDate,
+                        startTime: startTime,
                         people: fundraiser.people.map(person => {
                             return {
                                 username: person.user.username,

@@ -51,41 +51,45 @@ class ProfileComponent extends React.Component {
 
             axios.get('http://localhost:8000/users/' + user.id + '/fundraisers')
                 .then(res => {
-                        const fundraiser = res.data[0];
+                    const fundraiser = res.data[0];
+                    if(typeof fundraiser !== 'undefined'){
+                        console.log("fundraiser")
+                        console.log(fundraiser)
                         this.setState({
                             goalAmount: fundraiser.fundraiser_goal_amount,
                         })
 
-                    axios.get('http://localhost:8000/fundraisers?id=' + fundraiser.fundraiser_id)
-                        .then(res => {
-                            const fundraiser = res.data[0];
-                            this.setState({
-                                eventName: fundraiser.name,
-                                eventUrl: "/event?id=" +fundraiser.id
-                            })
-                        })
-
-
-                    axios.get('http://localhost:8000/donations/fundraiser/' + fundraiser.fundraiser_id)
-                        .then(res => {
-                            const donations = res.data;
-                            var sumAmount = 0;
-                            var donors = donations
-                                .filter(donation => {
-                                    return donation.user_id === user.id
+                        axios.get('http://localhost:8000/fundraisers?id=' + fundraiser.fundraiser_id)
+                            .then(res => {
+                                const fundraiser = res.data[0];
+                                this.setState({
+                                    eventName: fundraiser.name,
+                                    eventUrl: "/event?id=" +fundraiser.id
                                 })
-                            donors.forEach(donation => sumAmount += donation.amount)
-                            donors = donors.map(donor => {
-                                return {
-                                    name: donor.donor_first_name + " " + donor.donor_last_name,
-                                    amount: donor.amount
-                                }
                             })
-                            this.setState({
-                                donors: donors,
-                                amountRaised: sumAmount
+
+
+                        axios.get('http://localhost:8000/donations/fundraiser/' + fundraiser.fundraiser_id)
+                            .then(res => {
+                                const donations = res.data;
+                                var sumAmount = 0;
+                                var donors = donations
+                                    .filter(donation => {
+                                        return donation.user_id === user.id
+                                    })
+                                donors.forEach(donation => sumAmount += donation.amount)
+                                donors = donors.map(donor => {
+                                    return {
+                                        name: donor.donor_first_name + " " + donor.donor_last_name,
+                                        amount: donor.amount
+                                    }
+                                })
+                                this.setState({
+                                    donors: donors,
+                                    amountRaised: sumAmount
+                                })
                             })
-                        })
+                    }
                 })
         })
 
