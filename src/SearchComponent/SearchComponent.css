@@ -14758,7 +14758,7 @@ md-dialog.jdrf-p2p-dialog md-toolbar.md-primary .md-toolbar-tools a.spirit-link,
   top: 12px;
   right: 12px;
   color: inherit;
-  line-height:1
+  line-height:1;
 }
 
 md-dialog.jdrf-p2p-dialog .md-toolbar-tools--icon-top {

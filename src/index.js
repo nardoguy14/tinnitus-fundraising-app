@@ -11,7 +11,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import RegistrationComponent from "./Registration/RegistrationComponent/SearchComponent";
+import RegistrationComponent from "./Registration/RegistrationComponent/RegistrationComponent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
