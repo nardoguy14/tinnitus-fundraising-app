@@ -106,12 +106,18 @@ class RegistrationComponent extends React.Component {
                 )
             }
             else {
+                var type = "text"
+                if(inputItem.id === 'password'){
+                    type = 'password'
+                }
                 html = (
                     <div className="input-group">
                         <input
                             placeholder={inputItem.placeholder}
-                            onChange={e => this.changeInput(e, inputItem.id)} type="text" className="form-control"
-                               aria-describedby="basic-addon3" />
+                            onChange={e => this.changeInput(e, inputItem.id)}
+                            type={type}
+                            className="form-control"
+                            aria-describedby="basic-addon3" />
                     </div>
                 )
             }
@@ -144,9 +150,21 @@ class RegistrationComponent extends React.Component {
                 Swal.fire({
                     icon: 'error',
                     title: 'We\'re missing a value',
-                    text: 'Please fill in '+ this.state[inputItem.id]
+                    text: 'Please fill in '+ inputItem.title
                 })
                 return false
+            }
+            if(this.inputGroups[inputGroup][i].id === "email"){
+                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if(!re.test(String(this.state[inputItem.id]).toLowerCase())){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid Email',
+                        text: 'Please fill in '+ inputItem.title
+                    })
+                    return false
+                }
+
             }
             if(this.inputGroups[inputGroup][i].id === "dateOfBirth"){
                 let x = moment(Date.parse(this.state[inputItem.id])).format('YYYY-MM-DD')
@@ -204,8 +222,7 @@ class RegistrationComponent extends React.Component {
                 style={{
                     display: 'grid',
                     'min-height': '100vh',
-                    'align-items': 'center'}}
-            >
+                    'align-items': 'center'}}>
                 <Row>
                     <Col>
                         <Container style={{backgroundColor: 'transparent', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
