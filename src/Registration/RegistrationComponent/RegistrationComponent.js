@@ -96,8 +96,11 @@ class RegistrationComponent extends React.Component {
                 html = (
                     <select
                         onChange={e => this.changeInput(e, inputItem.id)}
-                        className="form-select" aria-label="Default select example">
-                        <option value="usa" selected>United States</option>
+                        className="form-select"
+                        aria-label="Default select example"
+                        defaultValue={'usa'}
+                    >
+                        <option value="usa">United States</option>
                         <option value="canada" >Canada</option>
                     </select>
                 )
@@ -127,7 +130,6 @@ class RegistrationComponent extends React.Component {
 
     changeInput(e, id) {
         if(id === "country"){
-            alert("here")
             console.log(e)
         }
         var state = {}
@@ -135,20 +137,16 @@ class RegistrationComponent extends React.Component {
         this.setState(state)
     }
 
-    changeInputGroup(finished) {
-        let {inputGroup} = this.state
-
+    validateInputs(inputGroup) {
         for(var i = 0; i < this.inputGroups[inputGroup].length; i++){
             let inputItem = this.inputGroups[inputGroup][i]
             if(this.state[inputItem.id] === "") {
-                alert(inputItem.id)
-                alert(this.state[inputItem.id])
                 Swal.fire({
                     icon: 'error',
                     title: 'We\'re missing a value',
                     text: 'Please fill in '+ this.state[inputItem.id]
                 })
-                return
+                return false
             }
             if(this.inputGroups[inputGroup][i].id === "dateOfBirth"){
                 let x = moment(Date.parse(this.state[inputItem.id])).format('YYYY-MM-DD')
@@ -159,7 +157,7 @@ class RegistrationComponent extends React.Component {
                         title: 'Invalid Date Format',
                         text: 'Please fill in '+ inputItem.title
                     })
-                    return
+                    return false
                 }
             }
             if(this.inputGroups[inputGroup][i].id === "phoneNumber"){
@@ -170,14 +168,19 @@ class RegistrationComponent extends React.Component {
                         title: 'Invalid Phone Number Format',
                         text: 'Please fill in '+ inputItem.title
                     })
-                    return
+                    return false
                 }
             }
         }
+        return true
+    }
 
+    changeInputGroup(finished) {
+        let {inputGroup} = this.state
 
-
-
+        if(!this.validateInputs(inputGroup)){
+            return
+        }
 
         if(finished){
             var body = this.state
