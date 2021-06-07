@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './ProfileBannerComponent.css';
 import bootstrap from 'bootstrap';
+import {Button} from "react-bootstrap";
 
 class ProfileBannerComponent extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      usersProfile: props.usersProfile,
       fullName: props.fullName,
       bannerPhoto: props.bannerPhoto,
       profilePhoto: props.profilePhoto
@@ -38,13 +40,24 @@ class ProfileBannerComponent extends React.Component {
               <div className="jdrf-p2p-cover-photo__meta hidden-spirit-xs hidden-spirit-sm jdrf-p2p-cover-photo__meta--has-profile">
                 <div className="jdrf-p2p-cover-photo__profile">
                   <div className="jdrf-p2p-cover-photo__profile-inner"
-                       style={{'background-image': 'url("' + profilePhoto + '")'}}></div>
+                       style={{'background-image': 'url("' + profilePhoto + '")'}}>
+
+                    <div className="jdrf-p2p-profile-photo__edit">
+                      <Button variant="light">Edit</Button>{' '}
+                    </div>
+
+                  </div>
                 </div>
                 <div className="jdrf-p2p-cover-photo__text">
                   <h1 className="spirit-h3">
                     <span>{fullName}</span>
                   </h1>
                 </div>
+
+                <div className="jdrf-p2p-cover-photo__edit">
+                  <Button variant="light">Change Cover Photo</Button>{' '}
+                </div>
+
               </div>
             </div>
           </div>

@@ -16420,6 +16420,21 @@ hr + .jdrf-p2p-accordion__text:not(:last-child) .jdrf-p2p-accordion__title {
   font-weight:500
 }
 
+.jdrf-p2p-cover-photo__edit {
+  position: absolute;
+  text-align: right;
+  right: 10px;
+  bottom: 10px;
+}
+
+.jdrf-p2p-profile-photo__edit {
+  position: absolute;
+  text-align: right;
+  right: 10px;
+  bottom: 10px;
+  z-index:9999;
+}
+
 @media (min-width: 768px) {
   .jdrf-p2p-cover-photo__meta--has-profile .jdrf-p2p-cover-photo__text {
     margin-left:248px

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import bootstrap from 'bootstrap';
 import './ProfileComponent.css';
 import axios from 'axios';
+import { FormText, Form } from 'react-bootstrap';
+import TokenService from '../../lib/tokenService'
 import ProfileBannerComponent from "../ProfileBannerComponent/ProfileBannerComponent";
 
 class ProfileAboutComponent extends React.Component {
@@ -11,7 +13,9 @@ class ProfileAboutComponent extends React.Component {
         super(props);
         this.state = {
             name: props.name,
-            infoHTML: props.infoHTML
+            infoHTML: props.infoHTML,
+            infoHTMLTemp: props.infoHTMLTemp,
+            editMode: false
         }
     }
 
@@ -23,8 +27,66 @@ class ProfileAboutComponent extends React.Component {
         }
     }
 
+    updateDescription() {
+        let token = TokenService.getToken()
+        let {infoHTMLTemp} = this.state
+        var body = {
+            description: infoHTMLTemp
+        }
+        var config = {
+            headers: {
+                'Authorization': token
+            }
+        }
+        axios.put('http://localhost:8000/users', body, config)
+        .then(result => {
+            this.setState({infoHTML: infoHTMLTemp, editMode: false})
+        })
+    }
+
+    setAboutMe(aboutMe) {
+        this.setState({infoHTMLTemp: aboutMe})
+    }
+
+    setEditMode() {
+        this.setState({editMode: true})
+    }
+
     render(){
-        let {infoHTML, name} = this.state
+        var aboutMeSection = null
+        let {infoHTML, infoHTMLTemp, name, editMode} = this.state
+        if(infoHTML === null || infoHTML === "" || editMode) {
+            aboutMeSection = (
+                <div>
+                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Add an about me section:</Form.Label>
+                        <Form.Control
+                            onChange={e => { this.setAboutMe(e.target.value)}}
+                            as="textarea" rows={3} value ={infoHTMLTemp}/>
+                    </Form.Group>
+                    <br/>
+                    <button
+                        type="button"
+                        onClick={ e => {this.updateDescription()}}
+                        className="spirit-button spirit-button--secondary spirit-button--with-icon">Save</button>
+                </div>
+            )
+        }
+        else {
+            aboutMeSection = (
+                <div>
+                    <div
+                        dangerouslySetInnerHTML={{__html: infoHTML}}
+                        className="jdrf-p2p-personal__story-content">
+                    </div>
+                    <button
+                        type="button"
+                        onClick={ e => {this.setEditMode()}}
+                        className="spirit-button spirit-button--secondary spirit-button--with-icon">Edit</button>
+                </div>
+            )
+        }
+
         return (
             <div>
                 <div className="jdrf-p2p-personal__story">
@@ -33,10 +95,7 @@ class ProfileAboutComponent extends React.Component {
                             <h2 className="spirit-h3">Welcome to My Personal Page for B4 Bombers </h2>
                         </div>
                         <div className="jdrf-p2p-personal__video"></div>
-                        <div
-                            dangerouslySetInnerHTML={{__html: infoHTML}}
-                            className="jdrf-p2p-personal__story-content">
-                        </div>
+                        {aboutMeSection}
                     </div>
                 </div>
 

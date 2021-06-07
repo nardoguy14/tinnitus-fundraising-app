@@ -8,7 +8,7 @@ import {withRouter} from "react-router";
 import moment from "moment";
 import * as Swal from "sweetalert2";
 import { isPossiblePhoneNumber, isValidPhoneNumber } from 'libphonenumber-js'
-
+import TokenService from '../../lib/tokenService'
 
 class RegistrationComponent extends React.Component {
 
@@ -204,11 +204,14 @@ class RegistrationComponent extends React.Component {
             var body = this.state
             body['dateOfBirth'] = moment(Date.parse(body['dateOfBirth'])).format('YYYY-MM-DD')
             axios.post('http://localhost:8000/users', body).then(result => {
+                console.log(result.data)
+                TokenService.storeToken(result.data.access_token)
                 this.props.history.push('/profile?username='+body['username'])
             })
         }
-
-        this.setState({inputGroup: inputGroup + 1})
+        else {
+            this.setState({inputGroup: inputGroup + 1})
+        }
     }
 
     render(){

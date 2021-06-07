@@ -10,6 +10,7 @@ import ProfileProgressComponent from "../ProfileProgressComponent/ProfileProgres
 import ProfileDetailsComponent from "../ProfileDetailsComponent/ProfileDetailsComponent";
 import ProfileShareAndDonateComponent from "../ProfileShareAndDonateComponent/ProfileShareAndDonateComponent";
 import {withRouter} from "react-router";
+import TokenService from "../../lib/tokenService";
 
 class ProfileComponent extends React.Component {
 
@@ -29,7 +30,8 @@ class ProfileComponent extends React.Component {
             eventName: "",
             eventUrl: "",
             infoHtml: "",
-            donors: []
+            donors: [],
+            usersProfile: TokenService.getClaims()['username'] === username
         }
     }
 
@@ -40,10 +42,10 @@ class ProfileComponent extends React.Component {
             .then(res => {
                 const user = res.data[0];
                 this.setState({
-                    fullName: user.first_name + " " + user.last_name,
+                    fullName: user.firstName + " " + user.lastName,
                     bannerPhoto: "https://www2.jdrf.org/images/friendraiser_uploads/7791.254222820.customnull",
                     profilePhoto: "https://www2.jdrf.org/images/friendraiser_uploads/8115.1182060652.customnull",
-                    name: user.first_name,
+                    name: user.firstName,
                     user_id: user.id,
                     infoHtml: user.description
 
@@ -92,24 +94,23 @@ class ProfileComponent extends React.Component {
                     }
                 })
         })
-
-
-
-
     }
 
     render(){
         let {fullName, bannerPhoto, profilePhoto, name, user_id, amountRaised, goalAmount,
-        eventName, eventUrl, infoHtml, donors} = this.state
+        eventName, eventUrl, infoHtml, donors, usersProfile} = this.state
+
         return (
           <div style={{padding: "40px"}}>
               <ProfileBannerComponent
+                  usersProfile={usersProfile}
                   fullName={fullName}
                   bannerPhoto={bannerPhoto}
                   profilePhoto={profilePhoto}/>
               <div className="jdrf-p2p-page-container">
                   <div className="jdrf-p2p-personal__primary-cta ng-isolate-scope hl-sticky sticky-top sticky-before">
                       <ProfileShareAndDonateComponent
+                        usersProfile={usersProfile}
                         name={name}
                         donateUrl={"/donate?user=" + user_id}/>
                   </div>
@@ -118,30 +119,36 @@ class ProfileComponent extends React.Component {
                       <div className="spirit-col-md-7 spirit-col-lg-8 jdrf-p2p-personal__left-col">
                           <div className="visible-xs">
                               <ProfileProgressComponent
+                                usersProfile={usersProfile}
                                 goalAmount={goalAmount}
                                 amountRaised={amountRaised}/>
 
                               <ProfileDetailsComponent
+                                usersProfile={usersProfile}
                                 eventName={eventName}
                                 eventUrl={eventUrl}/>
 
                           </div>
 
                           <ProfileAboutComponent
+                              usersProfile={usersProfile}
                               name={name}
                               infoHTML={infoHtml}/>
 
                       </div>
                       <div className="spirit-col-md-5 spirit-col-lg-4 hidden-spirit-xs hidden-spirit-sm">
                           <ProfileProgressComponent
+                              usersProfile={usersProfile}
                               goalAmount={goalAmount}
                               amountRaised={amountRaised}/>
 
                           <ProfileDonorComponent
+                                usersProfile={usersProfile}
                                 name={name}
                                 donors={donors}/>
 
                           <ProfileDetailsComponent
+                              usersProfile={usersProfile}
                               eventName={eventName}
                               eventUrl={eventUrl}/>
                       </div>
