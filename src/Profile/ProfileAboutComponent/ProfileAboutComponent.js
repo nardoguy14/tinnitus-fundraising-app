@@ -104,7 +104,7 @@ class ProfileAboutComponent extends React.Component {
                         <a className="spirit-button" href="Donation2?df_id=20794&amp;FR_ID=8115&amp;PROXY_TYPE=20&amp;PROXY_ID=1441477"> Donate
                             <span className="ng-scope">&nbsp;to&nbsp;
                                 <span className="ng-binding">{name}</span>
-                                      </span>
+                            </span>
                         </a>
                     </div>
                 </div>
