@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import bootstrap from 'bootstrap';
-import './ProfileComponent.css';
+import {Button, Modal, InputGroup, FormControl, Table} from 'react-bootstrap'
 import axios from 'axios';
 import ProfileBannerComponent from "../ProfileBannerComponent/ProfileBannerComponent";
 import ProfileAboutComponent from "../ProfileAboutComponent/ProfileAboutComponent";
@@ -11,6 +11,7 @@ import ProfileDetailsComponent from "../ProfileDetailsComponent/ProfileDetailsCo
 import ProfileShareAndDonateComponent from "../ProfileShareAndDonateComponent/ProfileShareAndDonateComponent";
 import {withRouter} from "react-router";
 import TokenService from "../../lib/tokenService";
+import './ProfileComponent.css';
 
 class ProfileComponent extends React.Component {
 
@@ -31,7 +32,9 @@ class ProfileComponent extends React.Component {
             eventUrl: "",
             infoHtml: "",
             donors: [],
-            usersProfile: TokenService.getClaims()['username'] === username
+            usersProfile: TokenService.getClaims()['username'] === username,
+            showModal: false,
+            eventSearchResults: []
         }
     }
 
@@ -59,6 +62,7 @@ class ProfileComponent extends React.Component {
                         console.log(fundraiser)
                         this.setState({
                             goalAmount: fundraiser.fundraiser_goal_amount,
+                            fundraiserExists: true
                         })
 
                         axios.get('http://localhost:8000/fundraisers?id=' + fundraiser.fundraiser_id)
@@ -88,17 +92,134 @@ class ProfileComponent extends React.Component {
                                 })
                                 this.setState({
                                     donors: donors,
-                                    amountRaised: sumAmount
+                                    amountRaised: sumAmount,
+                                    fundraiserExists: true
                                 })
                             })
+                    }
+                    else{
+                        this.setState({fundraiserExists: false})
                     }
                 })
         })
     }
 
+    closeModal() {
+        console.log(this)
+        this.setState({showModal: false})
+    }
+
+    showModal() {
+        console.log(this)
+        this.setState({showModal: true})
+    }
+
+    searchEvent(name) {
+        var searchParams = []
+        if(name === ""){
+            this.setState({personSearchResults: []})
+            return
+        }
+        if(name !== "")
+            searchParams.push("name=" + name)
+
+        axios.get(`http://localhost:8000/fundraisers?` + searchParams.join("&"))
+        .then(res => {
+            console.log(res.data)
+            const events = res.data;
+            this.setState({eventSearchResults: events})
+        })
+    }
+
     render(){
         let {fullName, bannerPhoto, profilePhoto, name, user_id, amountRaised, goalAmount,
-        eventName, eventUrl, infoHtml, donors, usersProfile} = this.state
+        eventName, eventUrl, infoHtml, donors, usersProfile,
+        fundraiserExists, showModal, eventSearchResults} = this.state
+
+        var fundraisingDetails = null
+        if(fundraiserExists){
+            fundraisingDetails = (
+                <div>
+                    <ProfileProgressComponent
+                        usersProfile={usersProfile}
+                        goalAmount={goalAmount}
+                        amountRaised={amountRaised}/>
+
+                    <ProfileDonorComponent
+                        usersProfile={usersProfile}
+                        name={name}
+                        donors={donors}/>
+
+                    <ProfileDetailsComponent
+                        usersProfile={usersProfile}
+                        eventName={eventName}
+                        eventUrl={eventUrl}/>
+                </div>
+            )
+        }
+        else {
+
+            let eventResults = eventSearchResults.map(event => {
+                return (
+                    <tr>
+                        <td>{event.name}</td>
+                        <td>{event.city}</td>
+                        <td>{event.state}</td>
+                        <td>{event.zip}</td>
+                    </tr>
+                )
+            })
+
+
+            fundraisingDetails = (
+                <div>
+                    <Button
+                        onClick={e => {this.showModal()}}
+                        style={{left: "25%", position: 'relative'}}
+                        variant="primary">Add Fundraising Event</Button>
+
+                    <Modal
+                        dialogClassName="modal90w"
+                        show={showModal}
+                        onHide={e => {this.closeModal()}}>
+                        <Modal.Header>
+                            <Modal.Title>Join Fundraising Event</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <InputGroup size="lg">
+                                <FormControl
+                                    onChange={e => {this.searchEvent(e.target.value)}}
+                                    placeHolder={"Search..."}
+                                    aria-label="Large"
+                                    aria-describedby="inputGroup-sizing-sm" />
+                            </InputGroup>
+                            <Table striped bordered hover>
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Zip</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {eventResults}
+                                </tbody>
+                            </Table>
+
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={e => {this.closeModal()}}>
+                                Close
+                            </Button>
+                            <Button variant="primary" onClick={e => {this.closeModal()}}>
+                                Save Changes
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
+            )
+        }
 
         return (
           <div style={{padding: "40px"}}>
@@ -118,15 +239,7 @@ class ProfileComponent extends React.Component {
                   <div className="spirit-row">
                       <div className="spirit-col-md-7 spirit-col-lg-8 jdrf-p2p-personal__left-col">
                           <div className="visible-xs">
-                              <ProfileProgressComponent
-                                usersProfile={usersProfile}
-                                goalAmount={goalAmount}
-                                amountRaised={amountRaised}/>
-
-                              <ProfileDetailsComponent
-                                usersProfile={usersProfile}
-                                eventName={eventName}
-                                eventUrl={eventUrl}/>
+                              {fundraisingDetails}
 
                           </div>
 
@@ -137,20 +250,7 @@ class ProfileComponent extends React.Component {
 
                       </div>
                       <div className="spirit-col-md-5 spirit-col-lg-4 hidden-spirit-xs hidden-spirit-sm">
-                          <ProfileProgressComponent
-                              usersProfile={usersProfile}
-                              goalAmount={goalAmount}
-                              amountRaised={amountRaised}/>
-
-                          <ProfileDonorComponent
-                                usersProfile={usersProfile}
-                                name={name}
-                                donors={donors}/>
-
-                          <ProfileDetailsComponent
-                              usersProfile={usersProfile}
-                              eventName={eventName}
-                              eventUrl={eventUrl}/>
+                          {fundraisingDetails}
                       </div>
                   </div>
               </div>

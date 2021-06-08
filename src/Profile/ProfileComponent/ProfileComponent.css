@@ -1,4 +1,10 @@
 
+.modal90w {
+  width: 80%;
+  max-width: 100%;
+}
+
+
 @charset "UTF-8";
 .Explicit, div.responsive, input, legend, li, ol, option, p, select, table, td, textarea, th, tr, ul {
   font-family: inherit;
