@@ -14,7 +14,7 @@ class TokenService {
     }
 
     static getClaims() {
-        return window.atob(window.localStorage.getItem('tinnitus_fund.access_token').split(".")[1])
+        return JSON.parse(window.atob(window.localStorage.getItem('tinnitus_fund.access_token').split(".")[1]))
     }
 
     static storeToken(token) {

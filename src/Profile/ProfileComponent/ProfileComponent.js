@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import bootstrap from 'bootstrap';
-import {Button, Modal, InputGroup, FormControl, Table} from 'react-bootstrap'
+import {Button, Modal, InputGroup, FormControl, Table, Form} from 'react-bootstrap'
 import axios from 'axios';
 import ProfileBannerComponent from "../ProfileBannerComponent/ProfileBannerComponent";
 import ProfileAboutComponent from "../ProfileAboutComponent/ProfileAboutComponent";
@@ -20,6 +20,7 @@ class ProfileComponent extends React.Component {
         const urlParams = new URLSearchParams(window.location.search)
         const username = urlParams.get("username")
         this.state = {
+            user: null,
             username: username,
             fullName: "",
             bannerPhoto: "https://www2.jdrf.org/images/friendraiser_uploads/7791.254222820.customnull",
@@ -34,7 +35,8 @@ class ProfileComponent extends React.Component {
             donors: [],
             usersProfile: TokenService.getClaims()['username'] === username,
             showModal: false,
-            eventSearchResults: []
+            eventSearchResults: [],
+            selectedEventIndex: -1
         }
     }
 
@@ -50,57 +52,74 @@ class ProfileComponent extends React.Component {
                     profilePhoto: "https://www2.jdrf.org/images/friendraiser_uploads/8115.1182060652.customnull",
                     name: user.firstName,
                     user_id: user.id,
-                    infoHtml: user.description
-
+                    infoHtml: user.description,
+                    user: user
                 })
+                this.getFundraiserDetails(user)
+        })
+    }
 
-            axios.get('http://localhost:8000/users/' + user.id + '/fundraisers')
-                .then(res => {
-                    const fundraiser = res.data[0];
-                    if(typeof fundraiser !== 'undefined'){
-                        console.log("fundraiser")
-                        console.log(fundraiser)
-                        this.setState({
-                            goalAmount: fundraiser.fundraiser_goal_amount,
-                            fundraiserExists: true
+    getFundraiserDetails(user){
+        axios.get('http://localhost:8000/users/' + user.id + '/fundraisers')
+            .then(res => {
+                const fundraiser = res.data[0];
+                if(typeof fundraiser !== 'undefined'){
+                    console.log("fundraiser")
+                    console.log(fundraiser)
+                    this.setState({
+                        goalAmount: fundraiser.fundraiser_goal_amount,
+                        fundraiserExists: true
+                    })
+
+                    axios.get('http://localhost:8000/fundraisers?id=' + fundraiser.fundraiser_id)
+                        .then(res => {
+                            const fundraiser = res.data[0];
+                            this.setState({
+                                eventName: fundraiser.name,
+                                eventUrl: "/event?id=" +fundraiser.id
+                            })
                         })
 
-                        axios.get('http://localhost:8000/fundraisers?id=' + fundraiser.fundraiser_id)
-                            .then(res => {
-                                const fundraiser = res.data[0];
-                                this.setState({
-                                    eventName: fundraiser.name,
-                                    eventUrl: "/event?id=" +fundraiser.id
-                                })
-                            })
 
-
-                        axios.get('http://localhost:8000/donations/fundraiser/' + fundraiser.fundraiser_id)
-                            .then(res => {
-                                const donations = res.data;
-                                var sumAmount = 0;
-                                var donors = donations
-                                    .filter(donation => {
-                                        return donation.user_id === user.id
-                                    })
-                                donors.forEach(donation => sumAmount += donation.amount)
-                                donors = donors.map(donor => {
-                                    return {
-                                        name: donor.donor_first_name + " " + donor.donor_last_name,
-                                        amount: donor.amount
-                                    }
+                    axios.get('http://localhost:8000/donations/fundraiser/' + fundraiser.fundraiser_id)
+                        .then(res => {
+                            const donations = res.data;
+                            var sumAmount = 0;
+                            var donors = donations
+                                .filter(donation => {
+                                    return donation.user_id === user.id
                                 })
-                                this.setState({
-                                    donors: donors,
-                                    amountRaised: sumAmount,
-                                    fundraiserExists: true
-                                })
+                            donors.forEach(donation => sumAmount += donation.amount)
+                            donors = donors.map(donor => {
+                                return {
+                                    name: donor.donor_first_name + " " + donor.donor_last_name,
+                                    amount: donor.amount
+                                }
                             })
-                    }
-                    else{
-                        this.setState({fundraiserExists: false})
-                    }
-                })
+                            this.setState({
+                                donors: donors,
+                                amountRaised: sumAmount,
+                                fundraiserExists: true
+                            })
+                        })
+                }
+                else{
+                    this.setState({fundraiserExists: false})
+                }
+            })
+    }
+
+    linkUserToFundraiser() {
+        let {selectedEventIndex, eventSearchResults, donationGoalAmount, user} = this.state
+        var body = {
+            user_id: TokenService.getClaims()['id'],
+            fundraiser_id: eventSearchResults[selectedEventIndex].id,
+            fundraiser_goal_amount: parseInt(donationGoalAmount)
+        }
+        axios.post('http://localhost:8000/users/fundraisers', body).then(result => {
+            this.setState({showModal: false})
+            this.closeModal()
+            this.getFundraiserDetails(user)
         })
     }
 
@@ -131,10 +150,18 @@ class ProfileComponent extends React.Component {
         })
     }
 
+    setSelectedEvent(index) {
+        this.setState({selectedEventIndex: index})
+    }
+
+    setDonationGoal(donationAmount) {
+        this.setState({donationGoalAmount: donationAmount})
+    }
+
     render(){
         let {fullName, bannerPhoto, profilePhoto, name, user_id, amountRaised, goalAmount,
         eventName, eventUrl, infoHtml, donors, usersProfile,
-        fundraiserExists, showModal, eventSearchResults} = this.state
+        fundraiserExists, showModal, eventSearchResults, selectedEventIndex} = this.state
 
         var fundraisingDetails = null
         if(fundraiserExists){
@@ -159,9 +186,15 @@ class ProfileComponent extends React.Component {
         }
         else {
 
-            let eventResults = eventSearchResults.map(event => {
+            let eventResults = eventSearchResults.map((event, index) => {
+                var color = {}
+
+                if(index === selectedEventIndex){
+                    color = {backgroundColor: "#007bff"}
+                }
+
                 return (
-                    <tr>
+                    <tr style={color}  onClick={e => {this.setSelectedEvent(index)}} >
                         <td>{event.name}</td>
                         <td>{event.city}</td>
                         <td>{event.state}</td>
@@ -207,12 +240,21 @@ class ProfileComponent extends React.Component {
                                 </tbody>
                             </Table>
 
+                            <Form.Label htmlFor="basic-url">Donation Goal</Form.Label>
+                            <InputGroup size="lg">
+                                <FormControl
+                                    onChange={e => {this.setDonationGoal(e.target.value)}}
+                                    placeHolder={"$3000.00"}
+                                    aria-label="Large"
+                                    aria-describedby="inputGroup-sizing-sm" />
+                            </InputGroup>
+
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={e => {this.closeModal()}}>
                                 Close
                             </Button>
-                            <Button variant="primary" onClick={e => {this.closeModal()}}>
+                            <Button variant="primary" onClick={e => {this.linkUserToFundraiser()}} >
                                 Save Changes
                             </Button>
                         </Modal.Footer>
