@@ -33,10 +33,7 @@ class ProfileComponent extends React.Component {
             eventUrl: "",
             infoHtml: "",
             donors: [],
-            usersProfile: TokenService.getClaims()['username'] === username,
-            showModal: false,
-            eventSearchResults: [],
-            selectedEventIndex: -1
+            usersProfile: TokenService.getClaims()['username'] === username
         }
     }
 
@@ -109,159 +106,10 @@ class ProfileComponent extends React.Component {
             })
     }
 
-    linkUserToFundraiser() {
-        let {selectedEventIndex, eventSearchResults, donationGoalAmount, user} = this.state
-        var body = {
-            user_id: TokenService.getClaims()['id'],
-            fundraiser_id: eventSearchResults[selectedEventIndex].id,
-            fundraiser_goal_amount: parseInt(donationGoalAmount)
-        }
-        axios.post('http://localhost:8000/users/fundraisers', body).then(result => {
-            this.setState({showModal: false})
-            this.closeModal()
-            this.getFundraiserDetails(user)
-        })
-    }
 
-    closeModal() {
-        console.log(this)
-        this.setState({showModal: false})
-    }
-
-    showModal() {
-        console.log(this)
-        this.setState({showModal: true})
-    }
-
-    searchEvent(name) {
-        var searchParams = []
-        if(name === ""){
-            this.setState({personSearchResults: []})
-            return
-        }
-        if(name !== "")
-            searchParams.push("name=" + name)
-
-        axios.get(`http://localhost:8000/fundraisers?` + searchParams.join("&"))
-        .then(res => {
-            console.log(res.data)
-            const events = res.data;
-            this.setState({eventSearchResults: events})
-        })
-    }
-
-    setSelectedEvent(index) {
-        this.setState({selectedEventIndex: index})
-    }
-
-    setDonationGoal(donationAmount) {
-        this.setState({donationGoalAmount: donationAmount})
-    }
 
     render(){
-        let {fullName, bannerPhoto, profilePhoto, name, user_id, amountRaised, goalAmount,
-        eventName, eventUrl, infoHtml, donors, usersProfile,
-        fundraiserExists, showModal, eventSearchResults, selectedEventIndex} = this.state
-
-        var fundraisingDetails = null
-        if(fundraiserExists){
-            fundraisingDetails = (
-                <div>
-                    <ProfileProgressComponent
-                        usersProfile={usersProfile}
-                        goalAmount={goalAmount}
-                        amountRaised={amountRaised}/>
-
-                    <ProfileDonorComponent
-                        usersProfile={usersProfile}
-                        name={name}
-                        donors={donors}/>
-
-                    <ProfileDetailsComponent
-                        usersProfile={usersProfile}
-                        eventName={eventName}
-                        eventUrl={eventUrl}/>
-                </div>
-            )
-        }
-        else {
-
-            let eventResults = eventSearchResults.map((event, index) => {
-                var color = {}
-
-                if(index === selectedEventIndex){
-                    color = {backgroundColor: "#007bff"}
-                }
-
-                return (
-                    <tr style={color}  onClick={e => {this.setSelectedEvent(index)}} >
-                        <td>{event.name}</td>
-                        <td>{event.city}</td>
-                        <td>{event.state}</td>
-                        <td>{event.zip}</td>
-                    </tr>
-                )
-            })
-
-
-            fundraisingDetails = (
-                <div>
-                    <Button
-                        onClick={e => {this.showModal()}}
-                        style={{left: "25%", position: 'relative'}}
-                        variant="primary">Add Fundraising Event</Button>
-
-                    <Modal
-                        dialogClassName="modal90w"
-                        show={showModal}
-                        onHide={e => {this.closeModal()}}>
-                        <Modal.Header>
-                            <Modal.Title>Join Fundraising Event</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <InputGroup size="lg">
-                                <FormControl
-                                    onChange={e => {this.searchEvent(e.target.value)}}
-                                    placeHolder={"Search..."}
-                                    aria-label="Large"
-                                    aria-describedby="inputGroup-sizing-sm" />
-                            </InputGroup>
-                            <Table striped bordered hover>
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>City</th>
-                                    <th>State</th>
-                                    <th>Zip</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {eventResults}
-                                </tbody>
-                            </Table>
-
-                            <Form.Label htmlFor="basic-url">Donation Goal</Form.Label>
-                            <InputGroup size="lg">
-                                <FormControl
-                                    onChange={e => {this.setDonationGoal(e.target.value)}}
-                                    placeHolder={"$3000.00"}
-                                    aria-label="Large"
-                                    aria-describedby="inputGroup-sizing-sm" />
-                            </InputGroup>
-
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={e => {this.closeModal()}}>
-                                Close
-                            </Button>
-                            <Button variant="primary" onClick={e => {this.linkUserToFundraiser()}} >
-                                Save Changes
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>
-            )
-        }
+        let {fullName, bannerPhoto, profilePhoto, name, user_id, infoHtml, usersProfile} = this.state
 
         return (
           <div style={{padding: "40px"}}>
