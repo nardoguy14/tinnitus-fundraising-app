@@ -35,7 +35,7 @@ class ProfileAboutComponent extends React.Component {
         }
         var config = {
             headers: {
-                'Authorization': token
+                'Authorization': 'Bearer ' + token
             }
         }
         axios.put('http://localhost:8000/users', body, config)

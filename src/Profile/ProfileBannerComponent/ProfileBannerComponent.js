@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './ProfileBannerComponent.css';
 import bootstrap from 'bootstrap';
 import {Button} from "react-bootstrap";
+import FormData from 'form-data'
+import axios from "axios";
+import TokenService from "../../lib/tokenService";
 
 class ProfileBannerComponent extends React.Component {
 
@@ -14,6 +17,26 @@ class ProfileBannerComponent extends React.Component {
       bannerPhoto: props.bannerPhoto,
       profilePhoto: props.profilePhoto
     }
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:8000/users/photos/profile', {headers: {
+      Authorization: 'Bearer '+ TokenService.getToken()
+    }})
+    .then(result => {
+      this.setState({profilePhoto:
+            'data:image/png;base64,' + result.data
+      })
+    })
+
+    axios.get('http://localhost:8000/users/photos/banner', {headers: {
+        Authorization: 'Bearer '+ TokenService.getToken()
+      }})
+      .then(result => {
+        this.setState({bannerPhoto:
+              'data:image/png;base64,' + result.data
+        })
+      })
   }
 
   componentDidUpdate(prevProps) {
@@ -30,6 +53,50 @@ class ProfileBannerComponent extends React.Component {
     }
   }
 
+  editProfilePhoto() {
+    this.inputElement.click();
+  }
+
+  editBannerphoto() {
+    this.bannerInputElement.click()
+  }
+
+  handleProfileInputChange(event) {
+    let data = new FormData();
+    let profileUrl = URL.createObjectURL(event.target.files[0])
+    let file = event.target.files[0]
+    data.append('file', file, file.name);
+    axios.post("http://localhost:8000/users/photos/profile", data, {
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+        'Authorization': 'Bearer ' + TokenService.getToken()
+      }
+    })
+    .then(result => {
+      this.setState({profilePhoto: profileUrl})
+    })
+  }
+
+  handleBannerInputChange(event) {
+    let data = new FormData();
+    let bannerUrl = URL.createObjectURL(event.target.files[0])
+    let file = event.target.files[0]
+    data.append('file', file, file.name);
+    axios.post("http://localhost:8000/users/photos/banner", data, {
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+        'Authorization': 'Bearer ' + TokenService.getToken()
+      }
+    })
+    .then(result => {
+      this.setState({bannerPhoto: bannerUrl})
+    })
+  }
+
   render() {
     let {fullName, bannerPhoto, profilePhoto} = this.state
     return (
@@ -43,7 +110,19 @@ class ProfileBannerComponent extends React.Component {
                        style={{'background-image': 'url("' + profilePhoto + '")'}}>
 
                     <div className="jdrf-p2p-profile-photo__edit">
-                      <Button variant="light">Edit</Button>{' '}
+
+
+                      <div>
+                        <input
+                            onChange={e => {this.handleProfileInputChange(e)}}
+                            style={{color: 'rgba(0, 0, 0, 0)', opacity:0 }}
+                            type='file' ref={input => this.inputElement = input} />
+                        <span id='val'></span>
+                        <Button
+                            type={'file'}
+                            variant="light"
+                            onClick={e => {this.editProfilePhoto()}}>Edit</Button>
+                      </div>
                     </div>
 
                   </div>
@@ -55,7 +134,15 @@ class ProfileBannerComponent extends React.Component {
                 </div>
 
                 <div className="jdrf-p2p-cover-photo__edit">
-                  <Button variant="light">Change Cover Photo</Button>{' '}
+                  <input
+                      onChange={e => {this.handleBannerInputChange(e)}}
+                      style={{color: 'rgba(0, 0, 0, 0)', opacity:0 }}
+                      type='file' ref={input => this.bannerInputElement = input} />
+                  <span id='val'></span>
+                  <Button
+                      type={'file'}
+                      variant="light"
+                      onClick={e => {this.editBannerphoto()}}>Edit</Button>
                 </div>
 
               </div>
