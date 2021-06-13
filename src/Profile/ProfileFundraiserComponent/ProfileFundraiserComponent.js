@@ -15,6 +15,8 @@ class ProfileFundraiserComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            user: props.user,
+            username: props.username,
             showModal: false,
             eventSearchResults: [],
             selectedEventIndex: -1,
@@ -24,13 +26,22 @@ class ProfileFundraiserComponent extends React.Component {
             eventUrl: "",
             eventName: "",
             donors: [],
-            usersProfile: TokenService.getClaims()['username'] === username
-
+            usersProfile: TokenService.getClaims()['username'] === props.username
         }
     }
 
     componentDidUpdate(prevProps) {
+        if (JSON.stringify(prevProps.user) !== JSON.stringify(this.props.user)) {
+            this.getFundraiserDetails(this.props.user)
+        }
 
+    }
+
+    componentDidMount() {
+        let {user} = this.state
+        if(user !== null){
+            this.getFundraiserDetails(user)
+        }
     }
 
     getFundraiserDetails(user){
@@ -41,6 +52,7 @@ class ProfileFundraiserComponent extends React.Component {
                     console.log("fundraiser")
                     console.log(fundraiser)
                     this.setState({
+                        user: user,
                         goalAmount: fundraiser.fundraiser_goal_amount,
                         fundraiserExists: true
                     })
@@ -98,12 +110,10 @@ class ProfileFundraiserComponent extends React.Component {
     }
 
     closeModal() {
-        console.log(this)
         this.setState({showModal: false})
     }
 
     showModal() {
-        console.log(this)
         this.setState({showModal: true})
     }
 
@@ -133,6 +143,8 @@ class ProfileFundraiserComponent extends React.Component {
     }
 
     render(){
+        let {fundraiserExists, usersProfile, goalAmount, amountRaised, name, donors, eventName, eventUrl,
+             eventSearchResults, selectedEventIndex, showModal} = this.state
 
         var fundraisingDetails = null
         if(fundraiserExists){

@@ -29,6 +29,7 @@ class ProfileProgressComponent extends React.Component {
 
     render(){
         let {amountRaised, goalAmount} = this.state
+        let percentage = parseInt(amountRaised/goalAmount * 100)
         return (
             <div className="jdrf-p2p-progress-meter-wrap jdrf-p2p-progress-meter-wrap--small" aria-hidden="false">
                 <div className="jdrf-p2p-progress-meter ng-scope ng-isolate-scope">
@@ -46,13 +47,13 @@ class ProfileProgressComponent extends React.Component {
                     </div>
 
                     <div className="jdrf-p2p-progress-meter__bar ng-scope">
-                        <div className="jdrf-p2p-progress-meter__bar-inner" style={{width: "100%"}}></div>
+                        <div className="jdrf-p2p-progress-meter__bar-inner" style={{width: percentage + "%"}}></div>
                     </div>
                     <div className="jdrf-p2p-progress-meter__bottom clearfix ng-scope">
                         <div className="jdrf-p2p-progress-meter__bottom-left">
                                           <span className="ng-scope">
                                               <strong>
-                                                  <span className="ng-binding">100</span>%
+                                                  <span>{percentage}</span>%
                                               </strong>
                                           </span>
                         </div>
