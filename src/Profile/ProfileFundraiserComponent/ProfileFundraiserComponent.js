@@ -14,7 +14,9 @@ class ProfileFundraiserComponent extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(props.user)
         this.state = {
+            name: "",
             user: props.user,
             username: props.username,
             showModal: false,
@@ -53,6 +55,7 @@ class ProfileFundraiserComponent extends React.Component {
                     console.log(fundraiser)
                     this.setState({
                         user: user,
+                        name: user.firstName,
                         goalAmount: fundraiser.fundraiser_goal_amount,
                         fundraiserExists: true
                     })

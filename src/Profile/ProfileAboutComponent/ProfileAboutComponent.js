@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Editor, EditorState, RichUtils, getDefaultKeyBinding} from 'draft-js';
 import bootstrap from 'bootstrap';
 import './ProfileComponent.css';
 import axios from 'axios';
 import { FormText, Form } from 'react-bootstrap';
 import TokenService from '../../lib/tokenService'
 import ProfileBannerComponent from "../ProfileBannerComponent/ProfileBannerComponent";
+import 'draft-js/dist/Draft.css';
+import {RichEditorComponent} from '../../RichEditorComponent/RichEditorComponent'
+
 
 class ProfileAboutComponent extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            usersProfile: props.usersProfile,
             name: props.name,
             infoHTML: props.infoHTML,
             infoHTMLTemp: props.infoHTMLTemp,
@@ -27,65 +32,12 @@ class ProfileAboutComponent extends React.Component {
         }
     }
 
-    updateDescription() {
-        let token = TokenService.getToken()
-        let {infoHTMLTemp} = this.state
-        var body = {
-            description: infoHTMLTemp
-        }
-        var config = {
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        }
-        axios.put('http://localhost:8000/users', body, config)
-        .then(result => {
-            this.setState({infoHTML: infoHTMLTemp, editMode: false})
-        })
-    }
 
-    setAboutMe(aboutMe) {
-        this.setState({infoHTMLTemp: aboutMe})
-    }
 
-    setEditMode() {
-        this.setState({editMode: true})
-    }
 
     render(){
         var aboutMeSection = null
-        let {infoHTML, infoHTMLTemp, name, editMode} = this.state
-        if(infoHTML === null || infoHTML === "" || editMode) {
-            aboutMeSection = (
-                <div>
-                    <Form.Group controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Add an about me section:</Form.Label>
-                        <Form.Control
-                            onChange={e => { this.setAboutMe(e.target.value)}}
-                            as="textarea" rows={3} value ={infoHTMLTemp}/>
-                    </Form.Group>
-                    <br/>
-                    <button
-                        type="button"
-                        onClick={ e => {this.updateDescription()}}
-                        className="spirit-button spirit-button--secondary spirit-button--with-icon">Save</button>
-                </div>
-            )
-        }
-        else {
-            aboutMeSection = (
-                <div>
-                    <div
-                        dangerouslySetInnerHTML={{__html: infoHTML}}
-                        className="jdrf-p2p-personal__story-content">
-                    </div>
-                    <button
-                        type="button"
-                        onClick={ e => {this.setEditMode()}}
-                        className="spirit-button spirit-button--secondary spirit-button--with-icon">Edit</button>
-                </div>
-            )
-        }
+        let {name, infoHTML, usersProfile} = this.state
 
         return (
             <div>
@@ -96,6 +48,7 @@ class ProfileAboutComponent extends React.Component {
                         </div>
                         <div className="jdrf-p2p-personal__video"></div>
                         {aboutMeSection}
+                        <RichEditorComponent usersProfile= {usersProfile} savedEditorState={infoHTML}/>
                     </div>
                 </div>
 
@@ -108,7 +61,6 @@ class ProfileAboutComponent extends React.Component {
                         </a>
                     </div>
                 </div>
-
             </div>
         );
     }

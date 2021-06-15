@@ -30,7 +30,6 @@ class ProfileDonorComponent extends React.Component {
     mapDonors() {
         let {donors} = this.state
         let donations = donors.map(donor => {
-
             return (
                 <div className="jdrf-p2p-personal__donor-list-item ng-scope">
                 <span className="jdrf-p2p-personal__donor-name">

@@ -9,7 +9,6 @@ class TokenService {
     }
 
     static getToken() {
-        alert(window.localStorage.getItem('tinnitus_fund.access_token'))
         return window.localStorage.getItem('tinnitus_fund.access_token')
     }
 

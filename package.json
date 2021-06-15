@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.7.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta2",
+    "draft-js": "^0.11.7",
     "libphonenumber-js": "^1.9.19",
     "moment": "^2.29.1",
     "react": "^17.0.1",

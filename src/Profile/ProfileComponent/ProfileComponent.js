@@ -5,9 +5,6 @@ import {Button, Modal, InputGroup, FormControl, Table, Form} from 'react-bootstr
 import axios from 'axios';
 import ProfileBannerComponent from "../ProfileBannerComponent/ProfileBannerComponent";
 import ProfileAboutComponent from "../ProfileAboutComponent/ProfileAboutComponent";
-import ProfileDonorComponent from "../ProfileDonorComponent/ProfileDonorComponent";
-import ProfileProgressComponent from "../ProfileProgressComponent/ProfileProgressComponent";
-import ProfileDetailsComponent from "../ProfileDetailsComponent/ProfileDetailsComponent";
 import ProfileShareAndDonateComponent from "../ProfileShareAndDonateComponent/ProfileShareAndDonateComponent";
 import {withRouter} from "react-router";
 import TokenService from "../../lib/tokenService";
@@ -58,61 +55,10 @@ class ProfileComponent extends React.Component {
         })
     }
 
-    getFundraiserDetails(user){
-        axios.get('http://localhost:8000/users/' + user.id + '/fundraisers')
-        .then(res => {
-            const fundraiser = res.data[0];
-            if(typeof fundraiser !== 'undefined'){
-                console.log("fundraiser")
-                console.log(fundraiser)
-                this.setState({
-                    goalAmount: fundraiser.fundraiser_goal_amount,
-                    fundraiserExists: true
-                })
-
-                axios.get('http://localhost:8000/fundraisers?id=' + fundraiser.fundraiser_id)
-                .then(res => {
-                    const fundraiser = res.data[0];
-                    this.setState({
-                        eventName: fundraiser.name,
-                        eventUrl: "/event?id=" +fundraiser.id
-                    })
-                })
-
-
-                axios.get('http://localhost:8000/donations/fundraiser/' + fundraiser.fundraiser_id)
-                .then(res => {
-                    const donations = res.data;
-                    var sumAmount = 0;
-                    var donors = donations
-                        .filter(donation => {
-                            return donation.user_id === user.id
-                        })
-                    donors.forEach(donation => sumAmount += donation.amount)
-                    donors = donors.map(donor => {
-                        return {
-                            name: donor.donor_first_name + " " + donor.donor_last_name,
-                            amount: donor.amount
-                        }
-                    })
-                    this.setState({
-                        donors: donors,
-                        amountRaised: sumAmount,
-                        fundraiserExists: true
-                    })
-                })
-            }
-            else{
-                this.setState({fundraiserExists: false})
-            }
-        })
-    }
-
 
     render(){
 
         let {user, username, fullName, bannerPhoto, profilePhoto, name, user_id, infoHtml, usersProfile} = this.state
-
         return (
           <div style={{padding: "40px"}}>
               <ProfileBannerComponent
