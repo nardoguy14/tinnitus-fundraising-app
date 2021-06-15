@@ -16,7 +16,7 @@ export  class StyleButton extends React.Component {
         }
 
         return (
-            <button className={className} onMouseDown={this.onToggle}>
+            <button type="button" className={className + " btn btn-light btn-sm"} onMouseDown={this.onToggle}>
                 {this.props.label}
             </button>
         );
