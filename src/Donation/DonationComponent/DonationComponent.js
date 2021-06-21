@@ -44,9 +44,11 @@ const DEFAULT_STATE = {
     paymentMethod: null,
     email: '',
     phone: '',
-    name: '',
+    firstName: '',
+    lastName: '',
     amount: 0,
-    username: ''
+    username: '',
+    message: ''
 }
 
 
@@ -54,19 +56,17 @@ class DonationComponent extends React.Component {
     constructor(props) {
         super(props);
         const urlParams = new URLSearchParams(window.location.search)
-        const username = urlParams.get("username")
+        DEFAULT_STATE['username'] = urlParams.get("username")
         this.state = DEFAULT_STATE;
     }
 
     handleSubmit = (event, stripe, elements) => {
-        alert("hi")
-        alert(stripe)
         if (!stripe ) {
             // Stripe.js has not loaded yet. Make sure to disable
             // form submission until Stripe.js has loaded.
             return;
         }
-        let {username, amount} = this.state
+        let {username, amount, firstName, lastName, message} = this.state
 
         axios.post('http://localhost:8000/payment_intent', {
             username: username,
@@ -74,8 +74,6 @@ class DonationComponent extends React.Component {
             amount: amount,
             currency: "usd"
         }).then(response => {
-            alert(response.data)
-            alert(response.data.clientSecret)
             const payload = stripe.confirmCardPayment(response.data.clientSecret, {
                 payment_method: {
                     card: elements.getElement(CardElement)
@@ -89,11 +87,21 @@ class DonationComponent extends React.Component {
                     })
                 } else {
                     console.log("success", resp)
-                    this.setState({
-                        processing: false,
-                        succeeded: true,
-                        error: null,
-                        paymentMethod: resp.paymentIntent
+                    axios.post('http://localhost:8000/donations',{
+                        username: username,
+                        fundraiser_id: '7',
+                        donor_first_name: firstName,
+                        donor_last_name: lastName,
+                        donor_comment: message,
+                        amount: amount,
+                        currency: 'usd'
+                    }).then(resp => {
+                        this.setState({
+                            processing: false,
+                            succeeded: true,
+                            error: null,
+                            paymentMethod: resp.paymentIntent
+                        })
                     })
                 }
             })
@@ -150,15 +158,26 @@ class DonationComponent extends React.Component {
                                 ) : (
                                     <div>
                                 <Field
-                                    label="Name"
-                                    id="name"
+                                    label="First Name"
+                                    id="firstName"
                                     type="text"
-                                    placeholder="Jane Doe"
+                                    placeholder="Jane"
                                     required
-                                    autoComplete="name"
+                                    autoComplete="first name"
                                     value={name}
                                     onChange={(event) => {
-                                    this.setState({name: event.target.value})}}/>
+                                    this.setState({firstName: event.target.value})}}/>
+
+                                <Field
+                                    label="Last Name"
+                                    id="lastName"
+                                    type="text"
+                                    placeholder="Doe"
+                                    required
+                                    autoComplete="last name"
+                                    value={name}
+                                    onChange={(event) => {
+                                        this.setState({lastName: event.target.value})}}/>
 
 
                                 <label className="FormRowLabel">
@@ -185,7 +204,19 @@ class DonationComponent extends React.Component {
                                     />
                                 </div>
 
+                                <Field
+                                    label="Message"
+                                    id="message"
+                                    type="textarea"
+                                    placeholder="Leave a message!"
+                                    required
+                                    autoComplete="message"
+                                    value={name}
+                                    onChange={(event) => {
+                                        this.setState({message: event.target.value})}}/>
+
                                 {error && <ErrorMessage>{error.message}</ErrorMessage>}
+                                <br/>
                                 <SubmitButton onChange={e => {this.handleSubmit(e, stripe, elements)}} processing={processing} error={error} disabled={!stripe}>
                                 Submit Donation
                                 </SubmitButton>

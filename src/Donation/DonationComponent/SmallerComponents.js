@@ -15,16 +15,31 @@ export const Field = ({
         <label htmlFor={id} className="FormRowLabel">
             {label}
         </label>
-        <input
-            className="FormRowInput"
-            id={id}
-            type={type}
-            placeholder={placeholder}
-            required={required}
-            autoComplete={autoComplete}
-            value={value}
-            onChange={onChange}
-        />
+        {type === 'textarea' ? (
+                <textarea
+                    className="form-control"
+                    id={id}
+                    placeholder={placeholder}
+                    required={required}
+                    autoComplete={autoComplete}
+                    value={value}
+                    onChange={onChange}
+                    rows="4"
+                />
+        ) :
+        (
+            <input
+                className="FormRowInput"
+                id={id}
+                type={type}
+                placeholder={placeholder}
+                required={required}
+                autoComplete={autoComplete}
+                value={value}
+                onChange={onChange}
+            />
+        )
+        }
     </div>
 );
 
