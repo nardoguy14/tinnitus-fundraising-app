@@ -13,6 +13,7 @@ import {
     Link
 } from "react-router-dom";
 import RegistrationComponent from "./Registration/RegistrationComponent/RegistrationComponent";
+import DonationComponent from "./Donation/DonationComponent/DonationComponent";
 
 
 ReactDOM.render(
@@ -30,6 +31,9 @@ ReactDOM.render(
               </Route>
               <Route path="/search">
                   <SearchComponent />
+              </Route>
+              <Route path="/donation">
+                  <DonationComponent />
               </Route>
           </Switch>
       </Router>
