@@ -71,7 +71,7 @@ class ProfileComponent extends React.Component {
                       <ProfileShareAndDonateComponent
                         usersProfile={usersProfile}
                         name={name}
-                        donateUrl={"/donate?user=" + user_id}/>
+                        donateUrl={"/donation?username=" + username}/>
                   </div>
 
                   <div className="spirit-row">

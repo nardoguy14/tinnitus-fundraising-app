@@ -20739,6 +20739,7 @@ a.jdrf-p2p-tools-list__item-link .jdrf-p2p-tools-list__item-link-desc {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  flex-wrap: wrap;
   border-bottom: 1px solid #edeff2;
   color: #575859;
   line-height: 16px;

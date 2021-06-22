@@ -31,13 +31,14 @@ class ProfileDonorComponent extends React.Component {
         let {donors} = this.state
         let donations = donors.map(donor => {
             return (
-                <div className="jdrf-p2p-personal__donor-list-item ng-scope">
-                <span className="jdrf-p2p-personal__donor-name">
-                  <strong>
-                      <span className="ng-binding">{donor.name}</span>
-                  </strong>
-                </span>
-                    <span className="jdrf-p2p-personal__donor-amount ng-binding">${donor.amount}</span>
+                <div className="jdrf-p2p-personal__donor-list-item">
+                    <div className="jdrf-p2p-personal__donor-name">
+                      <strong>
+                          <span >{donor.name}</span>
+                      </strong>
+                    </div>
+                    <div className="jdrf-p2p-personal__donor-amount">${donor.amount}</div>
+                    <div style={{ lineHeight: 2.5, fontSize: '20px'}}>{donor.message}</div>
                 </div>
             )
         })

@@ -82,7 +82,8 @@ class ProfileFundraiserComponent extends React.Component {
                             donors = donors.map(donor => {
                                 return {
                                     name: donor.donor_first_name + " " + donor.donor_last_name,
-                                    amount: donor.amount
+                                    amount: donor.amount,
+                                    message: donor.donor_comment
                                 }
                             })
                             this.setState({

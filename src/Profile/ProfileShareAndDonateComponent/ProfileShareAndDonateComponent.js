@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import bootstrap from 'bootstrap';
 import './ProfileComponent.css';
+import { Link } from 'react-router-dom'
 import axios from 'axios';
 import ProfileBannerComponent from "../ProfileBannerComponent/ProfileBannerComponent";
 
@@ -39,17 +40,16 @@ class ProfileShareAndDonateComponent extends React.Component {
                             <svg className="spirit-icon spirit-icon--share spirit-icon--share-right"
                                  aria-hidden="true">
                                 <use href="../jdrf-framework/dist/spirit/icons/spirit.svg#share"></use>
+
                             </svg>
                         </button>
                     </div>
                 </div>
 
                 <div className="jdrf-p2p-personal__cta-col jdrf-p2p-personal__cta-col--donate-bottom">
-                    <a className="spirit-button"
-                       href={donateUrl}> Donate
-                        <span>&nbsp;to&nbsp;<span>{name}</span>
-                              </span>
-                    </a>
+
+                    <Link className="spirit-button" to={donateUrl}>Donate <span>&nbsp;to&nbsp;<span>{name}</span>
+                              </span></Link>
                 </div>
             </div>
         );
