@@ -110,29 +110,44 @@ class SearchEventComponent extends React.Component {
 
         return (
             <div className="jdrf-p2p-fundraising-search--event ng-hide" aria-hidden="true">
-                <div className="jdrf-p2p-fundraising-search__event-postal">
-                    <div className="spirit-form__field-group">
-                        <label className="spirit-form__label">
-                            Name
-                        </label>
-                        <div className="spirit-form__input">
-                            <input type="text"
-                                   className="spirit-form__input-field"
-                                   name="ng_starting_postal"
-                                   aria-invalid="false"
-                                   onChange={ e => {this.changeEventSearchValue(e.target.value)}}
-                                   value={eventNameSearch}
-                            />
+
+
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-6">
+                                <label className="spirit-form__label">
+                                    Name
+                                </label>
+                                <input type="text"
+                                       className="spirit-form__input-field"
+                                       name="ng_starting_postal"
+                                       aria-invalid="false"
+                                       onChange={ e => {this.changeEventSearchValue(e.target.value)}}
+                                       value={eventNameSearch}
+                                />
+                            </div>
+
+
+
+                            <div className="col-6">
+                                <label className="spirit-form__label">
+                                    &nbsp;
+                                </label>
+                                <button
+                                    type="submit"
+                                    className="spirit-button"
+                                    onClick={e => {this.searchEvent(eventNameSearch)}}
+                                >
+                                    Search
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <button
-                    type="submit"
-                    className="spirit-button"
-                    onClick={e => {this.searchEvent(eventNameSearch)}}
-                >
-                    Search
-                </button>
+
+
+
+
+
 
                 {this.eventLoadResults(eventSearchResults)}
             </div>)

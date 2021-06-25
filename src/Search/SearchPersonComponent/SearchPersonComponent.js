@@ -103,6 +103,9 @@ class SearchPersonComponent extends React.Component {
 
                         </div>
                         <div className="col-4">
+                            <label className="spirit-form__label">
+                                &nbsp;
+                            </label>
                             <button onClick={e => {this.searchPerson()}} className="spirit-button">
                                 <svg className="spirit-icon">
                                     <use href="../jdrf-framework/dist/spirit/icons/spirit.svg#search"></use>
