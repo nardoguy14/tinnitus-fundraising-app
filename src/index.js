@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import EventComponent from './Event/EventComponent/EventComponent';
 import reportWebVitals from './reportWebVitals';
 import ProfileComponent from "./Profile/ProfileComponent/ProfileComponent";
-import SearchComponent from "./SearchComponent/SearchComponent";
+import SearchComponent from "./Search/SearchComponent/SearchComponent";
 import {
     BrowserRouter as Router,
     Switch,

@@ -18784,7 +18784,7 @@ p + .jdrf-p2p-tour-step__action-list {
 
 @media (min-width: 768px) {
   .jdrf-p2p-fundraising-search-header__toggles .spirit-button:not(.disabled):not([disabled]), .jdrf-p2p-fundraising-search-header__toggles .spirit-button:not(.disabled):not([disabled]):link, .jdrf-p2p-fundraising-search-header__toggles .spirit-button:not(.disabled):not([disabled]):visited {
-    color:#fff
+    color: black;
   }
 }
 
@@ -18792,7 +18792,7 @@ p + .jdrf-p2p-tour-step__action-list {
   background-color: #05f;
   -webkit-box-shadow: 0 8px 16px 0 rgba(0, 85, 255, .16), 0 0 4px 0 rgba(0, 85, 255, .08);
   box-shadow: 0 8px 16px 0 rgba(0, 85, 255, .16), 0 0 4px 0 rgba(0, 85, 255, .08);
-  color:#fff
+  color: black;
 }
 
 @media (min-width: 768px) {
