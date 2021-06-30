@@ -1,4 +1,9 @@
-
+@import url(//db.onlinewebfonts.com/c/1d2536a51e6f0d49a6460d2fd80e71be?family=CiutadellaRoundedW01-Bold);
+@font-face {
+  font-family: "CiutadellaRoundedW01-Bold";
+  src: url("//db.onlinewebfonts.com/t/1d2536a51e6f0d49a6460d2fd80e71be.eot");
+  src: url("//db.onlinewebfonts.com/t/1d2536a51e6f0d49a6460d2fd80e71be.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/1d2536a51e6f0d49a6460d2fd80e71be.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/1d2536a51e6f0d49a6460d2fd80e71be.woff") format("woff"), url("//db.onlinewebfonts.com/t/1d2536a51e6f0d49a6460d2fd80e71be.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/1d2536a51e6f0d49a6460d2fd80e71be.svg#CiutadellaRoundedW01-Bold") format("svg");
+}
 @charset "UTF-8";
 .Explicit, div.responsive, input, legend, li, ol, option, p, select, table, td, textarea, th, tr, ul {
   font-family: inherit;

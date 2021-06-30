@@ -5,6 +5,7 @@ import './SearchComponent.css';
 import axios from 'axios';
 import SearchPersonComponent from "../SearchPersonComponent/SearchPersonComponent";
 import SearchEventComponent from "../SearchEventComponent/SearchEventComponent";
+import {Col, Container, Row} from "react-bootstrap";
 
 class SearchComponent extends React.Component {
 
@@ -41,11 +42,22 @@ class SearchComponent extends React.Component {
         }
 
         return (
-            <div className="jdrf-p2p-fundraising-search-page ng-scope" >
+            <Container
+                style={{
+
+                    display: 'grid',
+                    'min-height': '100vh',
+                    'align-items': 'center'
+                }}>
+                <Row>
+                    <Col>
+                        <Container style={{backgroundColor: 'transparent', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
+
+                <div className="jdrf-p2p-fundraising-search-page" >
                 <div className="jdrf-p2p-fundraising-search-header -with-toggles hidden-xs">
-                    <h2>
+                    <h1 style={{fontFamily: "CiutadellaRoundedW01-Bold"}}>
                         Search for
-                    </h2>
+                    </h1>
                     <div className="jdrf-p2p-fundraising-search-header__toggles js--fundraising-search-type-toggles"
                          data-default-type="">
                         <button
@@ -76,6 +88,11 @@ class SearchComponent extends React.Component {
                     </div>
                 </div>
             </div>
+
+                        </Container>
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import bootstrap from 'bootstrap';
 import './SearchComponent.css';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 class SearchPersonComponent extends React.Component {
 
@@ -144,8 +145,34 @@ class SearchPersonComponent extends React.Component {
 
         axios.get(`http://localhost:8000/users?` + searchParams.join("&"))
         .then(res => {
-            const users = res.data;
-            this.setState({personSearchResults: users})
+            const users = res.data
+            console.log(users)
+            let usersWithImagesPromises = users.map( user => {
+                return axios.get('http://localhost:8000/users/' +user.username+ '/photos/profile').then(res => {
+                    let userImage = 'data:image/png;base64,' + res.data
+                    user.image = userImage
+                    return user
+                })
+            })
+            Promise.all(usersWithImagesPromises).then(users => {
+
+                let usersWithFundraisersPromises = users.map(user => {
+                    return axios.get('http://localhost:8000/users/'+user.id+'/fundraisers').then(result =>{
+                        console.log(result.data)
+                        if(result.data.length > 0){
+                            user.fundraiser = result.data[0].fundraiser[0].name
+                        }
+                        else {
+                            user.fundaraiser = "WEEEE"
+                        }
+                        return user
+                    })
+                })
+                Promise.all(usersWithFundraisersPromises).then(completeUsers => {
+                    console.log(completeUsers)
+                    this.setState({personSearchResults: completeUsers})
+                })
+            })
         })
     }
 
@@ -158,21 +185,22 @@ class SearchPersonComponent extends React.Component {
                         <div className="jdrf-p2p-leaderboard__item-object-avatar-container">
                             <div
                                 className="jdrf-p2p-leaderboard__item-avatar">
-                                <a className="ng-scope" href={"profile?username=" + user.username}>
+                                <Link to={"profile?username=" + user.username}>
                                     <span className="jdrf-p2p-leaderboard__item-avatar-photo">
                                         <span className="jdrf-p2p-leaderboard__item-avatar-photo-inner">
-                                            <span className="jdrf-p2p-leaderboard__item-avatar-photo-image">
+                                            <span className="jdrf-p2p-leaderboard__item-avatar-photo-image"
+                                                  style={{'background-image': 'url("' + user.image + '")'}}>
 
                                             </span>
                                         </span>
                                     </span>
-                                </a>
+                                </Link>
                             </div>
                             <div className="jdrf-p2p-leaderboard__item-object-name">
                                 <div>
                                     <a className="spirit-link" href={"profile?username=" + user.username}>
                                         <strong>
-                                            <span className="ng-binding">{user.first_name} {user.last_name}</span>
+                                            <span className="ng-binding">{user.firstName} {user.lastName}</span>
                                         </strong>
                                     </a>
                                 </div>
@@ -182,17 +210,17 @@ class SearchPersonComponent extends React.Component {
                         </div>
                     </div>
                     <div className="jdrf-p2p-responsive-table__column">
-                        <span className="ng-binding">Western Massachusetts 2020</span>
+                        <span >{user.fundraiser ? user.fundraiser : "None yet!"}</span>
                     </div>
                     <div className="jdrf-p2p-responsive-table__column ">
                         <div className="jdrf-p2p-responsive-table__row-actions">
-                            <a className="spirit-link"
-                               href="https://www2.jdrf.org/site/Donation2?df_id=20794&amp;FR_ID=8115&amp;PROXY_ID=1441477&amp;PROXY_TYPE=20">
+                            <Link className="spirit-link"
+                               to={"/donation?username=" + user.username }>
                                 <strong>Donate</strong>
                                 <svg className="spirit-icon">
                                     <use href="../jdrf-framework/dist/spirit/icons/spirit.svg#chevron-right"></use>
                                 </svg>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
