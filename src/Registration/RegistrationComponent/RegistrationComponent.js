@@ -229,7 +229,7 @@ class RegistrationComponent extends React.Component {
                 <Row>
                     <Col>
                         <Container style={{backgroundColor: 'transparent', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
-                            <h2 style={{'text-align': 'center'}}>Sign Up</h2>
+                            <h1 className={"bta-font"} style={{'text-align': 'center'}}>Sign Up</h1>
                             {this.inputGroupsHtml[inputGroup]}
                             <Button onClick={e => {this.changeInputGroup(finished)}} variant="primary">{finished ? 'Finish' : 'Continue' }</Button>
                         </Container>

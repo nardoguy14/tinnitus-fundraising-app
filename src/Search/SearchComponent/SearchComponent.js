@@ -61,7 +61,7 @@ class SearchComponent extends React.Component {
                     <div className="jdrf-p2p-fundraising-search-header__toggles js--fundraising-search-type-toggles"
                          data-default-type="">
                         <button
-                            style={{margin: '20px'}}
+                            style={{margin: '20px', backgroundColor: "#3b5cad"}}
                             type="button"
                             className="btn btn-primary"
                             onClick={e => {this.changeSearchType(this.searchTypes.PARTICIPENT)}}
@@ -70,6 +70,7 @@ class SearchComponent extends React.Component {
                         </button>
 
                         <button
+                            style={{backgroundColor: "#3b5cad"}}
                             type="button"
                             className="btn btn-primary"
                             onClick={ e => {this.changeSearchType(this.searchTypes.EVENT)}}

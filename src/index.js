@@ -14,11 +14,14 @@ import {
 } from "react-router-dom";
 import RegistrationComponent from "./Registration/RegistrationComponent/RegistrationComponent";
 import DonationComponent from "./Donation/DonationComponent/DonationComponent";
+import NavBarComponent from "./NavBar/NavBarComponent";
 
 
 ReactDOM.render(
   <React.StrictMode>
+
       <Router>
+          <NavBarComponent/>
           <Switch>
               <Route path="/register">
                   <RegistrationComponent />

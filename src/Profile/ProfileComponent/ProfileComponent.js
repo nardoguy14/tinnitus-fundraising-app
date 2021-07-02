@@ -85,6 +85,7 @@ class ProfileComponent extends React.Component {
                           </div>
 
                           <ProfileAboutComponent
+                              username={username}
                               usersProfile={usersProfile}
                               name={name}
                               infoHTML={infoHtml}/>

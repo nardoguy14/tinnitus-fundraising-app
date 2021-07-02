@@ -9,7 +9,7 @@ import {Elements, CardElement, ElementsConsumer, useStripe} from '@stripe/react-
 import {loadStripe} from '@stripe/stripe-js';
 import './Donation.css'
 import {Field, SubmitButton, ErrorMessage, ResetButton} from './SmallerComponents'
-
+import xxxx from './getimage.jpeg'
 const stripePromise = loadStripe('pk_test_51J4YG5EtXr3xL8O5VGzJQ0Uxn2vir402yCdjMV5uJShaHfEsChqNQuIOvBTjtDTv0FoXk4mC4Td9qtFO6Qk3qIgJ00VW9CZhmj');
 
 const CARD_OPTIONS = {
@@ -126,12 +126,19 @@ class DonationComponent extends React.Component {
         return (
             <Container
                 style={{
+                    marginLeft: 0, marginRight: 0,
+                    paddingLeft: '10%', paddingRight: '10%',
+                    maxWidth: '100%',
                     display: 'grid',
                     'min-height': '100vh',
-                    'align-items': 'center'}}>
-                <Row>
+                    'align-items': 'center',
+                    backgroundImage: `url(${xxxx})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: '100% 100%'
+                }}>
+                <Row style={{ marginLeft: 0, marginRight: 0 }}>
                     <Col md={{ span: 6, offset: 6 }}>
-                        <Container style={{backgroundColor: 'transparent', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
+                        <Container style={{backgroundColor: 'rgba(255,255,255,.9)', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
 
                             <h1 className="display-3">Donate Today!</h1>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel arcu sem. In hac habitasse platea dictumst. In ac cursus urna. Nam lectus diam, vehicula nec nisl ac, tempor porttitor odio. Integer maximus mi sed sapien euismod imperdiet. </p>

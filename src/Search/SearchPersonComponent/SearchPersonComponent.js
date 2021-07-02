@@ -107,10 +107,7 @@ class SearchPersonComponent extends React.Component {
                             <label className="spirit-form__label">
                                 &nbsp;
                             </label>
-                            <button onClick={e => {this.searchPerson()}} className="spirit-button">
-                                <svg className="spirit-icon">
-                                    <use href="../jdrf-framework/dist/spirit/icons/spirit.svg#search"></use>
-                                </svg>
+                            <button className={"btn btn-primary"} style={{backgroundColor: "#3b5cad"}} onClick={e => {this.searchPerson()}} >
                                 Search
                             </button>
                         </div>
@@ -198,11 +195,11 @@ class SearchPersonComponent extends React.Component {
                             </div>
                             <div className="jdrf-p2p-leaderboard__item-object-name">
                                 <div>
-                                    <a className="spirit-link" href={"profile?username=" + user.username}>
+                                    <Link className="spirit-link" to={"profile?username=" + user.username}>
                                         <strong>
                                             <span className="ng-binding">{user.firstName} {user.lastName}</span>
                                         </strong>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="jdrf-p2p-responsive-table__row-actions ">

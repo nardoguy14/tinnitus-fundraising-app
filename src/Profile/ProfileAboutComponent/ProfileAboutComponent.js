@@ -9,6 +9,7 @@ import TokenService from '../../lib/tokenService'
 import ProfileBannerComponent from "../ProfileBannerComponent/ProfileBannerComponent";
 import 'draft-js/dist/Draft.css';
 import {RichEditorComponent} from '../../RichEditorComponent/RichEditorComponent'
+import {Link} from "react-router-dom";
 
 
 class ProfileAboutComponent extends React.Component {
@@ -16,6 +17,7 @@ class ProfileAboutComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            username: props.username,
             usersProfile: props.usersProfile,
             name: props.name,
             infoHTML: props.infoHTML,
@@ -37,7 +39,7 @@ class ProfileAboutComponent extends React.Component {
 
     render(){
         var aboutMeSection = null
-        let {name, infoHTML, usersProfile} = this.state
+        let {name, infoHTML, usersProfile, username} = this.state
 
         return (
             <div>
@@ -54,11 +56,13 @@ class ProfileAboutComponent extends React.Component {
 
                 <div className="jdrf-p2p-personal__secondary-cta hidden-spirit-xs hidden-spirit-sm">
                     <div className="jdrf-p2p-personal__cta-col ng-scope">
-                        <a className="spirit-button" href="Donation2?df_id=20794&amp;FR_ID=8115&amp;PROXY_TYPE=20&amp;PROXY_ID=1441477"> Donate
+                        <Link
+                            className="spirit-button"
+                            to={"donation?username=" + username}> Donate
                             <span className="ng-scope">&nbsp;to&nbsp;
                                 <span className="ng-binding">{name}</span>
                             </span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
