@@ -6,6 +6,7 @@ import {Button} from "react-bootstrap";
 import FormData from 'form-data'
 import axios from "axios";
 import TokenService from "../../lib/tokenService";
+import defaultBanner from './default-banner.jpeg'
 
 class ProfileBannerComponent extends React.Component {
 
@@ -14,7 +15,7 @@ class ProfileBannerComponent extends React.Component {
     this.state = {
       usersProfile: props.usersProfile,
       fullName: props.fullName,
-      bannerPhoto: props.bannerPhoto,
+      bannerPhoto: `url(${defaultBanner})`,
       profilePhoto: props.profilePhoto
     }
   }
@@ -33,9 +34,12 @@ class ProfileBannerComponent extends React.Component {
         Authorization: 'Bearer '+ TokenService.getToken()
       }})
       .then(result => {
-        this.setState({bannerPhoto:
-              'data:image/png;base64,' + result.data
-        })
+        console.log(typeof result.data)
+        if(result.data !== ""){
+          this.setState({
+            bannerPhoto: 'url("' +  'data:image/png;base64,' + result.data + '")'
+          })
+        }
       })
   }
 
@@ -103,7 +107,7 @@ class ProfileBannerComponent extends React.Component {
         <div className="jdrf-p2p-cover-photo-wrap jdrf-p2p-cover-photo-wrap--has-profile jdrf-p2p-cover-photo-wrap--tall">
           <div className="jdrf-p2p-cover-photo ng-isolate-scope">
             <div className="jdrf-p2p-cover-photo__inner"
-                 style={{'background-image': 'url("' +  bannerPhoto + '")'}}>
+                 style={{'background-image': bannerPhoto}}>
               <div className="jdrf-p2p-cover-photo__meta hidden-spirit-xs hidden-spirit-sm jdrf-p2p-cover-photo__meta--has-profile">
                 <div className="jdrf-p2p-cover-photo__profile">
                   <div className="jdrf-p2p-cover-photo__profile-inner"

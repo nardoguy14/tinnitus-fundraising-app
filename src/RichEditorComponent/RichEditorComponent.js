@@ -42,8 +42,6 @@ export class RichEditorComponent extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log(prevProps.savedEditorState)
-        console.log( this.props.savedEditorState)
         if (prevProps.savedEditorState !== this.props.savedEditorState && this.props.savedEditorState !== null) {
             this.setState({editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.savedEditorState)))})
         }
