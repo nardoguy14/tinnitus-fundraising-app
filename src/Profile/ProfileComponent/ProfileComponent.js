@@ -86,7 +86,6 @@ class ProfileComponent extends React.Component {
 
                       </div>
                       <div className=" col-sm-12 col-md-5 col-lg-4">
-                          yooo
                           <ProfileFundraiserComponent
                               user={user}
                               username={username}

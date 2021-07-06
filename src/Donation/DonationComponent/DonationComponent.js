@@ -9,7 +9,7 @@ import './Donation.css'
 import {Field, SubmitButton, ErrorMessage, ResetButton} from './SmallerComponents'
 import xxxx from './getimage.jpeg'
 import {postDonation, postPaymentIntent} from "../../lib/apiRequestor";
-const stripePromise = loadStripe('pk_test_51J4YG5EtXr3xL8O5VGzJQ0Uxn2vir402yCdjMV5uJShaHfEsChqNQuIOvBTjtDTv0FoXk4mC4Td9qtFO6Qk3qIgJ00VW9CZhmj');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const CARD_OPTIONS = {
     iconStyle: 'solid',

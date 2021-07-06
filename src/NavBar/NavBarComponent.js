@@ -8,6 +8,7 @@ import './NavBarComponent.css'
 import logo from './logo.png'
 import TokenService from "../lib/tokenService";
 
+
 class NavBarComponent extends React.Component {
     constructor(props) {
         super(props);
