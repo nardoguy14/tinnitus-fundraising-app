@@ -4,10 +4,9 @@ import './ProfileBannerComponent.css';
 import bootstrap from 'bootstrap';
 import {Button} from "react-bootstrap";
 import FormData from 'form-data'
-import axios from "axios";
-import TokenService from "../../lib/tokenService";
 import defaultBanner from './default-banner.jpeg'
 import defaultProfilePhoto from './profileDefault.jpg'
+import {getBannerPicture, getProfilePicture, postBannerPicture, postProfilePicture} from "../../lib/apiRequestor";
 
 class ProfileBannerComponent extends React.Component {
 
@@ -23,7 +22,7 @@ class ProfileBannerComponent extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8000/users/' + this.state.username + '/photos/profile')
+    getProfilePicture(this.state.username)
     .then(result => {
       console.log(result.data)
       if(result.data !== "") {
@@ -34,7 +33,7 @@ class ProfileBannerComponent extends React.Component {
       }
     })
 
-    axios.get('http://localhost:8000/users/' + this.state.username + '/photos/banner')
+    getBannerPicture(this.state.username)
       .then(result => {
         console.log(typeof result.data)
         if(result.data !== ""){
@@ -72,14 +71,7 @@ class ProfileBannerComponent extends React.Component {
     let profileUrl = URL.createObjectURL(event.target.files[0])
     let file = event.target.files[0]
     data.append('file', file, file.name);
-    axios.post("http://localhost:8000/users/photos/profile", data, {
-      headers: {
-        'accept': 'application/json',
-        'Accept-Language': 'en-US,en;q=0.8',
-        'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-        'Authorization': 'Bearer ' + TokenService.getToken()
-      }
-    })
+    postProfilePicture(data)
     .then(result => {
       this.setState({profilePhoto: profileUrl})
     })
@@ -90,14 +82,7 @@ class ProfileBannerComponent extends React.Component {
     let bannerUrl = URL.createObjectURL(event.target.files[0])
     let file = event.target.files[0]
     data.append('file', file, file.name);
-    axios.post("http://localhost:8000/users/photos/banner", data, {
-      headers: {
-        'accept': 'application/json',
-        'Accept-Language': 'en-US,en;q=0.8',
-        'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-        'Authorization': 'Bearer ' + TokenService.getToken()
-      }
-    })
+    postBannerPicture(data)
     .then(result => {
       this.setState({bannerPhoto: bannerUrl})
     })

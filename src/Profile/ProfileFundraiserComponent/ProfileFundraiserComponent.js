@@ -2,13 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import bootstrap from 'bootstrap';
 import './ProfileFundraiserComponent.css';
-import axios from 'axios';
 import {FormText, Form, Button, Modal, InputGroup, FormControl, Table} from 'react-bootstrap';
 import TokenService from '../../lib/tokenService'
-import ProfileBannerComponent from "../ProfileBannerComponent/ProfileBannerComponent";
 import ProfileProgressComponent from "../ProfileProgressComponent/ProfileProgressComponent";
 import ProfileDonorComponent from "../ProfileDonorComponent/ProfileDonorComponent";
 import ProfileDetailsComponent from "../ProfileDetailsComponent/ProfileDetailsComponent";
+import {
+    getFundraiser,
+    getFundraisers,
+    getFundraisersDonations,
+    postLinkUserToFundraiser,
+    searchFundraisers
+} from "../../lib/apiRequestor";
 
 class ProfileFundraiserComponent extends React.Component {
 
@@ -47,12 +52,10 @@ class ProfileFundraiserComponent extends React.Component {
     }
 
     getFundraiserDetails(user){
-        axios.get('http://localhost:8000/users/' + user.id + '/fundraisers')
+        getFundraisers(user.id)
             .then(res => {
                 const fundraiser = res.data[0];
                 if(typeof fundraiser !== 'undefined'){
-                    console.log("fundraiser")
-                    console.log(fundraiser)
                     this.setState({
                         user: user,
                         name: user.firstName,
@@ -60,7 +63,7 @@ class ProfileFundraiserComponent extends React.Component {
                         fundraiserExists: true
                     })
 
-                    axios.get('http://localhost:8000/fundraisers?id=' + fundraiser.fundraiser_id)
+                    getFundraiser(fundraiser.fundraiser_id)
                         .then(res => {
                             const fundraiser = res.data[0];
                             this.setState({
@@ -70,7 +73,7 @@ class ProfileFundraiserComponent extends React.Component {
                         })
 
 
-                    axios.get('http://localhost:8000/donations/fundraiser/' + fundraiser.fundraiser_id)
+                    getFundraisersDonations(fundraiser.fundraiser_id)
                         .then(res => {
                             const donations = res.data;
                             var sumAmount = 0;
@@ -106,7 +109,7 @@ class ProfileFundraiserComponent extends React.Component {
             fundraiser_id: eventSearchResults[selectedEventIndex].id,
             fundraiser_goal_amount: parseInt(donationGoalAmount)
         }
-        axios.post('http://localhost:8000/users/fundraisers', body).then(result => {
+        postLinkUserToFundraiser(body).then(result => {
             this.setState({showModal: false})
             this.closeModal()
             this.getFundraiserDetails(user)
@@ -130,7 +133,7 @@ class ProfileFundraiserComponent extends React.Component {
         if(name !== "")
             searchParams.push("name=" + name)
 
-        axios.get(`http://localhost:8000/fundraisers?` + searchParams.join("&"))
+        searchFundraisers(searchParams)
             .then(res => {
                 console.log(res.data)
                 const events = res.data;

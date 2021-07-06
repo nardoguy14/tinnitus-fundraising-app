@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import bootstrap from 'bootstrap';
 import './SearchComponent.css';
-import axios from 'axios';
 import {Link} from "react-router-dom";
+import {getFundraisers, getProfilePicture, getUser} from "../../lib/apiRequestor";
 
 class SearchPersonComponent extends React.Component {
 
@@ -140,12 +140,13 @@ class SearchPersonComponent extends React.Component {
         if(lastNameSearch !== "")
             searchParams.push("last_name=" + lastNameSearch)
 
-        axios.get(`http://localhost:8000/users?` + searchParams.join("&"))
+        getUser(searchParams)
         .then(res => {
             const users = res.data
             console.log(users)
             let usersWithImagesPromises = users.map( user => {
-                return axios.get('http://localhost:8000/users/' +user.username+ '/photos/profile').then(res => {
+                return getProfilePicture(user.username)
+                .then(res => {
                     let userImage = 'data:image/png;base64,' + res.data
                     user.image = userImage
                     return user
@@ -154,7 +155,7 @@ class SearchPersonComponent extends React.Component {
             Promise.all(usersWithImagesPromises).then(users => {
 
                 let usersWithFundraisersPromises = users.map(user => {
-                    return axios.get('http://localhost:8000/users/'+user.id+'/fundraisers').then(result =>{
+                    return getFundraisers(user.id).then(result =>{
                         console.log(result.data)
                         if(result.data.length > 0){
                             user.fundraiser = result.data[0].fundraiser[0].name

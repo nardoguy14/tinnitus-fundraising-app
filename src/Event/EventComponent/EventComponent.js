@@ -8,9 +8,9 @@ import InfoComponent from "../InfoComponent/InfoComponent";
 import InfoDetailsComponent from "../InfoDetailsComponent/InfoDetailsComponent";
 import DistanceElapsedComponent from "../DistanceElapsedComponent/DistanceElapsedComponent";
 import LeaderBoardComponent from "../LeaderBoardComponent/LeaderBoardComponent";
-import axios from 'axios';
 import {withRouter} from "react-router";
 import moment from 'moment';
+import {getActivities, getFundraiser, getFundraisersDonations} from "../../lib/apiRequestor";
 
 
 class EventComponent extends React.Component {
@@ -159,7 +159,7 @@ class EventComponent extends React.Component {
     componentDidMount() {
         let {eventId} = this.state
         if(eventId !== null){
-            axios.get(`http://localhost:8000/fundraisers?id=`+ eventId)
+            getFundraiser(eventId)
                 .then(res => {
                     const fundraiser = res.data[0];
                     console.log(fundraiser)
@@ -192,7 +192,7 @@ class EventComponent extends React.Component {
 
                     })
                 })
-            axios.get("http://localhost:8000/donations/fundraiser/" + eventId)
+            getFundraisersDonations(eventId)
                 .then(res => {
                     const donations = res.data;
                     console.log(donations)
@@ -205,7 +205,7 @@ class EventComponent extends React.Component {
                         amountRaised: "$" + sum
                     })
                 })
-            axios.get("http://localhost:8000/activities?fundraiser_id="+eventId)
+            getActivities(eventId)
                 .then(res => {
                     const activities = res.data;
                     console.log(activities)
@@ -218,7 +218,6 @@ class EventComponent extends React.Component {
                         totalDistance: sum + " mi"
                     })
                 })
-            // backgroundUrl
         }
     }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import bootstrap from 'bootstrap';
-import axios from 'axios';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import {withRouter} from "react-router";
@@ -9,6 +8,7 @@ import moment from "moment";
 import * as Swal from "sweetalert2";
 import { isPossiblePhoneNumber, isValidPhoneNumber } from 'libphonenumber-js'
 import TokenService from '../../lib/tokenService'
+import {createUser} from "../../lib/apiRequestor";
 
 class RegistrationComponent extends React.Component {
 
@@ -203,7 +203,7 @@ class RegistrationComponent extends React.Component {
         if(finished){
             var body = this.state
             body['dateOfBirth'] = moment(Date.parse(body['dateOfBirth'])).format('YYYY-MM-DD')
-            axios.post('http://localhost:8000/users', body).then(result => {
+            createUser(body).then(result => {
                 console.log(result.data)
                 TokenService.storeToken(result.data.access_token)
                 this.props.history.push('/profile?username='+body['username'])

@@ -9,6 +9,7 @@ import axios from 'axios';
 import { FormText, Form } from 'react-bootstrap';
 import 'draft-js/dist/Draft.css';
 import TokenService from "../lib/tokenService";
+import {editUser} from "../lib/apiRequestor";
 
 
 export class RichEditorComponent extends React.Component {
@@ -50,19 +51,14 @@ export class RichEditorComponent extends React.Component {
     updateDescription() {
         let {editorState} = this.state
         const contentState = editorState.getCurrentContent();
-        let token = TokenService.getToken()
         var body = {
             description: JSON.stringify(convertToRaw(contentState))
         }
-        var config = {
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        }
-        axios.put('http://localhost:8000/users', body, config)
-            .then(result => {
-                this.setState({infoHTML: editorState, editMode: false})
-            })
+
+        editUser(body)
+        .then(result => {
+            this.setState({infoHTML: editorState, editMode: false})
+        })
     }
 
     styleMap = {

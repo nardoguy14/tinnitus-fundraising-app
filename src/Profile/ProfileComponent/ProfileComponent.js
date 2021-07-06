@@ -10,6 +10,7 @@ import {withRouter} from "react-router";
 import TokenService from "../../lib/tokenService";
 import './ProfileComponent.css';
 import ProfileFundraiserComponent from "../ProfileFundraiserComponent/ProfileFundraiserComponent";
+import {getUserByUsername} from "../../lib/apiRequestor";
 
 class ProfileComponent extends React.Component {
 
@@ -38,20 +39,20 @@ class ProfileComponent extends React.Component {
     componentDidMount() {
         let {username} = this.state
 
-        axios.get(`http://localhost:8000/users?username=`+username)
-            .then(res => {
-                const user = res.data[0];
+        getUserByUsername(username)
+        .then(res => {
+            const user = res.data[0];
 
-                this.setState({
-                    fullName: user.firstName + " " + user.lastName,
-                    bannerPhoto: "https://www2.jdrf.org/images/friendraiser_uploads/7791.254222820.customnull",
-                    profilePhoto: "https://www2.jdrf.org/images/friendraiser_uploads/8115.1182060652.customnull",
-                    name: user.firstName,
-                    user_id: user.id,
-                    infoHtml:  user.description,
-                    user: user
-                })
-                // this.getFundraiserDetails(user)
+            this.setState({
+                fullName: user.firstName + " " + user.lastName,
+                bannerPhoto: "https://www2.jdrf.org/images/friendraiser_uploads/7791.254222820.customnull",
+                profilePhoto: "https://www2.jdrf.org/images/friendraiser_uploads/8115.1182060652.customnull",
+                name: user.firstName,
+                user_id: user.id,
+                infoHtml:  user.description,
+                user: user
+            })
+            // this.getFundraiserDetails(user)
         })
     }
 

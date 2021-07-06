@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import bootstrap from 'bootstrap';
 import './SearchComponent.css';
 import axios from 'axios';
+import {searchFundraisers} from "../../lib/apiRequestor";
 
 class SearchEventComponent extends React.Component {
 
@@ -92,7 +93,7 @@ class SearchEventComponent extends React.Component {
         if(name !== "")
             searchParams.push("name=" + name)
 
-        axios.get(`http://localhost:8000/fundraisers?` + searchParams.join("&"))
+        searchFundraisers(searchParams)
             .then(res => {
                 console.log(res.data)
                 const events = res.data;

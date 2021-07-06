@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import bootstrap from 'bootstrap';
 import {Button, Modal, InputGroup, FormControl, Table, Form, Container, Row, Col} from 'react-bootstrap'
-import axios from 'axios';
 import {withRouter} from "react-router";
 import {Elements, CardElement, ElementsConsumer, useStripe} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import './Donation.css'
 import {Field, SubmitButton, ErrorMessage, ResetButton} from './SmallerComponents'
 import xxxx from './getimage.jpeg'
+import {postDonation, postPaymentIntent} from "../../lib/apiRequestor";
 const stripePromise = loadStripe('pk_test_51J4YG5EtXr3xL8O5VGzJQ0Uxn2vir402yCdjMV5uJShaHfEsChqNQuIOvBTjtDTv0FoXk4mC4Td9qtFO6Qk3qIgJ00VW9CZhmj');
 
 const CARD_OPTIONS = {
@@ -67,12 +67,8 @@ class DonationComponent extends React.Component {
         }
         let {username, amount, firstName, lastName, message} = this.state
 
-        axios.post('http://localhost:8000/payment_intent', {
-            username: username,
-            fundraiser_id: 1,
-            amount: amount,
-            currency: "usd"
-        }).then(response => {
+        postPaymentIntent(username, amount)
+        .then(response => {
             const payload = stripe.confirmCardPayment(response.data.clientSecret, {
                 payment_method: {
                     card: elements.getElement(CardElement)
@@ -86,15 +82,11 @@ class DonationComponent extends React.Component {
                     })
                 } else {
                     console.log("success", resp)
-                    axios.post('http://localhost:8000/donations',{
-                        username: username,
-                        fundraiser_id: '7',
-                        donor_first_name: firstName,
-                        donor_last_name: lastName,
-                        donor_comment: message,
-                        amount: amount,
-                        currency: 'usd'
-                    }).then(resp => {
+
+
+
+                    postDonation(username, firstName, lastName, message, amount)
+                    .then(resp => {
                         this.setState({
                             processing: false,
                             succeeded: true,
@@ -105,9 +97,6 @@ class DonationComponent extends React.Component {
                 }
             })
         })
-
-
-
     };
 
     reset = () => {
