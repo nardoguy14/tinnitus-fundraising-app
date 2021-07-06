@@ -53,12 +53,22 @@ class SearchComponent extends React.Component {
                     <Col>
                         <Container style={{backgroundColor: 'transparent', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
 
-                <div className="jdrf-p2p-fundraising-search-page" >
-                <div className="jdrf-p2p-fundraising-search-header -with-toggles hidden-xs">
+                <div className="" >
+                <div
+                    // className="jdrf-p2p-fundraising-search-header"
+                     style={{
+                         textAlign: 'center',
+                         position:'relative',
+                         top: 'auto',
+                         left: 'auto',
+                         right: 'auto',
+                         height: 'auto',
+                         padding: '48px 0 24px'}}
+                >
                     <h1 style={{fontFamily: "CiutadellaRoundedW01-Bold"}}>
                         Search for
                     </h1>
-                    <div className="jdrf-p2p-fundraising-search-header__toggles js--fundraising-search-type-toggles"
+                    <div className=""
                          data-default-type="">
                         <button
                             style={{margin: '20px', backgroundColor: "#3b5cad"}}

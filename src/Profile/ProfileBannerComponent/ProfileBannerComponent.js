@@ -7,32 +7,34 @@ import FormData from 'form-data'
 import axios from "axios";
 import TokenService from "../../lib/tokenService";
 import defaultBanner from './default-banner.jpeg'
+import defaultProfilePhoto from './profileDefault.jpg'
 
 class ProfileBannerComponent extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      username: props.username,
       usersProfile: props.usersProfile,
       fullName: props.fullName,
-      bannerPhoto: `url(${defaultBanner})`,
-      profilePhoto: props.profilePhoto
+      bannerPhoto: `url(${defaultProfilePhoto})`,
+      profilePhoto: `url(${defaultBanner})`
     }
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8000/users/photos/profile', {headers: {
-      Authorization: 'Bearer '+ TokenService.getToken()
-    }})
+    axios.get('http://localhost:8000/users/' + this.state.username + '/photos/profile')
     .then(result => {
-      this.setState({profilePhoto:
-            'data:image/png;base64,' + result.data
-      })
+      console.log(result.data)
+      if(result.data !== "") {
+        this.setState({
+          profilePhoto:
+              'url("' + 'data:image/png;base64,' + result.data + '")'
+        })
+      }
     })
 
-    axios.get('http://localhost:8000/users/photos/banner', {headers: {
-        Authorization: 'Bearer '+ TokenService.getToken()
-      }})
+    axios.get('http://localhost:8000/users/' + this.state.username + '/photos/banner')
       .then(result => {
         console.log(typeof result.data)
         if(result.data !== ""){
@@ -111,7 +113,7 @@ class ProfileBannerComponent extends React.Component {
               <div className="jdrf-p2p-cover-photo__meta hidden-spirit-xs hidden-spirit-sm jdrf-p2p-cover-photo__meta--has-profile">
                 <div className="jdrf-p2p-cover-photo__profile">
                   <div className="jdrf-p2p-cover-photo__profile-inner"
-                       style={{'background-image': 'url("' + profilePhoto + '")'}}>
+                       style={{'background-image': profilePhoto}}>
 
                     <div className="jdrf-p2p-profile-photo__edit">
 

@@ -48,7 +48,10 @@ class ProfileShareAndDonateComponent extends React.Component {
 
                 <div className="jdrf-p2p-personal__cta-col jdrf-p2p-personal__cta-col--donate-bottom">
 
-                    <Link className="spirit-button" to={donateUrl}>Donate <span>&nbsp;to&nbsp;<span>{name}</span>
+                    <Link className="spirit-button"
+                          to={donateUrl}
+                          style={{backgroundColor: 'rgb(59, 92, 173)'}}
+                    >Donate <span>&nbsp;to&nbsp;<span>{name}</span>
                               </span></Link>
                 </div>
             </div>

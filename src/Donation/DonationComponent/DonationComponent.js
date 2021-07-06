@@ -4,7 +4,6 @@ import bootstrap from 'bootstrap';
 import {Button, Modal, InputGroup, FormControl, Table, Form, Container, Row, Col} from 'react-bootstrap'
 import axios from 'axios';
 import {withRouter} from "react-router";
-import TokenService from "../../lib/tokenService";
 import {Elements, CardElement, ElementsConsumer, useStripe} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import './Donation.css'

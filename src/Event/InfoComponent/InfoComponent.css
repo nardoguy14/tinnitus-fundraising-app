@@ -5582,9 +5582,10 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
   z-index:1
 }
 
+
 .spirit-button--active, .spirit-button:active, .spirit-button__inner--active, .spirit-button__inner:active {
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 85, 255, .16), 0 0 4px 0 rgba(0, 85, 255, .08), inset 0 0 0 4px #05f;
-  box-shadow: 0 4px 8px 0 rgba(0, 85, 255, .16), 0 0 4px 0 rgba(0, 85, 255, .08), inset 0 0 0 4px #05f;
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 85, 255, .16), 0 0 4px 0 rgba(0, 85, 255, .08), inset 0 0 0 4px rgb(59, 92, 173);
+  box-shadow: 0 4px 8px 0 rgba(0, 85, 255, .16), 0 0 4px 0 rgba(0, 85, 255, .08), inset 0 0 0 4px rgb(59, 92, 173);
   -webkit-transform: translateY(1px);
   transform:translateY(1px)
 }

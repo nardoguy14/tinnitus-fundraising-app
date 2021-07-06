@@ -132,8 +132,9 @@ class SearchEventComponent extends React.Component {
                                     &nbsp;
                                 </label>
                                 <button
+                                    style={{backgroundColor: 'rgb(59, 92, 173)', color: 'white'}}
                                     type="submit"
-                                    className="spirit-button"
+                                    className="btn"
                                     onClick={e => {this.searchEvent(eventNameSearch)}}
                                 >
                                     Search

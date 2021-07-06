@@ -60,30 +60,23 @@ class ProfileComponent extends React.Component {
 
         let {user, username, fullName, bannerPhoto, profilePhoto, name, user_id, infoHtml, usersProfile} = this.state
         return (
-          <div style={{padding: "40px"}}>
+          <div style={{padding: "0px"}}>
               <ProfileBannerComponent
+                  username={username}
                   usersProfile={usersProfile}
                   fullName={fullName}
                   bannerPhoto={bannerPhoto}
                   profilePhoto={profilePhoto}/>
-              <div className="jdrf-p2p-page-container">
-                  <div className="jdrf-p2p-personal__primary-cta ng-isolate-scope hl-sticky sticky-top sticky-before">
+              <div className="container">
+                  <div className="jdrf-p2p-personal__primary-cta  sticky-top sticky-before">
                       <ProfileShareAndDonateComponent
                         usersProfile={usersProfile}
                         name={name}
                         donateUrl={"/donation?username=" + username}/>
                   </div>
 
-                  <div className="spirit-row">
-                      <div className="spirit-col-md-7 spirit-col-lg-8 jdrf-p2p-personal__left-col">
-                          <div className="visible-xs">
-                              <ProfileFundraiserComponent
-                                  user={user}
-                                  username={username}
-                              />
-
-                          </div>
-
+                  <div className="row">
+                      <div className="col-sm-12 col-md-7 col-lg-8">
                           <ProfileAboutComponent
                               username={username}
                               usersProfile={usersProfile}
@@ -91,7 +84,8 @@ class ProfileComponent extends React.Component {
                               infoHTML={infoHtml}/>
 
                       </div>
-                      <div className="spirit-col-md-5 spirit-col-lg-4 hidden-spirit-xs hidden-spirit-sm">
+                      <div className=" col-sm-12 col-md-5 col-lg-4">
+                          yooo
                           <ProfileFundraiserComponent
                               user={user}
                               username={username}

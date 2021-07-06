@@ -6,6 +6,7 @@ import {Button, Col, Container, Form, FormControl, Nav, Navbar, NavDropdown, Row
 import {Link} from "react-router-dom";
 import './NavBarComponent.css'
 import logo from './logo.png'
+import TokenService from "../lib/tokenService";
 
 class NavBarComponent extends React.Component {
     constructor(props) {
@@ -16,6 +17,20 @@ class NavBarComponent extends React.Component {
     }
 
     render(){
+        let claims = TokenService.getClaims()
+        var homeOrLogin = null
+        if(claims !== null){
+            homeOrLogin = (
+                        <Nav.Link
+                            className={"bta-font"}
+                            as={Link}
+                            to={`/profile?username=${claims.username}`}
+                            style={{color: "white"}}>
+                            <h3> Profile </h3>
+                        </Nav.Link>
+            )
+        }
+
         return (
             <div style={{color: "white"}}>
 
@@ -26,15 +41,20 @@ class NavBarComponent extends React.Component {
                         British <br/>Tinnitus <br/>Association
                     </div>
                 </Navbar.Brand>
-                <Nav className="mr-auto">
-                    <Nav.Link className={"bta-font"} as={Link} to="/" style={{color: "white"}}> <h3>  Home</h3>  </Nav.Link>
-                    <Nav.Link className={"bta-font"} as={Link} to="/search" style={{color: "white"}}> <h3>Search </h3> </Nav.Link>
-                </Nav>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"  style={{marginRight:"20px"}}/>
+                <Navbar.Collapse id="basic-navbar-nav">
 
-                <Nav style={{marginLeft: 'auto', marginRight: '30px'}}>
-                    <Nav.Link className={"bta-font"} as={Link} to="/register" style={{color: "white"}}> <h3> Register </h3> </Nav.Link>
-                </Nav>
+                    <Nav className="mr-auto">
+                        <Nav.Link className={"bta-font"} as={Link} to="/" style={{color: "white"}}> <h3>  Home</h3>  </Nav.Link>
+                        <Nav.Link className={"bta-font"} as={Link} to="/search" style={{color: "white"}}> <h3>Search </h3> </Nav.Link>
+                    </Nav>
 
+                    <Nav style={{marginLeft: 'auto', marginRight: '30px'}}>
+                        <Nav.Link className={"bta-font"} as={Link} to="/register" style={{color: "white"}}> <h3> Register </h3> </Nav.Link>
+                        {homeOrLogin}
+                    </Nav>
+
+                </Navbar.Collapse>
 
             </Navbar>
             </div>

@@ -57,6 +57,7 @@ class ProfileAboutComponent extends React.Component {
                 <div className="jdrf-p2p-personal__secondary-cta hidden-spirit-xs hidden-spirit-sm">
                     <div className="jdrf-p2p-personal__cta-col ng-scope">
                         <Link
+                            style={{backgroundColor: 'rgb(59, 92, 173)'}}
                             className="spirit-button"
                             to={"donation?username=" + username}> Donate
                             <span className="ng-scope">&nbsp;to&nbsp;

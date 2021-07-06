@@ -194,8 +194,9 @@ class ProfileFundraiserComponent extends React.Component {
             fundraisingDetails = (
                 <div>
                     <Button
+
                         onClick={e => {this.showModal()}}
-                        style={{left: "25%", position: 'relative'}}
+                        style={{left: "25%", position: 'relative', backgroundColor: 'rgb(59, 92, 173)'}}
                         variant="primary">Add Fundraising Event</Button>
 
                     <Modal
@@ -241,7 +242,10 @@ class ProfileFundraiserComponent extends React.Component {
                             <Button variant="secondary" onClick={e => {this.closeModal()}}>
                                 Close
                             </Button>
-                            <Button variant="primary" onClick={e => {this.linkUserToFundraiser()}} >
+                            <Button
+                                style={{backgroundColor: 'rgb(59, 92, 173)'}}
+                                variant="primary"
+                                onClick={e => {this.linkUserToFundraiser()}} >
                                 Save Changes
                             </Button>
                         </Modal.Footer>
