@@ -6691,7 +6691,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
   padding: 16px;
   -webkit-transition: border .3s;
   transition: border .3s;
-  width:calc(100% + $spirit-space-generic-2-x)
+
 }
 
 .spirit-card--list-item:hover .spirit-card__text {
@@ -7174,7 +7174,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
   padding: 16px;
   -webkit-transition: border .3s;
   transition: border .3s;
-  width:calc(100% + $spirit-space-generic-2-x)
+
 }
 
 .spirit-card--list-item:hover .spirit-card__text {
@@ -7676,7 +7676,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     padding: 16px;
     -webkit-transition: border .3s;
     transition: border .3s;
-    width:calc(100% + $spirit-space-generic-2-x)
+
   }
 
   .spirit-card-grid--list .spirit-card:hover .spirit-card__text {
