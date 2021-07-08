@@ -13,7 +13,13 @@ class TokenService {
     }
 
     static getClaims() {
-        return JSON.parse(window.atob(window.localStorage.getItem('tinnitus_fund.access_token').split(".")[1]))
+        try {
+            return JSON.parse(window.atob(window.localStorage.getItem('tinnitus_fund.access_token').split(".")[1]))
+        }
+        catch(error) {
+            return null
+        }
+
     }
 
     static storeToken(token) {
