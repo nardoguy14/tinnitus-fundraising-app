@@ -18,17 +18,28 @@ class NavBarComponent extends React.Component {
     }
 
     render(){
-        let claims = TokenService.getClaims()
         var homeOrLogin = null
-        if(claims !== null){
+        if(this.props.isAuthenticated){
+            let claims = TokenService.getClaims()
             homeOrLogin = (
-                        <Nav.Link
-                            className={"bta-font"}
-                            as={Link}
-                            to={`/profile?username=${claims.username}`}
-                            style={{color: "white"}}>
-                            <h3> Profile </h3>
-                        </Nav.Link>
+                <Nav.Link
+                    className={"bta-font"}
+                    as={Link}
+                    to={`/profile?username=${claims.username}`}
+                    style={{color: "white"}}>
+                    <h3> Profile </h3>
+                </Nav.Link>
+            )
+        }
+        else{
+            homeOrLogin = (
+                <Nav.Link
+                    className={"bta-font"}
+                    as={Link}
+                    to={`/login`}
+                    style={{color: "white"}}>
+                    <h3> Login </h3>
+                </Nav.Link>
             )
         }
 

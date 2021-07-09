@@ -18,6 +18,10 @@ class ProfileComponent extends React.Component {
         super(props);
         const urlParams = new URLSearchParams(window.location.search)
         const username = urlParams.get("username")
+        var usersProfile = false
+        if(TokenService.getClaims() !== null && TokenService.getClaims()['username'] === username){
+            usersProfile = true
+        }
         this.state = {
             user: null,
             username: username,
@@ -32,7 +36,7 @@ class ProfileComponent extends React.Component {
             eventUrl: "",
             infoHtml: "",
             donors: [],
-            usersProfile: TokenService.getClaims()['username'] === username
+            usersProfile: usersProfile
         }
     }
 

@@ -20,6 +20,10 @@ class ProfileFundraiserComponent extends React.Component {
     constructor(props) {
         super(props);
         console.log(props.user)
+        var usersProfile = false
+        if(TokenService.getClaims() !== null && TokenService.getClaims()['username'] === props.username){
+            usersProfile = true
+        }
         this.state = {
             name: "",
             user: props.user,
@@ -33,7 +37,7 @@ class ProfileFundraiserComponent extends React.Component {
             eventUrl: "",
             eventName: "",
             donors: [],
-            usersProfile: TokenService.getClaims()['username'] === props.username
+            usersProfile: usersProfile
         }
     }
 

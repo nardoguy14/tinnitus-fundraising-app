@@ -3,6 +3,19 @@ import TokenService from "./tokenService";
 
 let host = process.env.REACT_APP_API_HOST
 
+export function loginUser(username, password) {
+    var bodyFormData = new FormData();
+    bodyFormData.append('username', username);
+    bodyFormData.append('password', password);
+
+
+    return axios.post(`${host}/users/me/login`, bodyFormData, {
+        headers: {
+            'Grant-Type': 'password'
+        }
+    })
+}
+
 export function getProfilePicture(username) {
     return axios.get(`${host}/users/` + username + `/photos/profile`)
 }

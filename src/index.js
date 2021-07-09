@@ -15,31 +15,57 @@ import {
 import RegistrationComponent from "./Registration/RegistrationComponent/RegistrationComponent";
 import DonationComponent from "./Donation/DonationComponent/DonationComponent";
 import NavBarComponent from "./NavBar/NavBarComponent";
+import LoginComponent from "./LoginComponent/LoginComponent";
+import TokenService from "./lib/tokenService";
 
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAuthenticated: TokenService.getClaims() !== null
+        }
+    }
+
+    login = () => {
+        this.setState({isAuthenticated: true});
+    }
+
+    logout = () => {
+        this.setState({isAuthenticated: false});
+    }
+
+    render() {
+        let {isAuthenticated} = this.state
+        return (<Router>
+            <NavBarComponent isAuthenticated={isAuthenticated} login={this.login} logout={this.logout}/>
+            <Switch>
+                <Route path="/register">
+                    <RegistrationComponent />
+                </Route>
+                <Route path="/profile">
+                    <ProfileComponent />
+                </Route>
+                <Route path="/event">
+                    <EventComponent />
+                </Route>
+                <Route path="/search">
+                    <SearchComponent />
+                </Route>
+                <Route path="/donation">
+                    <DonationComponent />
+                </Route>
+                <Route path="/login">
+                    <LoginComponent login={this.login} logout={this.logout}/>
+                </Route>
+            </Switch>
+        </Router>)
+    }
+}
 
 ReactDOM.render(
   <React.StrictMode>
+        <App/>
 
-      <Router>
-          <NavBarComponent/>
-          <Switch>
-              <Route path="/register">
-                  <RegistrationComponent />
-              </Route>
-              <Route path="/profile">
-                  <ProfileComponent />
-              </Route>
-              <Route path="/event">
-                  <EventComponent />
-              </Route>
-              <Route path="/search">
-                  <SearchComponent />
-              </Route>
-              <Route path="/donation">
-                  <DonationComponent />
-              </Route>
-          </Switch>
-      </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
