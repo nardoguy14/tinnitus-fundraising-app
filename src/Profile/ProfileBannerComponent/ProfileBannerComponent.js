@@ -88,53 +88,69 @@ class ProfileBannerComponent extends React.Component {
     })
   }
 
+  insertProfileButton() {
+    return (
+        <div>
+          <input
+              onChange={e => {this.handleProfileInputChange(e)}}
+              style={{color: 'rgba(0, 0, 0, 0)', opacity:0 }}
+              type='file' ref={input => this.inputElement = input} />
+          <span id='val'></span>
+          <Button
+              type={'file'}
+              variant="light"
+              onClick={e => {this.editProfilePhoto()}}>Edit</Button>
+        </div>
+    )
+  }
+
+  insertCoverButton() {
+    return (
+        <div className="jdrf-p2p-cover-photo__edit">
+          <input
+              onChange={e => {this.handleBannerInputChange(e)}}
+              style={{color: 'rgba(0, 0, 0, 0)', opacity:0 }}
+              type='file' ref={input => this.bannerInputElement = input} />
+          <span id='val'></span>
+          <Button
+              type={'file'}
+              variant="light"
+              onClick={e => {this.editBannerphoto()}}>Edit</Button>
+        </div>
+    )
+  }
+
   render() {
     let {fullName, bannerPhoto, profilePhoto} = this.state
     return (
-        <div className="jdrf-p2p-cover-photo-wrap jdrf-p2p-cover-photo-wrap--has-profile jdrf-p2p-cover-photo-wrap--tall">
-          <div className="jdrf-p2p-cover-photo ng-isolate-scope">
+        <div className="jdrf-p2p-cover-photo-wrap jdrf-p2p-cover-photo-wrap--has-profile jdrf-p2p-cover-photo-wrap--tall"
+          style={{marginTop: '24px',
+            marginBottom: '24px'
+          }}
+        >
+          <div className="jdrf-p2p-cover-photo">
             <div className="jdrf-p2p-cover-photo__inner"
                  style={{'background-image': bannerPhoto}}>
-              <div className="jdrf-p2p-cover-photo__meta hidden-spirit-xs hidden-spirit-sm jdrf-p2p-cover-photo__meta--has-profile">
+              <div className="jdrf-p2p-cover-photo__meta hidden-spirit-xs hidden-spirit-sm jdrf-p2p-cover-photo__meta--has-profile"
+                style={{marginTop: 0, height: '100%'}}
+              >
                 <div className="jdrf-p2p-cover-photo__profile">
                   <div className="jdrf-p2p-cover-photo__profile-inner"
                        style={{'background-image': profilePhoto}}>
-
                     <div className="jdrf-p2p-profile-photo__edit">
-
-
-                      <div>
-                        <input
-                            onChange={e => {this.handleProfileInputChange(e)}}
-                            style={{color: 'rgba(0, 0, 0, 0)', opacity:0 }}
-                            type='file' ref={input => this.inputElement = input} />
-                        <span id='val'></span>
-                        <Button
-                            type={'file'}
-                            variant="light"
-                            onClick={e => {this.editProfilePhoto()}}>Edit</Button>
-                      </div>
+                      {this.insertProfileButton()}
                     </div>
 
                   </div>
                 </div>
+
                 <div className="jdrf-p2p-cover-photo__text">
                   <h1 className="spirit-h3">
                     <span>{fullName}</span>
                   </h1>
                 </div>
 
-                <div className="jdrf-p2p-cover-photo__edit">
-                  <input
-                      onChange={e => {this.handleBannerInputChange(e)}}
-                      style={{color: 'rgba(0, 0, 0, 0)', opacity:0 }}
-                      type='file' ref={input => this.bannerInputElement = input} />
-                  <span id='val'></span>
-                  <Button
-                      type={'file'}
-                      variant="light"
-                      onClick={e => {this.editBannerphoto()}}>Edit</Button>
-                </div>
+                {this.insertCoverButton()}
 
               </div>
             </div>

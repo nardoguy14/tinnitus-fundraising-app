@@ -72,7 +72,11 @@ class ProfileComponent extends React.Component {
                   fullName={fullName}
                   bannerPhoto={bannerPhoto}
                   profilePhoto={profilePhoto}/>
-              <div className="container">
+              <div className="container" style={{
+                  position: 'relative',
+                  top: '94px',
+                  marginBottom: '94px'
+              }}>
                   <div className="jdrf-p2p-personal__primary-cta  sticky-top sticky-before">
                       <ProfileShareAndDonateComponent
                         usersProfile={usersProfile}
