@@ -94,7 +94,8 @@ class ProfileBannerComponent extends React.Component {
           <input
               onChange={e => {this.handleProfileInputChange(e)}}
               style={{color: 'rgba(0, 0, 0, 0)', opacity:0 }}
-              type='file' ref={input => this.inputElement = input} />
+              type='file'
+              ref={input => this.inputElement = input} />
           <span id='val'></span>
           <Button
               type={'file'}

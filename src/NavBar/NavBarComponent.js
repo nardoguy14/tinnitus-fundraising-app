@@ -23,6 +23,7 @@ class NavBarComponent extends React.Component {
             let claims = TokenService.getClaims()
             homeOrLogin = (
                 <Nav.Link
+                    onClick={e => {this.inputElement.click()}}
                     className={"bta-font"}
                     as={Link}
                     to={`/profile?username=${claims.username}`}
@@ -34,6 +35,7 @@ class NavBarComponent extends React.Component {
         else{
             homeOrLogin = (
                 <Nav.Link
+                    onClick={e => {this.inputElement.click()}}
                     className={"bta-font"}
                     as={Link}
                     to={`/login`}
@@ -57,16 +59,19 @@ class NavBarComponent extends React.Component {
                         British <br/>Tinnitus <br/>Association
                     </div>
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav"  style={{marginRight:"20px"}}/>
+                <Navbar.Toggle
+                    ref={input => this.inputElement = input}
+                    aria-controls="basic-navbar-nav"
+                    style={{marginRight:"20px"}}/>
                 <Navbar.Collapse id="basic-navbar-nav">
 
                     <Nav className="mr-auto">
-                        <Nav.Link className={"bta-font"} as={Link} to="/" style={{textAlign: 'center', color: "white"}}> <h3>  Home</h3>  </Nav.Link>
-                        <Nav.Link className={"bta-font"} as={Link} to="/search" style={{textAlign: 'center', color: "white"}}> <h3>Search </h3> </Nav.Link>
+                        <Nav.Link onClick={e => {this.inputElement.click()}} className={"bta-font"} as={Link} to="/" style={{textAlign: 'center', color: "white"}}> <h3>  Home</h3>  </Nav.Link>
+                        <Nav.Link onClick={e => {this.inputElement.click()}} className={"bta-font"} as={Link} to="/search" style={{textAlign: 'center', color: "white"}}> <h3>Search </h3> </Nav.Link>
                     </Nav>
 
                     <Nav style={{marginLeft: 'auto'}}>
-                        <Nav.Link className={"bta-font"} as={Link} to="/register" style={{textAlign: 'center', color: "white"}}> <h3> Register </h3> </Nav.Link>
+                        <Nav.Link onClick={e => {this.inputElement.click()}} className={"bta-font"} as={Link} to="/register" style={{textAlign: 'center', color: "white"}}> <h3> Register </h3> </Nav.Link>
                         {homeOrLogin}
                     </Nav>
 
