@@ -70,7 +70,7 @@ class SearchPersonComponent extends React.Component {
             <div className="jdrf-p2p-fundraising-search--participant" aria-hidden="false">
                 <div className="container">
                     <div className="row">
-                        <div className="col-4">
+                        <div style={{marginBottom: '10px'}} className="col-sm-12 col-md-4">
                                     <label className="spirit-form__label">
                                         First Name
                                     </label>
@@ -85,7 +85,7 @@ class SearchPersonComponent extends React.Component {
                                     </div>
 
                         </div>
-                        <div className="col-4">
+                        <div style={{marginBottom: '10px'}} className="col-sm-12 col-md-4">
 
 
                                     <label className="spirit-form__label">
@@ -103,7 +103,7 @@ class SearchPersonComponent extends React.Component {
 
 
                         </div>
-                        <div className="col-4">
+                        <div style={{marginBottom: '10px'}} className="col-sm-12 col-md-4">
                             <label className="spirit-form__label">
                                 &nbsp;
                             </label>

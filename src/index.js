@@ -17,6 +17,7 @@ import DonationComponent from "./Donation/DonationComponent/DonationComponent";
 import NavBarComponent from "./NavBar/NavBarComponent";
 import LoginComponent from "./LoginComponent/LoginComponent";
 import TokenService from "./lib/tokenService";
+import FooterComponent from "./Footer/FooterComponent";
 
 class App extends React.Component {
     constructor(props) {
@@ -58,6 +59,7 @@ class App extends React.Component {
                     <LoginComponent login={this.login} logout={this.logout}/>
                 </Route>
             </Switch>
+            <FooterComponent/>
         </Router>)
     }
 }
@@ -65,7 +67,6 @@ class App extends React.Component {
 ReactDOM.render(
   <React.StrictMode>
         <App/>
-
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -26,7 +26,7 @@ class NavBarComponent extends React.Component {
                     className={"bta-font"}
                     as={Link}
                     to={`/profile?username=${claims.username}`}
-                    style={{color: "white"}}>
+                    style={{textAlign: 'center', color: "white"}}>
                     <h3> Profile </h3>
                 </Nav.Link>
             )
@@ -37,7 +37,7 @@ class NavBarComponent extends React.Component {
                     className={"bta-font"}
                     as={Link}
                     to={`/login`}
-                    style={{color: "white"}}>
+                    style={{textAlign: 'center', color: "white"}}>
                     <h3> Login </h3>
                 </Nav.Link>
             )
@@ -46,9 +46,13 @@ class NavBarComponent extends React.Component {
         return (
             <div style={{color: "white"}}>
 
-            <Navbar style={{backgroundColor: "#3b5cad"}} expand="lg">
+            <Navbar style={{backgroundColor: "#3b5cad", padding: '10px'}} expand="lg">
                 <Navbar.Brand className={"bta-font"} style={{color: "white", padding: "20px", display: 'flex'}}>
-                    <img src={logo}/>
+                    <img style={{
+                        width: '100px',
+                        height: '100px',
+                        margin: 'auto'
+                        }} src={logo}/>
                     <div>
                         British <br/>Tinnitus <br/>Association
                     </div>
@@ -57,12 +61,12 @@ class NavBarComponent extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
 
                     <Nav className="mr-auto">
-                        <Nav.Link className={"bta-font"} as={Link} to="/" style={{color: "white"}}> <h3>  Home</h3>  </Nav.Link>
-                        <Nav.Link className={"bta-font"} as={Link} to="/search" style={{color: "white"}}> <h3>Search </h3> </Nav.Link>
+                        <Nav.Link className={"bta-font"} as={Link} to="/" style={{textAlign: 'center', color: "white"}}> <h3>  Home</h3>  </Nav.Link>
+                        <Nav.Link className={"bta-font"} as={Link} to="/search" style={{textAlign: 'center', color: "white"}}> <h3>Search </h3> </Nav.Link>
                     </Nav>
 
-                    <Nav style={{marginLeft: 'auto', marginRight: '30px'}}>
-                        <Nav.Link className={"bta-font"} as={Link} to="/register" style={{color: "white"}}> <h3> Register </h3> </Nav.Link>
+                    <Nav style={{marginLeft: 'auto'}}>
+                        <Nav.Link className={"bta-font"} as={Link} to="/register" style={{textAlign: 'center', color: "white"}}> <h3> Register </h3> </Nav.Link>
                         {homeOrLogin}
                     </Nav>
 
