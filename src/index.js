@@ -18,6 +18,7 @@ import NavBarComponent from "./NavBar/NavBarComponent";
 import LoginComponent from "./LoginComponent/LoginComponent";
 import TokenService from "./lib/tokenService";
 import FooterComponent from "./Footer/FooterComponent";
+import HomeComponent from "./Home/HomeComponent";
 
 class App extends React.Component {
     constructor(props) {
@@ -40,6 +41,9 @@ class App extends React.Component {
         return (<Router>
             <NavBarComponent isAuthenticated={isAuthenticated} login={this.login} logout={this.logout}/>
             <Switch>
+                <Route path="/">
+                    <HomeComponent />
+                </Route>
                 <Route path="/register">
                     <RegistrationComponent />
                 </Route>

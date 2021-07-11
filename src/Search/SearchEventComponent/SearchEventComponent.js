@@ -15,6 +15,42 @@ class SearchEventComponent extends React.Component {
         }
     }
 
+    loadEventName(event) {
+        return (
+            <div className="jdrf-p2p-leaderboard__item-object-avatar-container">
+                <div className="jdrf-p2p-leaderboard__item-object-name">
+                    <a className="spirit-link" href={"event?id=" + event.id}>
+                        <strong>
+                            <span className="ng-binding">{event.name}</span>
+                        </strong>
+                    </a>
+                </div>
+            </div>
+        )
+    }
+
+    loadLocation(event) {
+        return (
+            <div className="jdrf-p2p-leaderboard__item-object-avatar-container">
+                <div className="jdrf-p2p-leaderboard__item-object-name">
+                    {event.city} {event.state}, {event.zip}
+                </div>
+            </div>
+        )
+    }
+
+    loadLink() {
+        return (
+            <a className="spirit-link"
+               href="https://www2.jdrf.org/site/Donation2?df_id=20794&amp;FR_ID=8115&amp;PROXY_ID=1441477&amp;PROXY_TYPE=20">
+                <strong>Donate</strong>
+                <svg className="spirit-icon">
+                    <use href="../jdrf-framework/dist/spirit/icons/spirit.svg#chevron-right"></use>
+                </svg>
+            </a>
+        )
+    }
+
     eventLoadResults(events) {
         if(events.length === 0)
             return null
@@ -22,39 +58,17 @@ class SearchEventComponent extends React.Component {
         let eventsResults = events.map(event => {
             console.log(event)
             return (
-                <div>
-                    <div className="jdrf-p2p-responsive-table__row jdrf-p2p-responsive-table__row--avatar ng-scope">
-                        <div className="jdrf-p2p-responsive-table__column">
-                            <div className="jdrf-p2p-leaderboard__item-object-avatar-container">
-                                <div className="jdrf-p2p-leaderboard__item-object-name">
-                                    <a className="spirit-link" href={"event?id=" + event.id}>
-                                        <strong>
-                                            <span className="ng-binding">{event.name}</span>
-                                        </strong>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="jdrf-p2p-responsive-table__column">
-                            <div className="jdrf-p2p-leaderboard__item-object-avatar-container">
-                                <div className="jdrf-p2p-leaderboard__item-object-name">
-                                    {event.city} {event.state}, {event.zip}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="jdrf-p2p-responsive-table__column ">
-                            <div className="jdrf-p2p-responsive-table__row-actions">
-                                <a className="spirit-link"
-                                   href="https://www2.jdrf.org/site/Donation2?df_id=20794&amp;FR_ID=8115&amp;PROXY_ID=1441477&amp;PROXY_TYPE=20">
-                                    <strong>Donate</strong>
-                                    <svg className="spirit-icon">
-                                        <use href="../jdrf-framework/dist/spirit/icons/spirit.svg#chevron-right"></use>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <tr>
+                    <td>
+                        {this.loadEventName(event)}
+                    </td>
+                    <td>
+                        {this.loadLocation(event)}
+                    </td>
+                    <td>
+                        {this.loadLink()}
+                    </td>
+                </tr>
             )
         })
         console.log(eventsResults)
@@ -66,19 +80,21 @@ class SearchEventComponent extends React.Component {
                         <span className="ng-binding"></span> {eventNameSearch}
                     </strong>
                 </div>
-                <div className="jdrf-p2p-responsive-table jdrf-p2p-responsive-table--with-dividers">
-                    <div className="jdrf-p2p-responsive-table__header">
-                        <div className="jdrf-p2p-responsive-table__row">
-                            <div className="jdrf-p2p-responsive-table__column">Name</div>
-                            <div className="jdrf-p2p-responsive-table__column">Location</div>
-                            <div className="jdrf-p2p-responsive-table__column"></div>
-                        </div>
-                    </div>
-                    <div className="jdrf-p2p-responsive-table__body">
-                        {
-                            eventsResults
-                        }
-                    </div>
+                <div className={"table-responsive"}>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Location</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                eventsResults
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         )
@@ -145,76 +161,6 @@ class SearchEventComponent extends React.Component {
                     </div>
                 {this.eventLoadResults(eventSearchResults)}
             </div>)
-    }
-
-    loadResults(users) {
-        let userResults = users.map(user => {
-            console.log(user)
-            return (<div className="jdrf-p2p-responsive-table__body">
-                <div className="jdrf-p2p-responsive-table__row jdrf-p2p-responsive-table__row--avatar ng-scope">
-                    <div className="jdrf-p2p-responsive-table__column">
-                        <div className="jdrf-p2p-leaderboard__item-object-avatar-container">
-                            <div
-                                className="jdrf-p2p-leaderboard__item-avatar">
-                                <a className="ng-scope" href={"profile?username=" + user.username}>
-                                    <span className="jdrf-p2p-leaderboard__item-avatar-photo">
-                                        <span className="jdrf-p2p-leaderboard__item-avatar-photo-inner">
-                                            <span className="jdrf-p2p-leaderboard__item-avatar-photo-image">
-
-                                            </span>
-                                        </span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div className="jdrf-p2p-leaderboard__item-object-name">
-                                <div>
-                                    <a className="spirit-link" href={"profile?username=" + user.username}>
-                                        <strong>
-                                            <span className="ng-binding">{user.first_name} {user.last_name}</span>
-                                        </strong>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="jdrf-p2p-responsive-table__row-actions ">
-                            </div>
-                        </div>
-                    </div>
-                    <div className="jdrf-p2p-responsive-table__column">
-                        <span className="ng-binding">Western Massachusetts 2020</span>
-                    </div>
-                    <div className="jdrf-p2p-responsive-table__column ">
-                        <div className="jdrf-p2p-responsive-table__row-actions">
-                            <a className="spirit-link"
-                               href="https://www2.jdrf.org/site/Donation2?df_id=20794&amp;FR_ID=8115&amp;PROXY_ID=1441477&amp;PROXY_TYPE=20">
-                                <strong>Donate</strong>
-                                <svg className="spirit-icon">
-                                    <use href="../jdrf-framework/dist/spirit/icons/spirit.svg#chevron-right"></use>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>)
-        })
-        console.log(userResults)
-        return (
-            <div className="jdrf-p2p-responsive-table jdrf-p2p-responsive-table--with-dividers">
-                <div className="jdrf-p2p-responsive-table__header">
-                    <div className="jdrf-p2p-responsive-table__row">
-                        <div className="jdrf-p2p-responsive-table__column">Name</div>
-                        <div
-                            className="jdrf-p2p-responsive-table__column hidden-xs">
-                            <span>Event</span>
-                        </div>
-                        <div className="jdrf-p2p-responsive-table__column"></div>
-                    </div>
-                </div>
-                {
-                    userResults
-                }
-            </div>
-        )
-
     }
 
     render(){

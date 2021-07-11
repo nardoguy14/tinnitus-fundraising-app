@@ -174,16 +174,11 @@ class SearchPersonComponent extends React.Component {
         })
     }
 
-    loadResults(users) {
-        let userResults = users.map(user => {
-            console.log(user)
-            return (<div className="jdrf-p2p-responsive-table__body">
-                <div className="jdrf-p2p-responsive-table__row jdrf-p2p-responsive-table__row--avatar ng-scope">
-                    <div className="jdrf-p2p-responsive-table__column">
-                        <div className="jdrf-p2p-leaderboard__item-object-avatar-container">
-                            <div
-                                className="jdrf-p2p-leaderboard__item-avatar">
-                                <Link to={"profile?username=" + user.username}>
+    loadProfilePhoto(user) {
+        return (
+            <div
+                className="jdrf-p2p-leaderboard__item-avatar">
+                <Link to={"profile?username=" + user.username}>
                                     <span className="jdrf-p2p-leaderboard__item-avatar-photo">
                                         <span className="jdrf-p2p-leaderboard__item-avatar-photo-inner">
                                             <span className="jdrf-p2p-leaderboard__item-avatar-photo-image"
@@ -192,54 +187,73 @@ class SearchPersonComponent extends React.Component {
                                             </span>
                                         </span>
                                     </span>
-                                </Link>
-                            </div>
-                            <div className="jdrf-p2p-leaderboard__item-object-name">
-                                <div>
-                                    <Link className="spirit-link" to={"profile?username=" + user.username}>
-                                        <strong>
-                                            <span className="ng-binding">{user.firstName} {user.lastName}</span>
-                                        </strong>
-                                    </Link>
-                                </div>
-                            </div>
-                            <div className="jdrf-p2p-responsive-table__row-actions ">
-                            </div>
-                        </div>
-                    </div>
-                    <div className="jdrf-p2p-responsive-table__column">
-                        <span >{user.fundraiser ? user.fundraiser : "None yet!"}</span>
-                    </div>
-                    <div className="jdrf-p2p-responsive-table__column ">
-                        <div className="jdrf-p2p-responsive-table__row-actions">
-                            <Link className="spirit-link"
-                               to={"/donation?username=" + user.username }>
-                                <strong>Donate</strong>
-                                <svg className="spirit-icon">
-                                    <use href="../jdrf-framework/dist/spirit/icons/spirit.svg#chevron-right"></use>
-                                </svg>
-                            </Link>
-                        </div>
-                    </div>
+                </Link>
+            </div>
+        )
+    }
+
+    loadName(user) {
+        return (
+            <div className="jdrf-p2p-leaderboard__item-object-name">
+                <div>
+                    <Link className="spirit-link" to={"profile?username=" + user.username}>
+                        <strong>
+                            <span className="ng-binding">{user.firstName} {user.lastName}</span>
+                        </strong>
+                    </Link>
                 </div>
-            </div>)
+            </div>
+        )
+    }
+
+    loadResults(users) {
+        let userResults = users.map(user => {
+            console.log(user)
+            return (
+                <tr>
+                    <td>
+                        <div className="jdrf-p2p-leaderboard__item-object-avatar-container">
+
+
+                            {this.loadProfilePhoto(user)}
+
+                            {this.loadName(user)}
+                        </div>
+                    </td>
+                    <td>
+                        <span>{user.fundraiser ? user.fundraiser : "None yet!"}</span>
+                    </td>
+                    <td>
+                        <Link className="spirit-link"
+                              to={"/donation?username=" + user.username}>
+                            <strong>Donate</strong>
+                            <svg className="spirit-icon">
+                                <use href="../jdrf-framework/dist/spirit/icons/spirit.svg#chevron-right"></use>
+                            </svg>
+                        </Link>
+                    </td>
+                </tr>
+            )
         })
         console.log(userResults)
         return (
-            <div className="jdrf-p2p-responsive-table jdrf-p2p-responsive-table--with-dividers">
-                <div className="jdrf-p2p-responsive-table__header">
-                    <div className="jdrf-p2p-responsive-table__row">
-                        <div className="jdrf-p2p-responsive-table__column">Name</div>
-                        <div
-                            className="jdrf-p2p-responsive-table__column hidden-xs">
+            <div className="table-responsive">
+                <table className={'table'}>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>
                             <span>Event</span>
-                        </div>
-                        <div className="jdrf-p2p-responsive-table__column"></div>
-                    </div>
-                </div>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
                 {
                     userResults
                 }
+                </tbody>
+            </table>
             </div>
         )
 
