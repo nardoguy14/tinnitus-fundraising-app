@@ -22,7 +22,7 @@ class HomeComponent extends React.Component {
 
     createInfoBlock(imageUrl, title, text) {
         return (
-            <Link style={{textDecoration: 'none'}}>
+            <Link to={'/createEvent'} style={{textDecoration: 'none'}}>
                 <Container style={{backgroundColor: 'transparent', padding:'30px',  height:'300px'}}  className={"rounded shadow-lg"} fluid>
                     <img
                         className={'rounded'}

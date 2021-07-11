@@ -19,6 +19,7 @@ import LoginComponent from "./LoginComponent/LoginComponent";
 import TokenService from "./lib/tokenService";
 import FooterComponent from "./Footer/FooterComponent";
 import HomeComponent from "./Home/HomeComponent";
+import CreateEventComponent from "./CreateEventComponent/CreateEventComponent";
 
 class App extends React.Component {
     constructor(props) {
@@ -52,6 +53,9 @@ class App extends React.Component {
                 </Route>
                 <Route path="/event">
                     <EventComponent />
+                </Route>
+                <Route path="/createEvent">
+                    <CreateEventComponent />
                 </Route>
                 <Route path="/search">
                     <SearchComponent />
