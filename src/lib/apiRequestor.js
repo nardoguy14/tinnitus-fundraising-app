@@ -105,6 +105,10 @@ export function postLinkUserToFundraiser(body) {
     return axios.post(`${host}/users/fundraisers`, body)
 }
 
+export function postFundraiser(body) {
+    return axios.post(`${host}/fundraisers`, body)
+}
+
 export function getActivities(eventId) {
     return axios.get(`${host}/activities?fundraiser_id=${eventId}`)
 }

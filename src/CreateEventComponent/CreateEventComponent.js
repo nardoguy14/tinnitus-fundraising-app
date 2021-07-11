@@ -11,6 +11,9 @@ import {CreateEventRichEditorComponent} from "./CreateEventRichEditorComponent";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./CreateEventComponent.css";
+import * as apiRequestor from '../lib/apiRequestor'
+import TokenService from '../lib/tokenService'
+import tokenService from "../lib/tokenService";
 
 
 class CreateEventComponent extends React.Component {
@@ -108,9 +111,7 @@ class CreateEventComponent extends React.Component {
 
 
      setDescription = (body) => {
-        console.log("nardo", body)
-        console.log(this)
-        this.setState({editor_details: body})
+        this.setState({editor_details: body.description})
     }
 
     itemNumber = 0
@@ -153,8 +154,35 @@ class CreateEventComponent extends React.Component {
         }
 
         if(finished){
-            var body = this.state
-            alert(JSON.stringify(body))
+            var {
+                name, editor_details, address, city, state, zip,
+                date_start, date_end
+            } = this.state
+
+            let claims = TokenService.getClaims()
+            apiRequestor.getUser([`username=${claims['username']}`])
+                .then(resp => {
+                    console.log(resp.data[0])
+                    let body = {
+                        name: name,
+                        description: editor_details,
+                        address: address,
+                        city: city,
+                        state: state,
+                        zip: zip,
+                        contact: {
+                            name: `${resp.data[0].firstName} ${resp.data[0].lastName}`,
+                            phone_number: resp.data[0].phoneNumber,
+                            email: resp.data[0].email
+                        },
+                        date_start: moment(date_start).format('YYYY-MM-DD HH:mm:ss'),
+                        date_end: moment(date_end).format('YYYY-MM-DD HH:mm:ss')
+                    }
+                    console.log(body)
+                    apiRequestor.postFundraiser(body).then(resp => {
+                        this.props.history.push('/event?id='+resp.data.id)
+                    })
+                })
 
         }
         else {

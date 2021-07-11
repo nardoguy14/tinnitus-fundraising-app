@@ -33,8 +33,6 @@ class LoginComponent extends React.Component {
     loginUser() {
         let {usernameOrEmail, password} = this.state
         apiRequestor.loginUser(usernameOrEmail, password).then(resp => {
-            alert(JSON.stringify(resp.data))
-
             tokenService.storeToken(resp.data['access_token'])
             this.props.login()
             this.props.history.push('/profile?username='+tokenService.getClaims()['username'])
