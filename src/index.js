@@ -41,7 +41,7 @@ class App extends React.Component {
         return (<Router>
             <NavBarComponent isAuthenticated={isAuthenticated} login={this.login} logout={this.logout}/>
             <Switch>
-                <Route path="/">
+                <Route exact path="/">
                     <HomeComponent />
                 </Route>
                 <Route path="/register">
