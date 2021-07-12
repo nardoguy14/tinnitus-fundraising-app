@@ -8,30 +8,24 @@ class BannerComponent extends React.Component  {
     super(props);
     this.state = {
       backgroundUrl: props.backgroundUrl,
-      eventTitle: props.eventTitle,
-      eventDate: props.eventDate,
-      eventLocation: props.eventLocation
+      eventTitle: props.eventTitle
     }
   }
 
   componentDidUpdate(prevProps) {
     if (
         prevProps.backgroundUrl !== this.props.backgroundUrl ||
-        prevProps.eventTitle !== this.props.eventTitle ||
-        prevProps.eventDate !== this.props.eventDate ||
-        prevProps.eventLocation !== this.props.eventLocation
+        prevProps.eventTitle !== this.props.eventTitle
     ) {
       this.setState({
         backgroundUrl: this.props.backgroundUrl,
-        eventTitle: this.props.eventTitle,
-        eventDate: this.props.eventDate,
-        eventLocation: this.props.eventLocation
+        eventTitle: this.props.eventTitle
       })
     }
   }
 
   render() {
-    let {backgroundUrl, eventTitle, eventDate, eventLocation} = this.state
+    let {backgroundUrl, eventTitle} = this.state
     return (
       <div className="jdrf-p2p-cover-photo-wrap jdrf-p2p-cover-photo-wrap--wide">
           <div className="jdrf-p2p-cover-photo ng-isolate-scope">
@@ -42,11 +36,6 @@ class BannerComponent extends React.Component  {
                   <h1 className="spirit-h2">
                     <span>{eventTitle}</span>
                   </h1>
-                  <div className="jdrf-p2p-cover-photo__subheading">
-                    <span>{eventDate}</span>
-                    <span>&nbsp;•&nbsp;</span>
-                    <span>{eventLocation}</span>
-                  </div>
                 </div>
               </div>
             </div>

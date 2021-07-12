@@ -31,7 +31,6 @@ class DistanceElapsedComponent extends React.Component {
             <div className="jdrf-p2p-greeting__strava-activities">
                 <h2 className="spirit-h3">Our Miles Towards Mission</h2>
                 <p className="spirit-body-text-l">
-                    {description}
                 </p>
                 <div className="jdrf-p2p-progress-meter-wrap jdrf-p2p-progress-meter-wrap--small js--fitness-progress-meter-wrap ng-scope">
                     <div className="jdrf-p2p-progress-meter ng-isolate-scope jdrf-p2p-progress-meter--no-goal">

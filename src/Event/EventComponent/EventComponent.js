@@ -166,10 +166,12 @@ class EventComponent extends React.Component {
                     let startDate = moment(Date.parse(fundraiser.date_start)).format('dddd MMMM Do YYYY')
                     let startTime = moment(Date.parse(fundraiser.date_start)).format("h:mm:ss a")
 
+                    let endDate = moment(Date.parse(fundraiser.date_end)).format('dddd MMMM Do YYYY')
+                    let endTime = moment(Date.parse(fundraiser.date_end)).format("h:mm:ss a")
                     this.setState({
                         eventTitle: fundraiser.name + '\n',
                         eventDate: fundraiser['date_start'] + "-" + fundraiser['date_end'],
-                        eventLocation: fundraiser.address + ' ' + fundraiser.city + + ' ' + fundraiser.state + ' ' + fundraiser.zip,
+                        eventLocation: [fundraiser.address, fundraiser.city + ' ' + fundraiser.state + ' ' + fundraiser.zip],
                         description: fundraiser.description,
                         details: fundraiser.details.map(detail => {
                             return {
@@ -179,6 +181,8 @@ class EventComponent extends React.Component {
                         }),
                         startDate: startDate,
                         startTime: startTime,
+                        endDate: endDate,
+                        endTime: endTime,
                         people: fundraiser.people.map(person => {
                             return {
                                 username: person.user.username,
@@ -224,8 +228,8 @@ class EventComponent extends React.Component {
 
     render(){
         let {
-            backgroundUrl, eventTitle, eventDate, eventLocation, amountRaised, details,
-            startDate, startTime, contactPerson, contactEmail, contactPhone,
+            eventId, backgroundUrl, eventTitle, eventDate, eventLocation, amountRaised, details,
+            startDate, startTime, endDate, endTime, contactPerson, contactEmail, contactPhone,
             description, totalDistance, people
         } = this.state
 
@@ -234,18 +238,20 @@ class EventComponent extends React.Component {
               <BannerComponent
                   backgroundUrl={backgroundUrl}
                   eventTitle={eventTitle}
-                  eventDate={eventDate}
-                  eventLocation={eventLocation}/>
+                  eventDate={eventDate}/>
               <AmountRaisedComponent
                   amountRaised={amountRaised}/>
               <div className="spirit-row">
                   <div className="spirit-col-md-7 spirit-col-lg-8">
-                      <InfoComponent description={description} info={details}/>
+                      <InfoComponent eventId={eventId} description={description} info={details}/>
                   </div>
                   <div className="spirit-col-md-5 spirit-col-lg-4 hidden-spirit-xs hidden-spirit-sm">
                       <InfoDetailsComponent
                           startDate={startDate}
                           startTime={startTime}
+                          endDate={endDate}
+                          endTime={endTime}
+                          eventLocation={eventLocation}
                           contactPerson={contactPerson}
                           contactEmail={contactEmail}
                           contactPhone={contactPhone}

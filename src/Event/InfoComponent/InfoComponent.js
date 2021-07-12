@@ -7,22 +7,24 @@ import 'react-tabs/style/react-tabs.css';
 import {RichEditorComponent} from "../../RichEditorComponent/RichEditorComponent";
 import * as apiRequestor from "../../lib/apiRequestor";
 import TokenService from "../../lib/tokenService";
+import {editFundraiser} from "../../lib/apiRequestor";
 
 class InfoComponent extends React.Component {
 
-  constructor(props) {
-    super(props);
-      var usersProfile = false
-      // if(TokenService.getClaims() !== null && TokenService.getClaims()['username'] === true){
-      //     usersProfile = true
-      // }
-      usersProfile = true
-    this.state = {
-        info: props.info,
-        usersProfile: usersProfile,
-        description: props.description
-    };
-  }
+    constructor(props) {
+        super(props);
+          var usersProfile = false
+          // if(TokenService.getClaims() !== null && TokenService.getClaims()['username'] === true){
+          //     usersProfile = true
+          // }
+          usersProfile = true
+        this.state = {
+            eventId: props.eventId,
+            info: props.info,
+            usersProfile: usersProfile,
+            description: props.description
+        };
+    }
 
     componentDidUpdate(prevProps) {
         if (JSON.stringify(prevProps.description) !== JSON.stringify(this.props.description) ||
@@ -32,7 +34,7 @@ class InfoComponent extends React.Component {
     }
 
   render() {
-    let {info, usersProfile, description} = this.state
+    let {info, usersProfile, description,eventId} = this.state
 
     // let tabs = info.map(tab =>{
     //   return (
@@ -59,7 +61,7 @@ class InfoComponent extends React.Component {
             {/*    {content}*/}
             {/*</Tabs>*/}
 
-            <RichEditorComponent updateDescription={apiRequestor.editUser} usersProfile={usersProfile} savedEditorState={description}/>
+            <RichEditorComponent updateDescription={body => apiRequestor.editFundraiser(eventId, body)} usersProfile={usersProfile} savedEditorState={description}/>
         </div>
     );
   }

@@ -80,6 +80,10 @@ export function editUser(body) {
     return axios.put(`${host}/users`, body, config)
 }
 
+export function editFundraiser(fundraiser_id, body) {
+    return axios.put(`${host}/fundraisers/${fundraiser_id}`, body)
+}
+
 export function getUserByUsername(username) {
     return axios.get(`${host}/users?username=`+username)
 }
