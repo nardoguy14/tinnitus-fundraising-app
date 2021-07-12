@@ -2,6 +2,17 @@
 .modal90w {
   width: 80%;
   max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+}
+
+.modal.fade .modal-dialog {
+  transition: transform .3s ease-out;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
 }
 
 
