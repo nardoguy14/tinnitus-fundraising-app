@@ -4,12 +4,10 @@ import {Editor, EditorState, RichUtils, getDefaultKeyBinding} from 'draft-js';
 import bootstrap from 'bootstrap';
 import './ProfileComponent.css';
 import axios from 'axios';
-import { FormText, Form } from 'react-bootstrap';
-import TokenService from '../../lib/tokenService'
-import ProfileBannerComponent from "../ProfileBannerComponent/ProfileBannerComponent";
 import 'draft-js/dist/Draft.css';
 import {RichEditorComponent} from '../../RichEditorComponent/RichEditorComponent'
 import {Link} from "react-router-dom";
+import * as apiRequestor from '../../lib/apiRequestor'
 
 
 class ProfileAboutComponent extends React.Component {
@@ -41,6 +39,7 @@ class ProfileAboutComponent extends React.Component {
         var aboutMeSection = null
         let {name, infoHTML, usersProfile, username} = this.state
 
+
         return (
             <div>
                 <div className="jdrf-p2p-personal__story">
@@ -50,7 +49,7 @@ class ProfileAboutComponent extends React.Component {
                         </div>
                         <div className="jdrf-p2p-personal__video"></div>
                         {aboutMeSection}
-                        <RichEditorComponent usersProfile= {usersProfile} savedEditorState={infoHTML}/>
+                        <RichEditorComponent updateDescription={apiRequestor.editUser} usersProfile= {usersProfile} savedEditorState={infoHTML}/>
                     </div>
                 </div>
 

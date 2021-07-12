@@ -4,48 +4,62 @@ import './InfoComponent.css';
 import bootstrap from 'bootstrap';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import {RichEditorComponent} from "../../RichEditorComponent/RichEditorComponent";
+import * as apiRequestor from "../../lib/apiRequestor";
+import TokenService from "../../lib/tokenService";
 
 class InfoComponent extends React.Component {
 
   constructor(props) {
     super(props);
+      var usersProfile = false
+      // if(TokenService.getClaims() !== null && TokenService.getClaims()['username'] === true){
+      //     usersProfile = true
+      // }
+      usersProfile = true
     this.state = {
-      info: props.info
+        info: props.info,
+        usersProfile: usersProfile,
+        description: props.description
     };
   }
 
     componentDidUpdate(prevProps) {
-        if (JSON.stringify(prevProps.info) !== JSON.stringify(this.props.info)) {
-            this.setState({info: this.props.info})
+        if (JSON.stringify(prevProps.description) !== JSON.stringify(this.props.description) ||
+            JSON.stringify(prevProps.info) !== JSON.stringify(this.props.info)) {
+            this.setState({info: this.props.info, description: this.props.description})
         }
     }
 
   render() {
-    let {info} = this.state
+    let {info, usersProfile, description} = this.state
 
-    let tabs = info.map(tab =>{
-      return (
-          <Tab>
-            <span>{tab.tabTitle}</span>
-          </Tab>
-      )
-    })
-    let content = info.map(tab => {
-      return (
-          <TabPanel >
-            {tab.content}
-          </TabPanel>
-      )
-    })
+    // let tabs = info.map(tab =>{
+    //   return (
+    //       <Tab>
+    //         <span>{tab.tabTitle}</span>
+    //       </Tab>
+    //   )
+    // })
+    // let content = info.map(tab => {
+    //   return (
+    //       <TabPanel >
+    //         {tab.content}
+    //       </TabPanel>
+    //   )
+    // })
 
     return (
-        <div className="jdrf-p2p-greeting__content-tabs js--event-page-tabs" aria-hidden="false">
-          <Tabs className="jdrf-p2p-tabs ">
-            <TabList style={{transform: "translate(0px, 0px)"}}>
-              {tabs}
-            </TabList>
-            {content}
-          </Tabs>
+        <div>
+        {/*<div className="jdrf-p2p-greeting__content-tabs js--event-page-tabs" aria-hidden="false">*/}
+            {/*<Tabs className="jdrf-p2p-tabs ">*/}
+            {/*    <TabList style={{transform: "translate(0px, 0px)"}}>*/}
+            {/*      {tabs}*/}
+            {/*    </TabList>*/}
+            {/*    {content}*/}
+            {/*</Tabs>*/}
+
+            <RichEditorComponent updateDescription={apiRequestor.editUser} usersProfile={usersProfile} savedEditorState={description}/>
         </div>
     );
   }

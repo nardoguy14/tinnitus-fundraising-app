@@ -144,7 +144,7 @@ class EventComponent extends React.Component {
             contactPerson: "Sue Pietrzak",
             contactEmail: "abc@me.com",
             contactPhone: "(760) 791-3504",
-            description: "In support of the 1.6 million Americans living with T1D, our miles will be counted towards a collective goal of walking 1.6 million miles.",
+            description: null,
             totalDistance: "2,739.05 mi",
             people: [
                 {
@@ -167,9 +167,10 @@ class EventComponent extends React.Component {
                     let startTime = moment(Date.parse(fundraiser.date_start)).format("h:mm:ss a")
 
                     this.setState({
-                        eventTitle: fundraiser.name + '\n' +fundraiser['description'],
+                        eventTitle: fundraiser.name + '\n',
                         eventDate: fundraiser['date_start'] + "-" + fundraiser['date_end'],
                         eventLocation: fundraiser.address + ' ' + fundraiser.city + + ' ' + fundraiser.state + ' ' + fundraiser.zip,
+                        description: fundraiser.description,
                         details: fundraiser.details.map(detail => {
                             return {
                                 tabTitle: detail.title,
@@ -239,7 +240,7 @@ class EventComponent extends React.Component {
                   amountRaised={amountRaised}/>
               <div className="spirit-row">
                   <div className="spirit-col-md-7 spirit-col-lg-8">
-                      <InfoComponent info={details}/>
+                      <InfoComponent description={description} info={details}/>
                   </div>
                   <div className="spirit-col-md-5 spirit-col-lg-4 hidden-spirit-xs hidden-spirit-sm">
                       <InfoDetailsComponent

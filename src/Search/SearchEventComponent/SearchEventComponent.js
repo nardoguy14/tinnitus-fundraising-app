@@ -129,7 +129,7 @@ class SearchEventComponent extends React.Component {
             <div className="jdrf-p2p-fundraising-search--event ng-hide" aria-hidden="true">
                 <div className="container">
                         <div className="row">
-                            <div className="col-6">
+                            <div className="col-12">
                                 <label className="spirit-form__label">
                                     Name
                                 </label>
@@ -144,7 +144,7 @@ class SearchEventComponent extends React.Component {
 
 
 
-                            <div className="col-6">
+                            <div className="col-12">
                                 <label className="spirit-form__label">
                                     &nbsp;
                                 </label>

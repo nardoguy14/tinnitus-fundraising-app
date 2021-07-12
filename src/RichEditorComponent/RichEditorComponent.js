@@ -9,7 +9,6 @@ import axios from 'axios';
 import { FormText, Form } from 'react-bootstrap';
 import 'draft-js/dist/Draft.css';
 import TokenService from "../lib/tokenService";
-import {editUser} from "../lib/apiRequestor";
 
 
 export class RichEditorComponent extends React.Component {
@@ -55,7 +54,7 @@ export class RichEditorComponent extends React.Component {
             description: JSON.stringify(convertToRaw(contentState))
         }
 
-        editUser(body)
+        this.props.updateDescription(body)
         .then(result => {
             this.setState({infoHTML: editorState, editMode: false})
         })
@@ -72,8 +71,10 @@ export class RichEditorComponent extends React.Component {
 
     getBlockStyle(block) {
         switch (block.getType()) {
-            case 'blockquote': return 'RichEditor-blockquote';
-            default: return null;
+            case 'blockquote':
+                return 'RichEditor-blockquote';
+            default:
+                return 'null';
         }
     }
 
@@ -129,8 +130,8 @@ export class RichEditorComponent extends React.Component {
         var controls = null
         var className = null
         var editButton = null
+        className = 'RichEditor-editor'
         if(editMode) {
-            className = 'RichEditor-editor'
             saveButton = (
                 <button
                     type="button"
