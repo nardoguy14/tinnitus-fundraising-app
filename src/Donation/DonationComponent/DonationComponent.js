@@ -7,6 +7,8 @@ import {Elements, CardElement, ElementsConsumer, useStripe} from '@stripe/react-
 import {loadStripe} from '@stripe/stripe-js';
 import './Donation.css'
 import {Field, SubmitButton, ErrorMessage, ResetButton} from './SmallerComponents'
+import xxxx from './getimage.jpeg'
+import xx from './logo512.png'
 import {postDonation, postPaymentIntent} from "../../lib/apiRequestor";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -118,10 +120,11 @@ class DonationComponent extends React.Component {
                     display: 'grid',
                     'min-height': '100vh',
                     'align-items': 'center',
-                    backgroundImage: `url(${process.env.PUBLIC_URL + '/getimage.jpeg'})`,
+                    backgroundImage: `url(${xxxx})`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: '100% 100%'
                 }}>
+                <img src={xx} />
                 <Row style={{ marginLeft: 0, marginRight: 0 }}>
                     <Col xs={12} md={{ span: 6, offset: 6 }}>
                         <Container style={{backgroundColor: 'rgba(255,255,255,.9)', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
