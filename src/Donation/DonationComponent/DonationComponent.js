@@ -7,8 +7,7 @@ import {Elements, CardElement, ElementsConsumer, useStripe} from '@stripe/react-
 import {loadStripe} from '@stripe/stripe-js';
 import './Donation.css'
 import {Field, SubmitButton, ErrorMessage, ResetButton} from './SmallerComponents'
-import xxxx from './getimage.jpeg'
-import xx from './logo512.png'
+import xxxx from './getimage.png'
 import {postDonation, postPaymentIntent} from "../../lib/apiRequestor";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
