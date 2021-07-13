@@ -16250,13 +16250,21 @@ hr + .jdrf-p2p-accordion__text:not(:last-child) .jdrf-p2p-accordion__title {
 }
 
 .jdrf-p2p-cover-photo__text {
-  text-align:center
+  text-align:center;
+  position: absolute;
+  width: 100%;
+  margin-top: 150px;
+  font-size: 30px;
 }
+
+
 
 @media (min-width: 768px) {
   .jdrf-p2p-cover-photo__text {
     text-align: left;
-    text-shadow:0 0 4px #00081a
+    text-shadow:0 0 4px #00081a;
+    position: absolute;
+    bottom: 0px;
   }
 }
 

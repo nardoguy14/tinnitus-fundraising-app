@@ -93,7 +93,7 @@ class ProfileComponent extends React.Component {
                               infoHTML={infoHtml}/>
 
                       </div>
-                      <div className=" col-sm-12 col-md-5 col-lg-4">
+                      <div className=" col-sm-12 col-md-5 col-lg-4" style={{paddingBottom: '30px'}}>
                           <ProfileFundraiserComponent
                               user={user}
                               username={username}

@@ -44,9 +44,6 @@ class ProfileAboutComponent extends React.Component {
             <div>
                 <div className="jdrf-p2p-personal__story">
                     <div className="spirit-long-form-text">
-                        <div className="jdrf-p2p-personal__story-headline">
-                            <h2 className="spirit-h3">Welcome to My Personal Page for B4 Bombers </h2>
-                        </div>
                         <div className="jdrf-p2p-personal__video"></div>
                         {aboutMeSection}
                         <RichEditorComponent updateDescription={apiRequestor.editUser} usersProfile= {usersProfile} savedEditorState={infoHTML}/>

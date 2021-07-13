@@ -203,7 +203,11 @@ class ProfileFundraiserComponent extends React.Component {
                     <Button
 
                         onClick={e => {this.showModal()}}
-                        style={{left: "25%", position: 'relative', backgroundColor: 'rgb(59, 92, 173)'}}
+                        style={{
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                            display: 'block',
+                            position: 'relative', backgroundColor: 'rgb(59, 92, 173)'}}
                         variant="primary">Add Fundraising Event</Button>
 
                     <Modal

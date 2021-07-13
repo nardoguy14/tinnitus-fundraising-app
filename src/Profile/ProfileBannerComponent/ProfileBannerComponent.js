@@ -146,7 +146,7 @@ class ProfileBannerComponent extends React.Component {
                 </div>
 
                 <div className="jdrf-p2p-cover-photo__text">
-                  <h1 className="spirit-h3">
+                  <h1 className="name-item">
                     <span>{fullName}</span>
                   </h1>
                 </div>
