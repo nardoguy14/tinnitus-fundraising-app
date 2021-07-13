@@ -16253,7 +16253,7 @@ hr + .jdrf-p2p-accordion__text:not(:last-child) .jdrf-p2p-accordion__title {
   text-align:center;
   position: absolute;
   width: 100%;
-  margin-top: 150px;
+  margin-top: 70px;
   font-size: 30px;
 }
 
