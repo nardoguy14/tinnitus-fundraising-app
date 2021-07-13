@@ -28,7 +28,7 @@ class ProfileBannerComponent extends React.Component {
       if(result.data !== "") {
         this.setState({
           profilePhoto:
-              'url("' + 'data:image/png;base64,' + result.data + '")'
+              'url("' + 'data:image/png;base64,' + result.data.file + '")'
         })
       }
     })
@@ -38,7 +38,7 @@ class ProfileBannerComponent extends React.Component {
         console.log(typeof result.data)
         if(result.data !== ""){
           this.setState({
-            bannerPhoto: 'url("' +  'data:image/png;base64,' + result.data + '")'
+            bannerPhoto: 'url("' +  'data:image/png;base64,' + result.data.file + '")'
           })
         }
       })
