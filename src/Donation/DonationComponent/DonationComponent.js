@@ -67,7 +67,7 @@ class DonationComponent extends React.Component {
         }
         let {username, amount, firstName, lastName, message} = this.state
 
-        postPaymentIntent(username, amount)
+        postPaymentIntent(username, parseFloat(amount))
         .then(response => {
             const payload = stripe.confirmCardPayment(response.data.clientSecret, {
                 payment_method: {
