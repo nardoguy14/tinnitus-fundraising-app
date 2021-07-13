@@ -115,7 +115,6 @@ class DonationComponent extends React.Component {
             <Container
                 style={{
                     marginLeft: 0, marginRight: 0,
-                    paddingLeft: '10%', paddingRight: '10%',
                     maxWidth: '100%',
                     display: 'grid',
                     'min-height': '100vh',
@@ -125,11 +124,15 @@ class DonationComponent extends React.Component {
                     backgroundSize: '100% 100%'
                 }}>
                 <Row style={{ marginLeft: 0, marginRight: 0 }}>
-                    <Col md={{ span: 6, offset: 6 }}>
+                    <Col xs={12} md={{ span: 6, offset: 6 }}>
                         <Container style={{backgroundColor: 'rgba(255,255,255,.9)', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
 
-                            <h1 className="display-3">Donate Today!</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel arcu sem. In hac habitasse platea dictumst. In ac cursus urna. Nam lectus diam, vehicula nec nisl ac, tempor porttitor odio. Integer maximus mi sed sapien euismod imperdiet. </p>
+                            <h1 className="display-3 bta-font">Donate Today!</h1>
+                            <p>
+                                TOGETHER WE CAN SILENCE TINNITUS. The Covid-19 pandemic has made tinnitus worse for
+                                nearly half of UK sufferers. We urgently need your help to support more people living
+                                with tinnitus.
+                            </p>
 
 
                             <Elements stripe={stripePromise}>

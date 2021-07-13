@@ -34,14 +34,24 @@ class NavBarComponent extends React.Component {
         }
         else{
             homeOrLogin = (
-                <Nav.Link
-                    onClick={e => {this.inputElement.click()}}
-                    className={"bta-font"}
-                    as={Link}
-                    to={`/login`}
-                    style={{textAlign: 'center', color: "white"}}>
-                    <h3> Login </h3>
-                </Nav.Link>
+                <div>
+                    <Nav.Link
+                        onClick={e => {this.inputElement.click()}}
+                        className={"bta-font"}
+                        as={Link}
+                        to="/register"
+                        style={{textAlign: 'center', color: "white"}}>
+                        <h3> Register </h3>
+                    </Nav.Link>
+                    <Nav.Link
+                        onClick={e => {this.inputElement.click()}}
+                        className={"bta-font"}
+                        as={Link}
+                        to={`/login`}
+                        style={{textAlign: 'center', color: "white"}}>
+                        <h3> Login </h3>
+                    </Nav.Link>
+                </div>
             )
         }
 
@@ -71,7 +81,6 @@ class NavBarComponent extends React.Component {
                     </Nav>
 
                     <Nav style={{marginLeft: 'auto'}}>
-                        <Nav.Link onClick={e => {this.inputElement.click()}} className={"bta-font"} as={Link} to="/register" style={{textAlign: 'center', color: "white"}}> <h3> Register </h3> </Nav.Link>
                         {homeOrLogin}
                     </Nav>
 
