@@ -124,7 +124,7 @@ class DonationComponent extends React.Component {
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: '100% 100%'
                 }}>
-                <img src={xx} />
+                <img src={xxxx} />
                 <Row style={{ marginLeft: 0, marginRight: 0 }}>
                     <Col xs={12} md={{ span: 6, offset: 6 }}>
                         <Container style={{backgroundColor: 'rgba(255,255,255,.9)', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
