@@ -25,22 +25,22 @@ export function getBannerPicture(username) {
 }
 
 export function postProfilePicture(data) {
-    return axios.post(`${host}/users/photos/profile`, data, {
+    return axios.post(`${host}/users/photos/profile/base64`, data, {
         headers: {
             "accept": `application/json`,
-            "Accept-Language": `en-US,en;q=0.8`,
-            "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+            // "Accept-Language": `en-US,en;q=0.8`,
+            // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
             "Authorization": `Bearer ` + TokenService.getToken()
         }
     })
 }
 
 export function postBannerPicture(data) {
-    return axios.post(`${host}/users/photos/banner`, data, {
+    return axios.post(`${host}/users/photos/banner/base64`, data, {
         headers: {
             accept: `application/json`,
-            "Accept-Language": `en-US,en;q=0.8`,
-            "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+            // "Accept-Language": `en-US,en;q=0.8`,
+            // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
             "Authorization": `Bearer ` + TokenService.getToken()
         }
     })

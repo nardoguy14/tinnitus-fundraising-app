@@ -71,10 +71,27 @@ class ProfileBannerComponent extends React.Component {
     let profileUrl = URL.createObjectURL(event.target.files[0])
     let file = event.target.files[0]
     data.append('file', file, file.name);
-    postProfilePicture(data)
-    .then(result => {
-      this.setState({profilePhoto: profileUrl})
-    })
+    let comp = this
+    function getBase64(file) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        console.log(reader.result.split(',')[1])
+
+      let x = {
+          base64photo: reader.result.split(',')[1]
+      }
+
+      postProfilePicture(x)
+      .then(result => {
+        comp.setState({profilePhoto: profileUrl})
+      })
+      };
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+    }
+    getBase64(file)
   }
 
   handleBannerInputChange(event) {
@@ -82,10 +99,31 @@ class ProfileBannerComponent extends React.Component {
     let bannerUrl = URL.createObjectURL(event.target.files[0])
     let file = event.target.files[0]
     data.append('file', file, file.name);
-    postBannerPicture(data)
-    .then(result => {
-      this.setState({bannerPhoto: bannerUrl})
-    })
+
+
+    let comp = this
+    function getBase64(file) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        console.log(reader.result.split(',')[1])
+
+        let x = {
+          base64photo: reader.result.split(',')[1]
+        }
+
+        postBannerPicture(x)
+            .then(result => {
+              comp.setState({bannerPhoto: bannerUrl})
+            })
+      };
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+    }
+    getBase64(file)
+
+
   }
 
   insertProfileButton() {
