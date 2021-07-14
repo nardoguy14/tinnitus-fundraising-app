@@ -146,7 +146,7 @@ class RegistrationComponent extends React.Component {
     validateInputs(inputGroup) {
         for(var i = 0; i < this.inputGroups[inputGroup].length; i++){
             let inputItem = this.inputGroups[inputGroup][i]
-            if(this.state[inputItem.id] === "") {
+            if(this.state[inputItem.id] === "" && inputItem !== 'streetaddress2') {
                 Swal.fire({
                     icon: 'error',
                     title: 'We\'re missing a value',
