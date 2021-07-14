@@ -191,6 +191,15 @@ class CreateEventComponent extends React.Component {
     }
 
     render(){
+        if(TokenService.getToken() === null){
+            Swal.fire({
+                icon: 'error',
+                title: 'Registered User Required',
+                text: 'Sorry! Please register first before creating an event!'
+            }).then(() => {
+                this.props.history.push('/')
+            })
+        }
         let {inputGroup, inputHtml} = this.state
         var finished = false
         if(inputGroup === 1){

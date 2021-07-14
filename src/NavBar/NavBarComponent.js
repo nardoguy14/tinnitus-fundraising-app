@@ -22,19 +22,21 @@ class NavBarComponent extends React.Component {
         if(this.props.isAuthenticated){
             let claims = TokenService.getClaims()
             homeOrLogin = (
-                <Nav.Link
-                    onClick={e => {this.inputElement.click()}}
-                    className={"bta-font"}
-                    as={Link}
-                    to={`/profile?username=${claims.username}`}
-                    style={{textAlign: 'center', color: "white"}}>
-                    <h3> Profile </h3>
-                </Nav.Link>
+                <Nav style={{marginLeft: 'auto'}}>
+                    <Nav.Link
+                        onClick={e => {this.inputElement.click()}}
+                        className={"bta-font"}
+                        as={Link}
+                        to={`/profile?username=${claims.username}`}
+                        style={{textAlign: 'center', color: "white"}}>
+                        <h3> Profile </h3>
+                    </Nav.Link>
+                </Nav>
             )
         }
         else{
             homeOrLogin = (
-                <div>
+                <Nav style={{marginLeft: 'auto'}}>
                     <Nav.Link
                         onClick={e => {this.inputElement.click()}}
                         className={"bta-font"}
@@ -51,7 +53,7 @@ class NavBarComponent extends React.Component {
                         style={{textAlign: 'center', color: "white"}}>
                         <h3> Login </h3>
                     </Nav.Link>
-                </div>
+                </Nav>
             )
         }
 
@@ -80,9 +82,8 @@ class NavBarComponent extends React.Component {
                         <Nav.Link onClick={e => {this.inputElement.click()}} className={"bta-font"} as={Link} to="/search" style={{textAlign: 'center', color: "white"}}> <h3>Search </h3> </Nav.Link>
                     </Nav>
 
-                    <Nav style={{marginLeft: 'auto'}}>
+
                         {homeOrLogin}
-                    </Nav>
 
                 </Navbar.Collapse>
 
