@@ -9,6 +9,7 @@ import './Donation.css'
 import {Field, SubmitButton, ErrorMessage, ResetButton} from './SmallerComponents'
 import xxxx from './getimage.png'
 import {postDonation, postPaymentIntent} from "../../lib/apiRequestor";
+import * as Swal from "sweetalert2";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const CARD_OPTIONS = {
@@ -60,6 +61,8 @@ class DonationComponent extends React.Component {
     }
 
     handleSubmit = (event, stripe, elements) => {
+        this.setState({processing: true})
+        let comp = this;
         if (!stripe ) {
             // Stripe.js has not loaded yet. Make sure to disable
             // form submission until Stripe.js has loaded.
@@ -83,16 +86,17 @@ class DonationComponent extends React.Component {
                 } else {
                     console.log("success", resp)
 
-
-
                     postDonation(username, firstName, lastName, message, amount)
                     .then(resp => {
-                        this.setState({
-                            processing: false,
-                            succeeded: true,
-                            error: null,
-                            paymentMethod: resp.paymentIntent
-                        })
+
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Thank you for your Donation!',
+                            text: 'Your donation goes a long way to progressing research and support for tinnitus!',
+                            confirmButtonColor: '#3b5cad',
+                        }).then(function() {
+                            comp.props.history.push('/')
+                        });
                     })
                 }
             })
