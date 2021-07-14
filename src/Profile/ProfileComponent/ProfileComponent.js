@@ -10,7 +10,7 @@ import {withRouter} from "react-router";
 import TokenService from "../../lib/tokenService";
 import './ProfileComponent.css';
 import ProfileFundraiserComponent from "../ProfileFundraiserComponent/ProfileFundraiserComponent";
-import {getUserByUsername} from "../../lib/apiRequestor";
+import {getFundraiser, getFundraisers, getFundraisersDonations, getUserByUsername} from "../../lib/apiRequestor";
 
 class ProfileComponent extends React.Component {
 
@@ -40,6 +40,25 @@ class ProfileComponent extends React.Component {
         }
     }
 
+    getFundraiserDetails(user){
+        getFundraisers(user.id)
+        .then(res => {
+            const fundraiser = res.data[0];
+            if(typeof fundraiser !== 'undefined'){
+                this.setState({
+                    user: user,
+                    name: user.firstName,
+                    goalAmount: fundraiser.fundraiser_goal_amount,
+                    fundraiserExists: true,
+                    fundraiserId: fundraiser.fundraiser_id
+                })
+            }
+            else{
+                this.setState({fundraiserExists: false})
+            }
+        })
+    }
+
     componentDidMount() {
         let {username} = this.state
 
@@ -56,14 +75,15 @@ class ProfileComponent extends React.Component {
                 infoHtml:  user.description,
                 user: user
             })
-            // this.getFundraiserDetails(user)
+            this.getFundraiserDetails(user)
         })
     }
 
 
     render(){
 
-        let {user, username, fullName, bannerPhoto, profilePhoto, name, user_id, infoHtml, usersProfile} = this.state
+        let {user, username, fullName, bannerPhoto, profilePhoto,
+            name, user_id, infoHtml, usersProfile, fundraiserId} = this.state
         return (
           <div style={{padding: "0px"}}>
               <ProfileBannerComponent
@@ -81,7 +101,7 @@ class ProfileComponent extends React.Component {
                       <ProfileShareAndDonateComponent
                         usersProfile={usersProfile}
                         name={name}
-                        donateUrl={"/donation?username=" + username}/>
+                        donateUrl={`/donation?username=${username}&fundraiserId=${fundraiserId}`}/>
                   </div>
 
                   <div className="row">
@@ -90,7 +110,9 @@ class ProfileComponent extends React.Component {
                               username={username}
                               usersProfile={usersProfile}
                               name={name}
-                              infoHTML={infoHtml}/>
+                              infoHTML={infoHtml}
+                              fundraiserId={fundraiserId}
+                          />
 
                       </div>
                       <div className=" col-sm-12 col-md-5 col-lg-4" style={{paddingBottom: '30px'}}>

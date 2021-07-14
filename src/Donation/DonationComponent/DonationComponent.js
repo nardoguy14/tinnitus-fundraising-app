@@ -57,6 +57,7 @@ class DonationComponent extends React.Component {
         super(props);
         const urlParams = new URLSearchParams(window.location.search)
         DEFAULT_STATE['username'] = urlParams.get("username")
+        DEFAULT_STATE['fundraiserId'] = urlParams.get("fundraiserId")
         this.state = DEFAULT_STATE;
     }
 
@@ -68,7 +69,7 @@ class DonationComponent extends React.Component {
             // form submission until Stripe.js has loaded.
             return;
         }
-        let {username, amount, firstName, lastName, message} = this.state
+        let {username, amount, firstName, lastName, message, fundraiserId} = this.state
 
         postPaymentIntent(username, parseFloat(amount))
         .then(response => {
@@ -86,7 +87,7 @@ class DonationComponent extends React.Component {
                 } else {
                     console.log("success", resp)
 
-                    postDonation(username, firstName, lastName, message, amount)
+                    postDonation(username, firstName, lastName, message, amount, fundraiserId)
                     .then(resp => {
 
                         Swal.fire({

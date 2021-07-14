@@ -55,10 +55,10 @@ export function postPaymentIntent(username, amount) {
     })
 }
 
-export function postDonation(username, firstName, lastName, message, amount) {
+export function postDonation(username, firstName, lastName, message, amount, fundraiserId) {
     return axios.post(`${host}/donations`,{
         username: username,
-        fundraiser_id: `7`,
+        fundraiser_id: fundraiserId,
         donor_first_name: firstName,
         donor_last_name: lastName,
         donor_comment: message,

@@ -159,6 +159,7 @@ class SearchPersonComponent extends React.Component {
                         console.log(result.data)
                         if(result.data.length > 0){
                             user.fundraiser = result.data[0].fundraiser[0].name
+                            user.fundraiserId = result.data[0].fundraiser[0].id
                         }
                         else {
                             user.fundaraiser = "WEEEE"
@@ -225,7 +226,7 @@ class SearchPersonComponent extends React.Component {
                     </td>
                     <td>
                         <Link className="spirit-link"
-                              to={"/donation?username=" + user.username}>
+                              to={`/donation?username=${user.username}&fundraiserId=${user.fundraiserId}`}>
                             <strong>Donate</strong>
                             <svg className="spirit-icon">
                                 <use href="../jdrf-framework/dist/spirit/icons/spirit.svg#chevron-right"></use>

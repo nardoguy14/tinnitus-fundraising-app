@@ -20,7 +20,8 @@ class ProfileAboutComponent extends React.Component {
             name: props.name,
             infoHTML: props.infoHTML,
             infoHTMLTemp: props.infoHTMLTemp,
-            editMode: false
+            editMode: false,
+            fundraiserId: props.fundraiserId
         }
     }
 
@@ -37,7 +38,7 @@ class ProfileAboutComponent extends React.Component {
 
     render(){
         var aboutMeSection = null
-        let {name, infoHTML, usersProfile, username} = this.state
+        let {name, infoHTML, usersProfile, username, fundraiserId} = this.state
 
 
         return (
@@ -55,7 +56,7 @@ class ProfileAboutComponent extends React.Component {
                         <Link
                             style={{backgroundColor: 'rgb(59, 92, 173)'}}
                             className="spirit-button"
-                            to={"donation?username=" + username}> Donate
+                            to={`donation?username=${username}&fundraiserId=${fundraiserId}`}> Donate
                             <span className="ng-scope">&nbsp;to&nbsp;
                                 <span className="ng-binding">{name}</span>
                             </span>
