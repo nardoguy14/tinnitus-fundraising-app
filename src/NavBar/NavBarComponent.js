@@ -25,7 +25,7 @@ class NavBarComponent extends React.Component {
                 <Nav style={{marginLeft: 'auto'}}>
                     <Nav.Link
                         onClick={e => {this.inputElement.click()}}
-                        className={"bta-font"}
+                        className={"bta-font-bold"}
                         as={Link}
                         to={`/profile?username=${claims.username}`}
                         style={{textAlign: 'center', color: "white"}}>
@@ -39,7 +39,7 @@ class NavBarComponent extends React.Component {
                 <Nav style={{marginLeft: 'auto'}}>
                     <Nav.Link
                         onClick={e => {this.inputElement.click()}}
-                        className={"bta-font"}
+                        className={"bta-font-bold"}
                         as={Link}
                         to="/register"
                         style={{textAlign: 'center', color: "white"}}>
@@ -47,7 +47,7 @@ class NavBarComponent extends React.Component {
                     </Nav.Link>
                     <Nav.Link
                         onClick={e => {this.inputElement.click()}}
-                        className={"bta-font"}
+                        className={"bta-font-bold"}
                         as={Link}
                         to={`/login`}
                         style={{textAlign: 'center', color: "white"}}>
@@ -61,7 +61,7 @@ class NavBarComponent extends React.Component {
             <div style={{color: "white"}}>
 
             <Navbar style={{backgroundColor: "#3b5cad", padding: '10px'}} expand="lg">
-                <Navbar.Brand className={"bta-font"} style={{color: "white", padding: "20px", display: 'flex'}}>
+                <Navbar.Brand className={"bta-font-bold"} style={{color: "white", padding: "20px", display: 'flex'}}>
                     <img style={{
                         width: '100px',
                         height: '100px',
@@ -78,8 +78,8 @@ class NavBarComponent extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
 
                     <Nav className="mr-auto">
-                        <Nav.Link onClick={e => {this.inputElement.click()}} className={"bta-font"} as={Link} to="/" style={{textAlign: 'center', color: "white"}}> <h3>  Home</h3>  </Nav.Link>
-                        <Nav.Link onClick={e => {this.inputElement.click()}} className={"bta-font"} as={Link} to="/search" style={{textAlign: 'center', color: "white"}}> <h3>Search </h3> </Nav.Link>
+                        <Nav.Link onClick={e => {this.inputElement.click()}} className={"bta-font-bold"} as={Link} to="/" style={{textAlign: 'center', color: "white"}}> <h3>  Home</h3>  </Nav.Link>
+                        <Nav.Link onClick={e => {this.inputElement.click()}} className={"bta-font-bold"} as={Link} to="/search" style={{textAlign: 'center', color: "white"}}> <h3>Search </h3> </Nav.Link>
                     </Nav>
 
 

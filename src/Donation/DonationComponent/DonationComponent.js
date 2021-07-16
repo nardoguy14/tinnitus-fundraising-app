@@ -132,7 +132,7 @@ class DonationComponent extends React.Component {
                     <Col xs={12} md={{ span: 6, offset: 6 }}>
                         <Container style={{backgroundColor: 'rgba(255,255,255,.9)', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
 
-                            <h1 className="display-3 bta-font">Donate Today!</h1>
+                            <h1 className="display-3 bta-font-bold">Donate Today!</h1>
                             <p>
                                 TOGETHER WE CAN SILENCE TINNITUS. The Covid-19 pandemic has made tinnitus worse for
                                 nearly half of UK sufferers. We urgently need your help to support more people living

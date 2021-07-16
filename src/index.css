@@ -1,5 +1,16 @@
-.bta-font {
+@import url(//db.onlinewebfonts.com/c/8d8f2ae3f36a79b31483ea6ff88eda3f?family=CiutadellaRoundedW01-Rg);
+@font-face {
+  font-family: "CiutadellaRoundedW01-Rg";
+  src: url("//db.onlinewebfonts.com/t/8d8f2ae3f36a79b31483ea6ff88eda3f.eot");
+  src: url("//db.onlinewebfonts.com/t/8d8f2ae3f36a79b31483ea6ff88eda3f.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/8d8f2ae3f36a79b31483ea6ff88eda3f.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/8d8f2ae3f36a79b31483ea6ff88eda3f.woff") format("woff"), url("//db.onlinewebfonts.com/t/8d8f2ae3f36a79b31483ea6ff88eda3f.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/8d8f2ae3f36a79b31483ea6ff88eda3f.svg#CiutadellaRoundedW01-Rg") format("svg");
+}
+
+.bta-font-bold {
   font-family: "CiutadellaRoundedW01-Bold";
+}
+
+.bta-font {
+  font-family: "CiutadellaRoundedW01-Rg";
 }
 
 body {

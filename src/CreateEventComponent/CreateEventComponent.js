@@ -259,7 +259,7 @@ class CreateEventComponent extends React.Component {
                 <Row>
                     <Col>
                         <Container style={{backgroundColor: 'transparent', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
-                            <h1 className={"bta-font"} style={{'text-align': 'center'}}>Create Event</h1>
+                            <h1 className={"bta-font-bold"} style={{'text-align': 'center'}}>Create Event</h1>
                             {html}
                             <Button onClick={e => {this.changeInputGroup(finished)}} variant="primary">{finished ? 'Finish' : 'Continue' }</Button>
                         </Container>

@@ -56,7 +56,7 @@ class LoginComponent extends React.Component {
                 <Row>
                     <Col>
                         <Container style={{backgroundColor: 'transparent', padding:'30px'}}  className={"rounded shadow-lg"} fluid>
-                            <h1 className={"bta-font"} style={{'text-align': 'center'}}>Login</h1>
+                            <h1 className={"bta-font-bold"} style={{'text-align': 'center'}}>Login</h1>
                             <Row>
                                 <Col>
                                     <label htmlFor="basic-url">Email</label>

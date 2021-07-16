@@ -23,7 +23,7 @@ class FooterComponent extends React.Component {
 
     render(){
         return (
-            <footer id={"footer"} className="text-center text-lg-start" style={{padding: '1px', backgroundColor: '#3b5cad', color: 'white'}}>
+            <footer id={"footer"} className="text-center text-lg-start bta-font" style={{padding: '1px', backgroundColor: '#3b5cad', color: 'white'}}>
                 <section style={{backgroundColor: '#3b5cad'}}>
                     <div className="container text-center text-md-start mt-5">
                         <div className="row mt-3">
