@@ -22,8 +22,15 @@ class HomeComponent extends React.Component {
 
     createInfoBlock(imageUrl, title, text) {
         return (
-            <Link to={'/createEvent'} style={{textDecoration: 'none', color: 'black'}}>
-                <Container style={{backgroundColor: 'transparent', padding:'30px',  height:'300px'}}  className={"rounded shadow-lg"} fluid>
+            // <div>
+            //     <h1 className="animate__animated animate__fadeIn">An animated element</h1>
+            // </div>
+            <Link
+                to={'/createEvent'}
+                style={{textDecoration: 'none', color: 'black'}}>
+                <Container
+                    style={{backgroundColor: 'transparent', padding:'30px',  height:'300px'}}
+                    className={"rounded shadow-lg animate__animated animate__zoomIn"} fluid>
                     <img
                         className={'rounded'}
                         style={{width:'200px', height: '150px', display: 'block',
