@@ -78,14 +78,14 @@ class ProfileBannerComponent extends React.Component {
       reader.onload = function () {
         console.log(reader.result.split(',')[1])
 
-      let x = {
-          base64photo: reader.result.split(',')[1]
-      }
+        let x = {
+            base64photo: reader.result.split(',')[1]
+        }
 
-      postProfilePicture(x)
-      .then(result => {
-        comp.setState({profilePhoto: profileUrl})
-      })
+        postProfilePicture(x)
+        .then(result => {
+          comp.setState({profilePhoto: 'url("' + 'data:image/png;base64,' + reader.result.split(',')[1] + '")'})
+        })
       };
       reader.onerror = function (error) {
         console.log('Error: ', error);
@@ -114,7 +114,7 @@ class ProfileBannerComponent extends React.Component {
 
         postBannerPicture(x)
             .then(result => {
-              comp.setState({bannerPhoto: bannerUrl})
+              comp.setState({bannerPhoto: 'url("' + 'data:image/png;base64,' + reader.result.split(',')[1] + '")'})
             })
       };
       reader.onerror = function (error) {
