@@ -43,6 +43,7 @@ class ProfileFundraiserComponent extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (JSON.stringify(prevProps.user) !== JSON.stringify(this.props.user)) {
+            this.setState({user: this.props.user})
             this.getFundraiserDetails(this.props.user)
         }
 
@@ -56,6 +57,7 @@ class ProfileFundraiserComponent extends React.Component {
     }
 
     getFundraiserDetails(user){
+        console.log(user)
         getFundraisers(user.id)
             .then(res => {
                 const fundraiser = res.data[0];
@@ -108,6 +110,7 @@ class ProfileFundraiserComponent extends React.Component {
 
     linkUserToFundraiser() {
         let {selectedEventIndex, eventSearchResults, donationGoalAmount, user} = this.state
+        console.log(user)
         var body = {
             user_id: TokenService.getClaims()['id'],
             fundraiser_id: eventSearchResults[selectedEventIndex].id,
